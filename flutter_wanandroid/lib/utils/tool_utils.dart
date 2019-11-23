@@ -41,6 +41,7 @@ class ToolUtils{
   }
 
 
+  // 显示 Toast
   static void ShowToast({String msg}){
     Fluttertoast.showToast(
         msg: msg,
@@ -52,5 +53,11 @@ class ToolUtils{
         fontSize: 16.0
     );
   }
+
+  //获取本地资源图片
+  static String getImage(String imageName,{String format:'png'}){
+    return "images/$imageName.$format";
+  }
+
 
 }

@@ -6,7 +6,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/components/single_theme_color.dart';
 import 'package:flutter_wanandroid/routers/application.dart';
+import 'package:flutter_wanandroid/routers/router_handler.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import '../../common/MyIcons.dart';
 
 
@@ -31,6 +33,9 @@ class _DrawerPageState extends State<DrawerPage> {
   final TextStyle textStyle =
   TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
+
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -43,22 +48,27 @@ class _DrawerPageState extends State<DrawerPage> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         UserAccountsDrawerHeader(
-           accountName: Text("maoqitian"),
+           accountName: Text(isLoading ? "maoqitian":"点击头像登录",
+                 style:TextStyle(color: Colors.white,
+                     fontWeight: FontWeight.bold )),
            accountEmail: Container(
-             padding: const EdgeInsets.only(bottom: 20.0),
+             padding: const EdgeInsets.only(bottom: 10.0),
              child: Text(
-               //hasLogin ? widget.userInfo.username : ' ',
-               "maoqitian@gmail.com",
-               style: TextStyle(fontSize: 15.0),
+               isLoading ? "积分：500":'积分：500',
+               style: TextStyle(color: Colors.white,fontSize: 15.0),
              ),
            ),
-           currentAccountPicture: CircleAvatar(
-               backgroundImage: NetworkImage('https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
-           ),
-           onDetailsPressed: (){
-              print("点击跳转用户中心或者登录页");
-              Application.router.navigateTo(context,Routes.login);
-           },
+           currentAccountPicture:
+           InkWell(
+             borderRadius: BorderRadius.all(Radius.circular(10.0)),
+             child: CircleAvatar(  //显示头像
+               backgroundImage: AssetImage(isLoading ? ToolUtils.getImage("ic_launcher"):ToolUtils.getImage("ic_default_avatar",format: "webp")), //'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'
+             ),
+             onTap: (){
+                 print("点击跳转用户中心或者登录页");
+                 Application.router.navigateTo(context,Routes.login);
+              },
+             )
            /*decoration: BoxDecoration(
              image: new DecorationImage(
                fit: BoxFit.cover,
