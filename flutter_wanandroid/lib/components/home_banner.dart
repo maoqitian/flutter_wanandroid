@@ -6,7 +6,7 @@ import 'dart:async';
 /// email: maoqitian068@163.com
 /// des:  轮播图组件
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/model/banner/bannerdata.dart';
+import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 
 class HomeBanner extends StatefulWidget {
   final List<BannerData> bannerStories;

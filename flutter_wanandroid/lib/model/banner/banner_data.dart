@@ -5,7 +5,7 @@
 /// des:  首页 banner model
 
 import 'package:json_annotation/json_annotation.dart';
-part 'bannerdata.g.dart';
+part 'banner_data.g.dart';
 /**
  * {
     "desc": "Android高级进阶直播课免费学习",

@@ -1,4 +1,4 @@
-import 'package:flutter_wanandroid/model/banner/bannerdata.dart';
+import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'banner_base_data.g.dart';
 /// Created with Android Studio.

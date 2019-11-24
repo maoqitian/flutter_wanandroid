@@ -20,5 +20,11 @@ class Api{
   //项目分类
   static const String PROJECT_TREE_JSON = BASE_URL+'project/tree/json';
 
+  //登录
+  static const String LOGIN_JSON = BASE_URL+'user/login';
+  //注册
+  static const String REGISTER_JSON = BASE_URL+'user/register';
+  //退出登录
+  static const String LOGIN_OUT_JSON = BASE_URL+'user/logout/json';
   
 }

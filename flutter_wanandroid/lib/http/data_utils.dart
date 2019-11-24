@@ -13,7 +13,10 @@ import 'package:flutter_wanandroid/model/article/article_top_base_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
-import 'package:flutter_wanandroid/model/banner/bannerdata.dart';
+import 'package:flutter_wanandroid/model/banner/banner_data.dart';
+import 'package:flutter_wanandroid/model/login/Login_base_data.dart';
+import 'package:flutter_wanandroid/model/login/login_base_data.dart' as prefix0;
+import 'package:flutter_wanandroid/model/login/login_data.dart';
 
 
 
@@ -41,6 +44,21 @@ class DataUtils{
   static Future<List<ArticleData>> getArticleTopData() async{
     Response response = await HttpUtils.get(Api.ARTICLE_TOP);
     return ArticleTopBaseData.fromJson(response.data).data;
+  }
+
+
+  //登录
+  static Future<LoginData> getLoginData(String username,String password) async{
+    FormData formData =FormData.fromMap({"username": username, "password": password});
+    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData);
+    return LoginBaseData.fromJson(response.data).data;
+  }
+
+  //注册
+  static Future<LoginData> getRegisterData(String username,String password,String repassword) async{
+    FormData formData =FormData.fromMap({"username": username, "password": password,"repassword": repassword});
+    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData);
+    return LoginBaseData.fromJson(response.data).data;
   }
 
 }

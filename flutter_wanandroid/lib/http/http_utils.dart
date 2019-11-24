@@ -50,7 +50,7 @@ class HttpUtils {
   // url ：网络请求地址
   // parasm : 请求参数
   // post 请求
-  static Future post(String url, Map<String, dynamic> params) async {
+  static Future post(String url, FormData formData) async {
     Response response ;
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
@@ -60,7 +60,7 @@ class HttpUtils {
 
     dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
 
-    response = await dio.get(url, queryParameters: params);
+    response = await dio.post(url, data: formData);
 
     return response;
 
