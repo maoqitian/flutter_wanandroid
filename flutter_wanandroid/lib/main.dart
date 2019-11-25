@@ -1,27 +1,29 @@
 import 'dart:io';
 
+import 'package:event_bus/event_bus.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019/10/30 0030
 /// email: maoqitian068@163.com
-/// des: 说明，本项目基本搭建参考于 flutter_go 项目，项目地址 https://github.com/alibaba/flutter-go
+/// des:  入口函数
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wanandroid/common/provider/profile_change_notifier.dart';
-import 'package:flutter_wanandroid/resource/shared_preferences_keys.dart';
-import 'package:flutter_wanandroid/routers/application.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
-import 'package:flutter_wanandroid/utils/shared_preferences.dart';
+import 'package:flutter_wanandroid/common/shared_preferences.dart';
 import 'package:flutter_wanandroid/views/app_page.dart';
 import 'package:provider/provider.dart';
+
+import 'common/constants.dart';
 
 SpUtil sp;
 
 void main() async{
 
-  sp = await SpUtil.getInstance();
+  Application.sp = await SpUtil.getInstance();
   runApp(MyApp());
 
   if (Platform.isAndroid) {
@@ -55,11 +57,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    themeColor = sp.getInt(SharedPreferencesKeys.themeColor);
+    Application.eventBus = new EventBus();
+    themeColor = Application.sp.getInt(SharedPreferencesKeys.THEME_COLOR_KEY);
     super.initState();
     if(themeColor == null ){
       themeColor = 0xFFFFC800;//默认黄色
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Application.eventBus.destroy();
   }
 
   @override

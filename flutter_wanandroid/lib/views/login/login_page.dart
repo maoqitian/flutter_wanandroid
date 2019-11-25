@@ -6,6 +6,10 @@ import 'dart:math';
 /// email: maoqitian068@163.com
 /// des:  登录页
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/event/login_event.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -215,9 +219,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //登录
-  void doLogin() {
+  void doLogin() async{
     _signInFormKey.currentState.save();
-    print("执行登录逻辑 username: $userName password: $passWord");
+    LoginData loginData = await DataUtils.getLoginData(userName, passWord);
+    // events_bus
+    DataUtils.setUserName(loginData.username);
+    DataUtils.setLoginState(true);
+    //发出 登录成功事件
+    Application.eventBus.fire(new LoginEvent(loginData));
+    ToolUtils.ShowToast(msg: "登录成功");
+    //退出当前页面
+    Navigator.of(context).pop();
   }
   //注册
   doRegister() {
@@ -247,9 +259,6 @@ class _LoginPageState extends State<LoginPage> {
         // 利用key来获取widget的状态FormState,可以用过FormState对Form的子孙FromField进行统一的操作
         if (isLogin && _signInFormKey.currentState.validate() ) {
           // 如果输入都检验通过，则进行登录操作
-          // Scaffold.of(context)
-          //     .showSnackBar(new SnackBar(content: new Text("执行登录操作")));
-          //调用所有自孩子��save回调，保存表单内容
           doLogin();
         }else if(!isLogin){
           // 跳转注册

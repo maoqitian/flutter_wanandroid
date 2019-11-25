@@ -53,7 +53,6 @@ class _AppPageState extends State<AppPage> {
   void initState() {
     super.initState();
     appBarTitle = tabData[0]['text'];
-
     for(int i = 0; i < tabData.length; i++){
         _myTabs.add(new BottomNavigationBarItem(
             icon: tabData[i]['icon'],
@@ -128,14 +127,7 @@ class _AppPageState extends State<AppPage> {
       return AppBar(
         leading: Builder( builder: (context){
           return IconButton(
-              icon: Container(
-                  child:  ClipOval(
-                    child: Image.network(
-                      'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658',
-                      scale: 15.0,
-                    ),
-                  )
-              ),
+              icon: Icon(Icons.menu),
               onPressed: (){
                 /// 打开侧边栏 使用 Builder( builder: (context) 保证获取到 Scaffold  context 可以正常打开侧边栏
                 print("点击打开侧边栏");

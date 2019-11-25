@@ -74,13 +74,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget buildTabScaffold() {
     return new Scaffold(
       appBar: MyAppBar(
-        leading: Container(  //圆形用户头像
-          child: ClipOval(
-            child: Image.network(
-              "https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658",
-              scale: 15.0,
-            ),
-          ),
+        leading: Container(
+          child: Icon(Icons.menu),
         ),
         centerTitle: true,
         //设置title 形式嵌入 tabbar 也可以 通过“bottom”属性在AppBar下方来添加一个导航栏底部tab按钮组

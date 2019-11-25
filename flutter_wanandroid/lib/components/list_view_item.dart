@@ -5,7 +5,7 @@
 /// des:  首页 文章 list view item
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
-import 'package:flutter_wanandroid/routers/application.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';

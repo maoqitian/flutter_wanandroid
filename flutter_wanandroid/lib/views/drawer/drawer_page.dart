@@ -4,8 +4,11 @@
 /// email: maoqitian068@163.com
 /// des:  侧边栏 抽屉
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/event/login_event.dart';
 import 'package:flutter_wanandroid/components/single_theme_color.dart';
-import 'package:flutter_wanandroid/routers/application.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/routers/router_handler.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
@@ -34,11 +37,20 @@ class _DrawerPageState extends State<DrawerPage> {
   TextStyle(fontSize: 16, fontWeight: FontWeight.w300);
 
 
-  bool isLoading = false;
+  bool isLogin = false;
 
+  LoginData loginData;
+  String username;
   @override
   void initState() {
     super.initState();
+    isLogin = DataUtils.hasLogin();
+    Application.eventBus.on<LoginEvent>().listen((event){
+      setState(() {
+          isLogin = true;
+          loginData = event.loginData;
+      });
+    });
 
   }
 
@@ -48,24 +60,25 @@ class _DrawerPageState extends State<DrawerPage> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         UserAccountsDrawerHeader(
-           accountName: Text(isLoading ? "maoqitian":"点击头像登录",
+           accountName: Text(isLogin ? DataUtils.getUserName():"点击头像登录",
                  style:TextStyle(color: Colors.white,
                      fontWeight: FontWeight.bold )),
            accountEmail: Container(
              padding: const EdgeInsets.only(bottom: 10.0),
              child: Text(
-               isLoading ? "积分：500":'积分：500',
+               isLogin ? "积分：600":'积分：500',
                style: TextStyle(color: Colors.white,fontSize: 15.0),
              ),
            ),
            currentAccountPicture:
            InkWell(
              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-             child: CircleAvatar(  //显示头像
-               backgroundImage: AssetImage(isLoading ? ToolUtils.getImage("ic_launcher"):ToolUtils.getImage("ic_default_avatar",format: "webp")), //'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'
+             child: CircleAvatar(
+               backgroundColor: Colors.white,//显示头像
+               backgroundImage: AssetImage(isLogin ? ToolUtils.getImage("ic_launcher_foreground"):ToolUtils.getImage("ic_default_avatar",format: "webp")), //'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'
              ),
              onTap: (){
-                 print("点击跳转用户中心或者登录页");
+                 print("点击跳转用户中心");
                  Application.router.navigateTo(context,Routes.login);
               },
              )
@@ -206,6 +219,21 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           title: Text(
             'TODO',
+            style: textStyle,
+          ),
+          onTap: () {
+            //pushPage(context, SearchPage(), pageName: "SearchPage");
+            ///关闭侧边栏
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.close,
+            size: 27.0,
+          ),
+          title: Text(
+            '退出登录',
             style: textStyle,
           ),
           onTap: () {

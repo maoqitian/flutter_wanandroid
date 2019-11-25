@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/components/home_banner.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
-import 'package:flutter_wanandroid/routers/application.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 
 

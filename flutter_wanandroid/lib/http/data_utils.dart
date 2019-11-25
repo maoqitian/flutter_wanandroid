@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/shared_preferences.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-03
 /// email: maoqitian068@163.com
 /// des:  数据获取帮助类
 
-
-import 'package:flutter_wanandroid/api/Api.dart';
 import 'package:flutter_wanandroid/http/http_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_top_base_data.dart';
@@ -14,9 +15,9 @@ import 'package:flutter_wanandroid/model/banner/banner_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
-import 'package:flutter_wanandroid/model/login/Login_base_data.dart';
-import 'package:flutter_wanandroid/model/login/login_base_data.dart' as prefix0;
+import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
+import 'api/Api.dart';
 
 
 
@@ -49,16 +50,47 @@ class DataUtils{
 
   //登录
   static Future<LoginData> getLoginData(String username,String password) async{
-    FormData formData =FormData.fromMap({"username": username, "password": password});
+    FormData formData = FormData.fromMap({"username": username, "password": password});
     Response response = await HttpUtils.post(Api.LOGIN_JSON,formData);
-    return LoginBaseData.fromJson(response.data).data;
+    return BaseLoginData.fromJson(response.data).data;
   }
 
   //注册
   static Future<LoginData> getRegisterData(String username,String password,String repassword) async{
     FormData formData =FormData.fromMap({"username": username, "password": password,"repassword": repassword});
     Response response = await HttpUtils.post(Api.REGISTER_JSON,formData);
-    return LoginBaseData.fromJson(response.data).data;
+    return BaseLoginData.fromJson(response.data).data;
+  }
+
+
+  static void setUserName(String username){
+     Application.sp.putString(SharedPreferencesKeys.USER_NAME_KEY,username);
+  }
+
+  static String getUserName() {
+    return Application.sp.getString(SharedPreferencesKeys.USER_NAME_KEY);
+  }
+
+  static void setPassWord(String password) {
+     Application.sp.putString(SharedPreferencesKeys.PASSWORD_KEY,password);
+  }
+
+  static String getPassword() {
+    return Application.sp.getString(SharedPreferencesKeys.PASSWORD_KEY);
+  }
+
+  static void setLoginState(bool loginState) {
+     Application.sp.putBool(SharedPreferencesKeys.LOGIN_STATE_KEY,loginState);
+  }
+
+  static bool getLoginState() {
+    return Application.sp.getBool(SharedPreferencesKeys.LOGIN_STATE_KEY);
+  }
+  //是否登录
+  static bool hasLogin(){
+    //是否存在登录的 key
+    if(!Application.sp.hasKey(SharedPreferencesKeys.LOGIN_STATE_KEY)) return false;
+    return getLoginState();
   }
 
 }

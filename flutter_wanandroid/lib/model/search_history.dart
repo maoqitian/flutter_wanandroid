@@ -10,8 +10,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/resource/shared_preferences_keys.dart';
-import 'package:flutter_wanandroid/utils/shared_preferences.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
+
+import 'package:flutter_wanandroid/common/shared_preferences.dart';
 
 
 
@@ -30,7 +31,7 @@ class SearchHistoryList {
   static SearchHistoryList _getInstance(SpUtil sp) {
     if (_instance == null) {
       _sp = sp;
-      String json = sp.get(SharedPreferencesKeys.searchHistory);
+      String json = sp.get(SharedPreferencesKeys.SEARCH_HISTORY_KEY);
       _instance = new SearchHistoryList.fromJSON(json);
     }
     return _instance;
@@ -66,12 +67,12 @@ class SearchHistoryList {
   }
 
   clear() {
-    _sp.remove(SharedPreferencesKeys.searchHistory);
+    _sp.remove(SharedPreferencesKeys.SEARCH_HISTORY_KEY);
     _searchHistoryList = [];
   }
 
   save() {
-    _sp.putString(SharedPreferencesKeys.searchHistory, this.toJson());
+    _sp.putString(SharedPreferencesKeys.SEARCH_HISTORY_KEY, this.toJson());
   }
 
   add(SearchHistory item) {

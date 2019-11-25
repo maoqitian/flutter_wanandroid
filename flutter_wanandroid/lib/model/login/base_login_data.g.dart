@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_base_data.dart';
+part of 'base_login_data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginBaseData _$LoginBaseDataFromJson(Map<String, dynamic> json) {
-  return LoginBaseData(
+BaseLoginData _$BaseLoginDataFromJson(Map<String, dynamic> json) {
+  return BaseLoginData(
     json['data'] == null
         ? null
         : LoginData.fromJson(json['data'] as Map<String, dynamic>),
@@ -16,7 +16,7 @@ LoginBaseData _$LoginBaseDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LoginBaseDataToJson(LoginBaseData instance) =>
+Map<String, dynamic> _$BaseLoginDataToJson(BaseLoginData instance) =>
     <String, dynamic>{
       'data': instance.data,
       'errorCode': instance.errorCode,

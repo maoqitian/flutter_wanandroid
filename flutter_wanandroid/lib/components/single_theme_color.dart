@@ -4,9 +4,10 @@
 /// email: maoqitian068@163.com
 /// des:  主题颜色 圆形 + 文字 widget
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/provider/profile_change_notifier.dart';
-import 'package:flutter_wanandroid/resource/shared_preferences_keys.dart';
-import 'package:flutter_wanandroid/utils/shared_preferences.dart';
+import 'package:flutter_wanandroid/common/shared_preferences.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,7 @@ class SingleThemeColor extends StatelessWidget {
       onTap: ()async{
          ToolUtils.ShowToast(msg: "改变主题颜色为"+colorName);
          Provider.of<ThemeModel>(context,listen: false).changeTheme(this.themeColor);
-         await SpUtil.getInstance()..putInt(SharedPreferencesKeys.themeColor, this.themeColor);
+         Application.sp.putInt(SharedPreferencesKeys.THEME_COLOR_KEY, this.themeColor);
          Navigator.pop(context);
       },
       child: new Column( // 竖直布局

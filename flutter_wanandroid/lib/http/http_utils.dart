@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Created with Android Studio.
@@ -36,19 +37,37 @@ class HttpUtils {
 
     dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
 
-    if (params != null) {
-      response = await dio.get(url, queryParameters: params);
-    } else {
-      response = await dio.get(url);
+    try {
+      if (params != null) {
+        response = await dio.get(url, queryParameters: params);
+      } else {
+        response = await dio.get(url);
+      }
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response!= null) {
+        ToolUtils.ShowToast(msg: "网络出现异常"+e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.request);
+        ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
+      }
     }
-    return response;
-
+    if(response.data["errorCode"] == 0 ){
+       return response;
+    }else{
+       String data = response.data["errorMsg"];
+       ToolUtils.ShowToast(msg: data);
+    }
   }
 
 
 
   // url ：网络请求地址
-  // parasm : 请求参数
+  // formData : 请求参数
   // post 请求
   static Future post(String url, FormData formData) async {
     Response response ;
@@ -60,10 +79,27 @@ class HttpUtils {
 
     dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
 
-    response = await dio.post(url, data: formData);
-
-    return response;
-
+    try {
+      response = await dio.post(url, data: formData);
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response!= null) {
+        ToolUtils.ShowToast(msg: "网络出现异常"+e.response.data);
+        print(e.response.headers);
+        print(e.response.request);
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.request);
+        ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
+      }
+    }
+    if(response.data["errorCode"] == 0 ){
+      return response;
+    }else{
+      String data = response.data["errorMsg"];
+      ToolUtils.ShowToast(msg: data);
+    }
   }
 
 
