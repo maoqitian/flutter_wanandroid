@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return new Scaffold(
       appBar: MyAppBar(
         leading: Container(
-          child: Icon(Icons.menu),
+          child: Icon(Icons.menu,color: Colors.white),
         ),
         centerTitle: true,
         //设置title 形式嵌入 tabbar 也可以 通过“bottom”属性在AppBar下方来添加一个导航栏底部tab按钮组

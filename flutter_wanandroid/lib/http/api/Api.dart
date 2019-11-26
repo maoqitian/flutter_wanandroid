@@ -26,5 +26,7 @@ class Api{
   static const String REGISTER_JSON = BASE_URL+'user/register';
   //退出登录
   static const String LOGIN_OUT_JSON = BASE_URL+'user/logout/json';
-  
+
+  //个人积分
+  static const String COIN_USER_INFO_JSON = BASE_URL+'lg/coin/userinfo/json';
 }

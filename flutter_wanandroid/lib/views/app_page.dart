@@ -127,7 +127,7 @@ class _AppPageState extends State<AppPage> {
       return AppBar(
         leading: Builder( builder: (context){
           return IconButton(
-              icon: Icon(Icons.menu),
+              icon: Icon(Icons.menu,color: Colors.white),
               onPressed: (){
                 /// 打开侧边栏 使用 Builder( builder: (context) 保证获取到 Scaffold  context 可以正常打开侧边栏
                 print("点击打开侧边栏");

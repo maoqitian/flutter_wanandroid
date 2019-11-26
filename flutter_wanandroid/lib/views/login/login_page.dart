@@ -92,7 +92,6 @@ class _LoginPageState extends State<LoginPage> {
                           SizedBox(height: 15.0),
                         ],
                       ),
-
                     ],
                  ),
                ),
@@ -160,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                     controller: _passwordEditingController,
                     focusNode: _passwordFocusNode,
+                    keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                         icon: Icon(Icons.lock,color: Colors.black),
                         hintText: "WanAndroid 登录密码",

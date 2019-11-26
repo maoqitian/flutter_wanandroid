@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/common/shared_preferences.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-03
@@ -15,6 +14,8 @@ import 'package:flutter_wanandroid/model/banner/banner_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
+import 'package:flutter_wanandroid/model/coin/base_coin_info.dart';
+import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
 import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'api/Api.dart';
@@ -48,6 +49,7 @@ class DataUtils{
   }
 
 
+  /// 登录注册
   //登录
   static Future<LoginData> getLoginData(String username,String password) async{
     FormData formData = FormData.fromMap({"username": username, "password": password});
@@ -61,8 +63,23 @@ class DataUtils{
     Response response = await HttpUtils.post(Api.REGISTER_JSON,formData);
     return BaseLoginData.fromJson(response.data).data;
   }
+  //退出登录
+  static Future<String> getLoginOut() async{
+    Response response = await HttpUtils.get(Api.LOGIN_OUT_JSON);
+    return response.data["data"];
+  }
+
+  /// 积分
 
 
+  //个人积分
+  static Future<CoinUserInfo> getCoinUserInfo() async{
+    Response response = await HttpUtils.get(Api.COIN_USER_INFO_JSON);
+    return BaseCoinInfo.fromJson(response.data).data;
+  }
+
+
+  /// SharedPreferences 存储 用户名 是否登录等状态
   static void setUserName(String username){
      Application.sp.putString(SharedPreferencesKeys.USER_NAME_KEY,username);
   }

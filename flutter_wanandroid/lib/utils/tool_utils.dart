@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:cookie_jar/cookie_jar.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019/11/8 0008
@@ -5,6 +7,7 @@
 /// des:  工具类
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class ToolUtils{
@@ -59,5 +62,12 @@ class ToolUtils{
     return "images/$imageName.$format";
   }
 
-
+  //清除 cookie 缓存
+  static void clearCookie() async{
+    Directory documentsDir = await getApplicationDocumentsDirectory();
+    String documentsPath = documentsDir.path;
+    var dir = new Directory("$documentsPath/cookies");
+    await dir.create();
+    PersistCookieJar(dir: dir.path).deleteAll();
+  }
 }
