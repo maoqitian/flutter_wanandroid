@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 /// Created with Android Studio.
@@ -51,16 +52,16 @@ class DataUtils{
 
   /// 登录注册
   //登录
-  static Future<LoginData> getLoginData(String username,String password) async{
+  static Future<LoginData> getLoginData(String username,String password,BuildContext context) async{
     FormData formData = FormData.fromMap({"username": username, "password": password});
-    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData);
+    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
 
   //注册
-  static Future<LoginData> getRegisterData(String username,String password,String repassword) async{
+  static Future<LoginData> getRegisterData(String username,String password,String repassword,BuildContext context) async{
     FormData formData =FormData.fromMap({"username": username, "password": password,"repassword": repassword});
-    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData);
+    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
   //退出登录

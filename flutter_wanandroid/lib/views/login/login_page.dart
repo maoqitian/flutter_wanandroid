@@ -10,7 +10,9 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/login_event.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
+import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
+import 'package:flutter_wanandroid/widget/loading_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -32,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordEditingController =
   new TextEditingController();
 
-  bool isLoading = false;
 
   //是否显示输入的密码
   bool isShowPassWord = false;
@@ -54,8 +55,7 @@ class _LoginPageState extends State<LoginPage> {
           leading: new IconButton(
               icon: new Icon(Icons.arrow_back,color: Colors.white,),
               onPressed: _pushBack),
-          title: Text("登录", style: TextStyle(color: Colors.white),
-          ),
+          title: Text("登录", style: TextStyle(color: Colors.white)),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -69,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                  decoration: BoxDecoration(
                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
                    color: Colors.white,
-                 ),
-                 child: Stack(
+                   ),
+                    child: Stack(
                     children: <Widget>[
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -221,7 +221,8 @@ class _LoginPageState extends State<LoginPage> {
   //登录
   void doLogin() async{
     _signInFormKey.currentState.save();
-    LoginData loginData = await DataUtils.getLoginData(userName, passWord);
+    //_showLoading(context);
+    LoginData loginData = await DataUtils.getLoginData(userName, passWord,context);
     // events_bus
     DataUtils.setUserName(loginData.username);
     DataUtils.setLoginState(true);
@@ -233,7 +234,8 @@ class _LoginPageState extends State<LoginPage> {
   }
   //注册
   doRegister() {
-    print("执行注册逻辑");
+    //跳转注册页面
+    Application.router.navigateTo(context,Routes.register);
   }
 
   Widget buildSingButton(String text,bool isLogin) {
@@ -267,7 +269,6 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-
 
 
   void showPassWord() {

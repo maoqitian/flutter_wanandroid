@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/views/app_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
+import 'package:flutter_wanandroid/views/login/register_page.dart';
 import 'package:flutter_wanandroid/views/web_page/web_view_page.dart';
 
 
@@ -18,7 +19,12 @@ var loginHandler = new Handler(
     return new LoginPage();
   },
 );
-
+// 注册页
+var registerHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new RegisterPage();
+  },
+);
 
 // webview 页面
 var webViewPageHand = new Handler(

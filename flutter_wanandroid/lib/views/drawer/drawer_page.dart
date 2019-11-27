@@ -85,21 +85,7 @@ class _DrawerPageState extends State<DrawerPage> {
            accountEmail: Container(
              padding: const EdgeInsets.only(bottom: 10.0),
              child: Row(
-                 children: <Widget>[
-                         Padding(
-                          child: StrokeWidget(
-                             strokeWidth: 2,
-                               edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
-                           color: Colors.white,
-                           childWidget: Text("lv "+level.toString(), style: TextStyle(fontSize: 11.0, color: Colors.white, fontWeight: FontWeight.bold))
-                           ),
-                          padding: EdgeInsets.only(right: 10.0),
-                    ),
-                   Text(
-                     isLogin ? "积分："+ coin.toString():'',
-                     style: TextStyle(color: Colors.white,fontSize: 15.0),
-                   ),
-                 ],
+                 children: buildCoinWidget(isLogin)
                )
            ),
            currentAccountPicture:
@@ -275,13 +261,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
-            //退出登录
-            DataUtils.getLoginOut();
-            //发出 登录成功事件
-            Application.eventBus.fire(new LoginOutEvent());
-            DataUtils.setUserName("");
-            DataUtils.setLoginState(false);
-            ToolUtils.ShowToast(msg: "退出登录成功");
+            showAlertDialog(context);
           },
         ),
       ],
@@ -363,5 +343,65 @@ class _DrawerPageState extends State<DrawerPage> {
       coin = coinUserInfo.coinCount;
       level = coinUserInfo.level;
     });
+  }
+
+  //显示 等级 和 积分信息
+  List<Widget> buildCoinWidget(bool isLogin) {
+    List<Widget> list = [];
+    if(isLogin){
+       list.add(Padding(
+         child: StrokeWidget(
+             strokeWidth: 2,
+             edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+             color: Colors.white,
+             childWidget: Text( "lv "+level.toString(), style: TextStyle(fontSize: 11.0, color: Colors.white, fontWeight: FontWeight.bold))
+         ),
+         padding: EdgeInsets.only(right: 10.0),
+       ));
+       list.add(Text(
+         isLogin ? "积分："+ coin.toString():'',
+         style: TextStyle(color: Colors.white,fontSize: 15.0),
+       ));
+    }
+    return list;
+  }
+
+  void showAlertDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text('乃确定不是手滑了么？'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('我手滑了'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('注销'),
+              onPressed: () {
+                //退出登录
+                doLoginOut();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+          elevation: 20, //阴影
+        );
+      },
+    );
+  }
+
+  void doLoginOut() async{
+    //退出登录
+    await DataUtils.getLoginOut();
+    //发出 登录成功事件
+    Application.eventBus.fire(new LoginOutEvent());
+    DataUtils.setUserName("");
+    DataUtils.setLoginState(false);
+    ToolUtils.ShowToast(msg: "退出登录成功");
   }
 }
