@@ -1,3 +1,4 @@
+import 'package:flutter_wanandroid/model/base_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'login_data.dart';
@@ -9,13 +10,9 @@ part 'base_login_data.g.dart';
 /// des:  
 
 @JsonSerializable()
-class BaseLoginData{
+class BaseLoginData extends BaseResponseBody<LoginData>{
 
-  LoginData data;
-  int errorCode;
-  String errorMsg;
-
-  BaseLoginData(this.data, this.errorCode, this.errorMsg);
+  BaseLoginData(LoginData data, int errorCode, String errorMsg) :super(data,errorCode,errorMsg);
 
 
   factory BaseLoginData.fromJson(Map<String, dynamic> json){

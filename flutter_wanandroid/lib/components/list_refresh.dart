@@ -79,7 +79,7 @@ class _ListRefreshState extends State<ListRefresh> {
   }
 
   // 获取 数据
-  /// isRefresh 是否为下拉刷新
+  /// isRefresh : 是否为下拉刷新
   Future<List> mokeHttpRequest(bool isRefresh) async {
     if (widget.requestApi is Function) {
       Map listObj = new Map<String, dynamic>();

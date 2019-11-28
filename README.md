@@ -14,3 +14,4 @@
 [fluttertoast](https://github.com/PonnamKarthik/FlutterToast) | Toast
 [provider](https://github.com/rrousselGit/provider) | 跨组件数据共享
 [event_bus](https://github.com/marcojakob/dart-event-bus) | 事件总线
+[flutter_spinkit](https://github.com/marcojakob/dart-event-bus) | 加载中指示器动画

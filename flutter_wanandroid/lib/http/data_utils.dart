@@ -17,6 +17,10 @@ import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:flutter_wanandroid/model/coin/base_coin_info.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
+import 'package:flutter_wanandroid/model/friend/base_friend_data.dart';
+import 'package:flutter_wanandroid/model/friend/friend_data.dart';
+import 'package:flutter_wanandroid/model/hotkey/base_hot_key_data.dart';
+import 'package:flutter_wanandroid/model/hotkey/hot_key_data.dart';
 import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'api/Api.dart';
@@ -25,9 +29,8 @@ import 'api/Api.dart';
 
 class DataUtils{
 
-
+  /// 首页数据模块
   //获取首页banner 数据
-  // 数据手动解析 没有使用 JsonSerializable
   static Future<List<BannerData>> getBannerData() async{
     Response response = await HttpUtils.get(Api.BANNER_JSON);
     return BannerBaseData.fromJson(response.data).data;
@@ -41,6 +44,30 @@ class DataUtils{
     Response response = await HttpUtils.get(Api.BASE_URL+path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
+  }
+
+  // 首页 最新项目 列表数据
+  //方法：GET
+  //参数：页码，拼接在连接中，从0开始。
+  static Future<ArticleListData> getListProjectData(int pageNum) async{
+    String path = '/article/listproject/$pageNum/json';
+    Response response = await HttpUtils.get(Api.BASE_URL+path);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+  //常用网站
+  static Future<List<FriendData>> getFriendListData() async{
+    Response response = await HttpUtils.get(Api.FRIEND_JSON);
+    BaseFriendData baseFriendData = BaseFriendData.fromJson(response.data);
+    return baseFriendData.data;
+  }
+
+  //搜索热词
+  static Future<List<HotKeyData>> getHotKeyListData() async{
+    Response response = await HttpUtils.get(Api.HOT_KEY_JSON);
+    BaseHotKeyData baseHotKeyData = BaseHotKeyData.fromJson(response.data);
+    return baseHotKeyData.data;
   }
 
   //置顶文章
@@ -69,6 +96,11 @@ class DataUtils{
     Response response = await HttpUtils.get(Api.LOGIN_OUT_JSON);
     return response.data["data"];
   }
+
+
+  /// 收藏模块
+
+
 
   /// 积分
 

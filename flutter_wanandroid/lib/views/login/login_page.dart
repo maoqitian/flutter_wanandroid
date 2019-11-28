@@ -121,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextFormField(
                      controller: _userNameEditingController,
                      focusNode: _userNameFocusNode,
+                     autofocus: true, //自动获取焦点 打开键盘
                      onEditingComplete: (){
                        if(_focusScopeNode == null){
                          _focusScopeNode = FocusScope.of(context);

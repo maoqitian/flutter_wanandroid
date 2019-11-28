@@ -6,9 +6,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/components/list_view_item.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
-import 'package:flutter_wanandroid/http/http_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/components/list_refresh.dart' as listComp;
+import 'package:flutter_wanandroid/components/refresh_page.dart' as listComp;
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/views/home/page/banner_page.dart';
 
@@ -27,14 +27,7 @@ class _FirstPageState extends State<FirstPage> {
 
   //  ListViewItem
   Widget makeCard(index,item){
-    //var myTitle = '${item.title}';
-    //var myUsername = item.author;
-    //if(myUsername == ""){
-      //myUsername = '${'👲'}: ${item.shareUser} ';
-    //}else{
-      //myUsername = '${'👲'}: ${item.author} ';
-    //}
-    //var codeUrl = '${item.link}';  //item
+
     return new ListViewItem(articleData: item);
   }
 
@@ -99,7 +92,8 @@ class _FirstPageState extends State<FirstPage> {
     return Column(
       children: <Widget>[
         new Expanded(
-            child: listComp.ListRefresh(getIndexListData,makeCard,headerView)
+            //child: listComp.ListRefresh(getIndexListData,makeCard,headerView)
+            child: listComp.RefreshPage(getIndexListData,makeCard,headerView)
         )
       ],
     );

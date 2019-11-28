@@ -165,6 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _passwordEditingController,
                   focusNode: _passwordFocusNode,
                   keyboardType: TextInputType.visiblePassword,
+                  autofocus: true, //自动获取焦点 打开键盘
                   decoration: InputDecoration(
                       icon: Icon(Icons.lock,color: Colors.black),
                       hintText: "WanAndroid 登录密码",
