@@ -70,4 +70,9 @@ class ToolUtils{
     await dir.create();
     PersistCookieJar(dir: dir.path).deleteAll();
   }
+
+  //获取主题颜色
+  static Color getPrimaryColor(BuildContext context){
+    return Theme.of(context).primaryColor;
+  }
 }

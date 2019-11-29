@@ -93,7 +93,7 @@ class _FirstPageState extends State<FirstPage> {
       children: <Widget>[
         new Expanded(
             //child: listComp.ListRefresh(getIndexListData,makeCard,headerView)
-            child: listComp.RefreshPage(getIndexListData,makeCard,headerView)
+            child: listComp.RefreshPage(getIndexListData,makeCard,headerView,true)
         )
       ],
     );
