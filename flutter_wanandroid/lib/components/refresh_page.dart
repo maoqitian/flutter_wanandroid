@@ -36,6 +36,7 @@ class _RefreshPageState extends State<RefreshPage> {
 
   @override
   void initState() {
+    //第一次进入加载数据
     _getMoreData();
     //添加滑动监听
     _scrollController.addListener((){
@@ -67,11 +68,9 @@ class _RefreshPageState extends State<RefreshPage> {
           isLoading = false;
         });
       }
-      //backElasticEffect();
     } else if (!isLoading && !_hasMore) {
       // 这样判断,减少以后的绘制
       _pageIndex = 0;
-      //backElasticEffect();
     }
   }
 

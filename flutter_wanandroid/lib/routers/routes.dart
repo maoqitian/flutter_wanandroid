@@ -8,6 +8,7 @@ class Routes {
 
   static String root = "/";
   static String home = "/home_page";
+  static String knowledgedetail = "/knowledge_detail_page";
   static String login = "/login_page";
   static String register = "/register_page";
   static String webViewPage = '/web-view-page';
@@ -24,6 +25,7 @@ class Routes {
     router.define(login, handler: loginHandler);
     router.define(register, handler: registerHandler);
     router.define(webViewPage, handler: webViewPageHand);
+    router.define(knowledgedetail, handler: knowledgeDetailHandler);
   }
 
 

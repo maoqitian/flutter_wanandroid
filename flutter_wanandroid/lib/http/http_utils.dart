@@ -79,7 +79,7 @@ class HttpUtils {
   // url ：网络请求地址
   // formData : 请求参数
   // post 请求
-  static Future post(String url, FormData formData,{bool isAddLoading = false ,BuildContext context,String loadingText}) async {
+  static Future post(String url, {FormData formData,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
     Response response ;
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
@@ -95,7 +95,11 @@ class HttpUtils {
     }
 
     try {
-      response = await dio.post(url, data: formData);
+      if(formData!=null){
+        response = await dio.post(url, data: formData);
+      }else{
+        response = await dio.post(url);
+      }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.

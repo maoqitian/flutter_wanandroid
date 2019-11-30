@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               })
         ],
       ),
-      body: TabBarViewLayout(),
+      body: HomePageTabBarViewLayout(),
       //侧边栏
       drawer: Drawer(
         child: DrawerPage(),
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 }
 
 // TabBarView Widget
-class TabBarViewLayout extends StatelessWidget {
+class HomePageTabBarViewLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

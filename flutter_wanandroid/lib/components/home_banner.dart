@@ -7,6 +7,7 @@ import 'dart:async';
 /// des:  轮播图组件
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class HomeBanner extends StatefulWidget {
   final List<BannerData> bannerStories;
@@ -107,7 +108,7 @@ class _BannerState extends State<HomeBanner> {
         fit: StackFit.expand,
         children: <Widget>[
           Image.network(story.imagePath, fit: BoxFit.cover),
-          _buildItemTitle(story.title), // 内容文字,大意
+          _buildItemTitle(ToolUtils.signToStr(story.title)), // 内容文字,大意
         ],),);
   }
 

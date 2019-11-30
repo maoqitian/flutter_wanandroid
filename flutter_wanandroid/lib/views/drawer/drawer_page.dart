@@ -305,7 +305,7 @@ class _DrawerPageState extends State<DrawerPage> {
                       children: buildThemeColorChildren(),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: RaisedButton(
                         textColor: Colors.white,
                         color: Theme.of(context).primaryColor,

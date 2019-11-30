@@ -77,18 +77,31 @@ class DataUtils{
   }
 
 
+  /// 知识体系
+
+
+  //知识体系下的文章
+  static Future<ArticleListData> getKnowledgeArticleData(int cid,int pageNum) async{
+    String path = '/article/list/$pageNum/json';
+    Map<String, dynamic> params={"cid": cid};
+    Response response = await HttpUtils.get(Api.BASE_URL+path,params: params);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+
   /// 登录注册
   //登录
   static Future<LoginData> getLoginData(String username,String password,BuildContext context) async{
     FormData formData = FormData.fromMap({"username": username, "password": password});
-    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
+    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
 
   //注册
   static Future<LoginData> getRegisterData(String username,String password,String repassword,BuildContext context) async{
     FormData formData =FormData.fromMap({"username": username, "password": password,"repassword": repassword});
-    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
+    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
   //退出登录
@@ -100,6 +113,26 @@ class DataUtils{
 
   /// 收藏模块
 
+
+  // 站内文章收藏 （文章列表）
+  //方法：POST
+  //参数： 文章id，拼接在链接中。
+  static Future<String> getCollectInnerArticle(int id) async{
+    String path = '/lg/collect/$id/json';
+    Response response = await HttpUtils.post(Api.BASE_URL+path);
+    return response.data["data"];
+  }
+
+
+  //取消收藏 文章列表
+  //方法：POST
+  //参数：
+  //id:拼接在链接上
+  static Future<String> getCancelCollectInnerArticle(int id) async{
+    String path = '/lg/uncollect_originId/$id/json';
+    Response response = await HttpUtils.post(Api.BASE_URL+path);
+    return response.data["data"];
+  }
 
 
   /// 积分

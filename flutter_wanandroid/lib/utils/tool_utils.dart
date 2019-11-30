@@ -37,6 +37,7 @@ class ToolUtils{
         .replaceAll("&euro;", "€")
         .replaceAll("&quot;","'")
         .replaceAll("<p>", "")
+        .replaceAll("&middot;","·")
         .replaceAll("</p>", "")
         .replaceAll("</br>", "\n")
         .replaceAll("<br>", "\n")
