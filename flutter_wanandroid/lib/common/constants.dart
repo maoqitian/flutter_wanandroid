@@ -18,4 +18,18 @@ class SharedPreferencesKeys {
   static const String PASSWORD_KEY = 'password_key';
   //登录状态
   static const String LOGIN_STATE_KEY = 'login_state_key';
+
+
+
+}
+
+
+class Constants{
+
+  //页面跳转类型
+  //首页跳转
+  static const String RESULT_CODE_HOME_PAGE = 'result_code_home_page';
+  //知识体系跳转
+  static const String RESULT_CODE_KNOWLEDGE_PAGE = 'result_code_knowledge_page';
+
 }

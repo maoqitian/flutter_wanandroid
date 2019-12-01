@@ -28,7 +28,7 @@ class _FirstPageState extends State<FirstPage> {
   //  ListViewItem
   Widget makeCard(index,item){
 
-    return new ListViewItem(articleData: item);
+    return new ListViewItem(articleData: item,isHomeShow: true);
   }
 
 

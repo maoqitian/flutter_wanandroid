@@ -38,6 +38,9 @@ var webViewPageHand = new Handler(
 //知识体系下的文章
 var knowledgeDetailHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return new KnowledegDetailPage();
+    String type = params['type']?.first; //页面跳转类型
+    String articleJson = params['articleJson']?.first;
+    String knowledgeJson = params['knowledgeJson']?.first;
+    return new KnowledegDetailPage(type:type,articleJson: articleJson,knowledgeJson: knowledgeJson,);
   },
 );

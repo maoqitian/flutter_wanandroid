@@ -1,12 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'knowledge_hierarchy_data.g.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-30
 /// email: maoqitian068@163.com
 /// des:  知识体系
 
-import 'package:flutter/material.dart';
 
 
+@JsonSerializable()
 class KnowledgeHierarchyData{
 
   int courseId;
@@ -23,4 +25,10 @@ class KnowledgeHierarchyData{
       this.children);
 
 
+  factory KnowledgeHierarchyData.fromJson(Map<String, dynamic> json){
+    return _$KnowledgeHierarchyDataFromJson(json);
+  }
+
+
+  Map<String,dynamic> toJson() => _$KnowledgeHierarchyDataToJson(this);
 }

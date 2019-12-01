@@ -4,6 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:  首页 文章 list view item
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/common/application.dart';
@@ -18,8 +19,9 @@ class ListViewItem extends StatefulWidget {
   final String itemTitle;
   final String data;
   final ArticleData articleData;
+  final bool isHomeShow; // 是否首页展示 控制 是否还能点击 进入知识体系
 
-  const ListViewItem({Key key, this.itemUrl, this.itemTitle, this.data,this.articleData})
+  const ListViewItem({Key key, this.itemUrl, this.itemTitle, this.data,this.articleData,this.isHomeShow = true})
       :super(key:key);
 
   @override
@@ -96,8 +98,11 @@ class _ListViewItemState extends State<ListViewItem> {
             overflow: TextOverflow.ellipsis,
           ),
           onTap: (){
-            print("跳转 知识体系下文章 ");
-           },
+            if(this.widget.isHomeShow){
+              print("跳转 知识体系下文章 ");
+              Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(articleData)}');
+            }
+          },
           )
         )));
     return widget;

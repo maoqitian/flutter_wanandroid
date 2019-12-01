@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cookie_jar/cookie_jar.dart';
 /// Created with Android Studio.
@@ -76,4 +77,31 @@ class ToolUtils{
   static Color getPrimaryColor(BuildContext context){
     return Theme.of(context).primaryColor;
   }
+
+
+
+  /// object 转为 string json
+  static String object2string<T>(T t) {
+    return fluroCnParamsEncode(jsonEncode(t));
+  }
+
+  static String fluroCnParamsEncode(String originalCn) {
+    return jsonEncode(Utf8Encoder().convert(originalCn));
+  }
+
+  /// string json 转为 map
+  static Map<String, dynamic> string2map(String str) {
+    return json.decode(fluroCnParamsDecode(str));
+  }
+
+  /// fluro 传递后取出参数，解析
+  static String fluroCnParamsDecode(String encodeCn) {
+    var list = List<int>();
+
+    ///字符串解码
+    jsonDecode(encodeCn).forEach(list.add);
+    String value = Utf8Decoder().convert(list);
+    return value;
+  }
+
 }
