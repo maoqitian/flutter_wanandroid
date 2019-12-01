@@ -52,6 +52,8 @@ class _ListViewItemState extends State<ListViewItem> {
           child: Text(
             ToolUtils.signToStr(widget.articleData.title),
             style: TextStyle(color: Colors.black, fontSize: 15.0),
+            maxLines: 1, // title 只显示一行
+            overflow: TextOverflow.ellipsis //超出一行 显示 ...
           ),
         ),
         subtitle: Row(
@@ -128,7 +130,7 @@ class _ListViewItemState extends State<ListViewItem> {
   }
 
   void _clickCollection() async {
-    if(!DataUtils.getLoginState()){
+    if(!DataUtils.hasLogin()){
       Application.router.navigateTo(context,Routes.login);
       ToolUtils.ShowToast(msg:"请先登录");
       return;

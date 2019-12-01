@@ -33,17 +33,22 @@ class _FirstPageState extends State<FirstPage> {
 
 
   headerView (){
-    return Column(
-      children: <Widget>[
-           Stack(
-             children: <Widget>[
-               //轮播图 page
-               new BannerPage(),
-             ],),
-        SizedBox(height: 1, child:Container(color: Theme.of(context).primaryColor)),
-        SizedBox(height: 10),
-      ],
-    );
+    return Card(
+        color: Colors.white,
+        elevation: 4.0,
+        margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                //轮播图 page
+                new BannerPage(),
+              ],),
+            SizedBox(height: 1, child:Container(color: Theme.of(context).primaryColor)),
+            SizedBox(height: 10),
+          ],
+        ),
+      );
   }
 
   //获取 文章 列表数据
