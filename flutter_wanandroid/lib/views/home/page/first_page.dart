@@ -33,11 +33,7 @@ class _FirstPageState extends State<FirstPage> {
 
 
   headerView (){
-    return Card(
-        color: Colors.white,
-        elevation: 4.0,
-        margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
-        child: Column(
+    return Column(
           children: <Widget>[
             Stack(
               children: <Widget>[
@@ -47,8 +43,8 @@ class _FirstPageState extends State<FirstPage> {
             SizedBox(height: 1, child:Container(color: Theme.of(context).primaryColor)),
             SizedBox(height: 10),
           ],
-        ),
-      );
+        );
+
   }
 
   //获取 文章 列表数据
@@ -84,7 +80,11 @@ class _FirstPageState extends State<FirstPage> {
           pageIndex += 1;
           result = {"list":articleAllList, 'total':articleListData.pageCount, 'pageIndex':pageIndex};
         }
-      });
+      },onError: (e){
+            print("发生错误"+e.toString());
+            result = {"list":[], 'total':0, 'pageIndex':pageIndex};
+       }
+      );
       return result;
     }else{
       //正常列表数据 加载更多
