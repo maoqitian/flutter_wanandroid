@@ -50,6 +50,12 @@ class HttpUtils {
       } else {
         response = await dio.get(url);
       }
+      if(response.data["errorCode"] == 0 ){
+        return response;
+      }else{
+        String data = response.data["errorMsg"];
+        ToolUtils.ShowToast(msg: data);
+      }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -62,15 +68,10 @@ class HttpUtils {
         print(e.request);
         ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
       }
+      return null;
     }
     if(isAddLoading){
       dismissLoading(context);
-    }
-    if(response.data["errorCode"] == 0 ){
-       return response;
-    }else{
-       String data = response.data["errorMsg"];
-       ToolUtils.ShowToast(msg: data);
     }
   }
 
@@ -100,6 +101,12 @@ class HttpUtils {
       }else{
         response = await dio.post(url);
       }
+      if(response.data["errorCode"] == 0 ){
+        return response;
+      }else{
+        String data = response.data["errorMsg"];
+        ToolUtils.ShowToast(msg: data);
+      }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -113,15 +120,10 @@ class HttpUtils {
         ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
       }
       dismissLoading(context);
+      return null;
     }
     if(isAddLoading){
       dismissLoading(context);
-    }
-    if(response.data["errorCode"] == 0 ){
-      return response;
-    }else{
-      String data = response.data["errorMsg"];
-      ToolUtils.ShowToast(msg: data);
     }
   }
 

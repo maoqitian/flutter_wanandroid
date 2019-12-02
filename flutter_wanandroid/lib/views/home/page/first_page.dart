@@ -75,11 +75,15 @@ class _FirstPageState extends State<FirstPage> {
       Map<String, dynamic> result;
        await Future.wait([DataUtils.getArticleTopData(),DataUtils.getArticleData(pageIndex)])
           .then((List articleList){
-        articleAllList.addAll(articleList[0]);
-        ArticleListData articleListData = articleList[1];
-        articleAllList.addAll(articleListData.datas);
-        pageIndex += 1;
-        result = {"list":articleAllList, 'total':articleListData.pageCount, 'pageIndex':pageIndex};
+        if(articleList == null){
+          result = {"list":articleAllList, 'total':0, 'pageIndex':pageIndex};
+        }else{
+          articleAllList.addAll(articleList[0]);
+          ArticleListData articleListData = articleList[1];
+          articleAllList.addAll(articleListData.datas);
+          pageIndex += 1;
+          result = {"list":articleAllList, 'total':articleListData.pageCount, 'pageIndex':pageIndex};
+        }
       });
       return result;
     }else{
