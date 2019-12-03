@@ -40,13 +40,13 @@ class _KnowledgeViewState extends State<KnowledgeView> {
     var pageIndex = (params is Map) ? params['pageIndex'] : 0;
 
     if(pageIndex == 0){ //置顶 数据 正常列表数据 同时请求 第一次请求
-      ArticleListData articleListData = await DataUtils.getKnowledgeArticleData(widget.id, pageIndex);
+      ArticleListData articleListData = await dataUtils.getKnowledgeArticleData(widget.id, pageIndex);
       pageIndex += 1;
       Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':pageIndex};
       return result;
     }else{
       //正常列表数据 加载更多
-      ArticleListData articleListData = await DataUtils.getKnowledgeArticleData(widget.id,pageIndex);
+      ArticleListData articleListData = await dataUtils.getKnowledgeArticleData(widget.id,pageIndex);
       Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
       return result;
     }

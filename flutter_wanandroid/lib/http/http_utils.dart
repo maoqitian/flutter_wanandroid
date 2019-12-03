@@ -8,6 +8,8 @@ import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/widget/loading_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'api/Api.dart';
+
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-03
@@ -20,16 +22,37 @@ Map<String, dynamic> optHeader = {
   'content-type': 'application/json'
 };
 
-
-var dio = new Dio();
-
+HttpUtils httpUtils = new HttpUtils();
 
 class HttpUtils {
+
+  //保存单例
+  static HttpUtils _singleton = new HttpUtils._internal();
+
+  //工厂构造函数
+  factory HttpUtils()=> _singleton;
+
+  //单例模式
+
+
+  Dio _dio;
+
+  HttpUtils._internal() {
+    if (null == _dio) {
+      _dio = new Dio();
+      _dio.options.baseUrl = Api.BASE_URL;
+      _dio.options.connectTimeout = 30 * 1000;
+      _dio.options.sendTimeout = 30 * 1000;
+      _dio.options.receiveTimeout = 30 * 1000;
+    }
+  }
+
+
 
   // url ：网络请求地址
   // parasm : 请求参数
   // get 请求
-  static Future get(String url, {Map<String, dynamic> params,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
+   Future get(String url, {Map<String, dynamic> params,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
     Response response ;
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
@@ -37,7 +60,7 @@ class HttpUtils {
     var dir = new Directory("$documentsPath/cookies");
     await dir.create();
 
-    dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
+    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
 
     //显示 加载中的 loading
     if(isAddLoading){
@@ -46,9 +69,9 @@ class HttpUtils {
 
     try {
       if (params != null) {
-        response = await dio.get(url, queryParameters: params);
+        response = await _dio.get(url, queryParameters: params);
       } else {
-        response = await dio.get(url);
+        response = await _dio.get(url);
       }
       if(response.data["errorCode"] == 0 ){
         return response;
@@ -80,7 +103,7 @@ class HttpUtils {
   // url ：网络请求地址
   // formData : 请求参数
   // post 请求
-  static Future post(String url, {FormData formData,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
+   Future post(String url, {FormData formData,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
     Response response ;
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
@@ -88,7 +111,7 @@ class HttpUtils {
     var dir = new Directory("$documentsPath/cookies");
     await dir.create();
 
-    dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
+    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
 
     //显示 加载中的 loading
     if(isAddLoading){
@@ -97,9 +120,9 @@ class HttpUtils {
 
     try {
       if(formData!=null){
-        response = await dio.post(url, data: formData);
+        response = await _dio.post(url, data: formData);
       }else{
-        response = await dio.post(url);
+        response = await _dio.post(url);
       }
       if(response.data["errorCode"] == 0 ){
         return response;
@@ -130,7 +153,7 @@ class HttpUtils {
 
 
   /// 显示Loading
-  static void showLoading(BuildContext context,String loadText) {
+  void showLoading(BuildContext context,String loadText) {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -142,7 +165,7 @@ class HttpUtils {
         });
   }
   /// 隐藏Loading
-  static void dismissLoading(BuildContext context) {
+  void dismissLoading(BuildContext context) {
     Navigator.of(context).pop();
   }
 

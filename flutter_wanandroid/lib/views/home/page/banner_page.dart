@@ -45,7 +45,7 @@ class _BannerPageState extends State<BannerPage> {
   }
 
   void loadData() async{
-    var list = await DataUtils.getBannerData();
+    var list = await dataUtils.getBannerData();
       if(mounted){
         setState(() {
           _bannerList = list;

@@ -69,7 +69,7 @@ class _FirstPageState extends State<FirstPage> {
     if(pageIndex == 0){ //置顶 数据 正常列表数据 同时请求 第一次请求
       List<ArticleData> articleAllList = [];
       Map<String, dynamic> result;
-       await Future.wait([DataUtils.getArticleTopData(),DataUtils.getArticleData(pageIndex)])
+       await Future.wait([dataUtils.getArticleTopData(),dataUtils.getArticleData(pageIndex)])
           .then((List articleList){
         if(articleList == null){
           result = {"list":articleAllList, 'total':0, 'pageIndex':pageIndex};
@@ -88,7 +88,7 @@ class _FirstPageState extends State<FirstPage> {
       return result;
     }else{
       //正常列表数据 加载更多
-      ArticleListData articleListData = await DataUtils.getArticleData(pageIndex);
+      ArticleListData articleListData = await dataUtils.getArticleData(pageIndex);
       Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
       return result;
     }

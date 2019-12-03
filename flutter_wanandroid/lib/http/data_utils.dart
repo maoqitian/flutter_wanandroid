@@ -25,23 +25,34 @@ import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'api/Api.dart';
 
-
+DataUtils dataUtils = new DataUtils();
 
 class DataUtils{
 
+  //私有构造函数
+  DataUtils._internal();
+
+  //保存单例
+  static DataUtils _singleton = new DataUtils._internal();
+
+  //工厂构造函数
+  factory DataUtils()=> _singleton;
+
+
+
   /// 首页数据模块
   //获取首页banner 数据
-  static Future<List<BannerData>> getBannerData() async{
-    Response response = await HttpUtils.get(Api.BANNER_JSON);
+  Future<List<BannerData>> getBannerData() async{
+    Response response = await httpUtils.get(Api.BANNER_JSON);
     return BannerBaseData.fromJson(response.data).data;
   }
 
   // 首页文章列表
   //方法：GET
   //参数：页码，拼接在连接中，从0开始。
-  static Future<ArticleListData> getArticleData(int pageNum) async{
+  Future<ArticleListData> getArticleData(int pageNum) async{
     String path = '/article/list/$pageNum/json';
-    Response response = await HttpUtils.get(Api.BASE_URL+path);
+    Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
   }
@@ -49,30 +60,30 @@ class DataUtils{
   // 首页 最新项目 列表数据
   //方法：GET
   //参数：页码，拼接在连接中，从0开始。
-  static Future<ArticleListData> getListProjectData(int pageNum) async{
+  Future<ArticleListData> getListProjectData(int pageNum) async{
     String path = '/article/listproject/$pageNum/json';
-    Response response = await HttpUtils.get(Api.BASE_URL+path);
+    Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
   }
 
   //常用网站
-  static Future<List<FriendData>> getFriendListData() async{
-    Response response = await HttpUtils.get(Api.FRIEND_JSON);
+  Future<List<FriendData>> getFriendListData() async{
+    Response response = await HttpUtils().get(Api.FRIEND_JSON);
     BaseFriendData baseFriendData = BaseFriendData.fromJson(response.data);
     return baseFriendData.data;
   }
 
   //搜索热词
-  static Future<List<HotKeyData>> getHotKeyListData() async{
-    Response response = await HttpUtils.get(Api.HOT_KEY_JSON);
+  Future<List<HotKeyData>> getHotKeyListData() async{
+    Response response = await httpUtils.get(Api.HOT_KEY_JSON);
     BaseHotKeyData baseHotKeyData = BaseHotKeyData.fromJson(response.data);
     return baseHotKeyData.data;
   }
 
   //置顶文章
-  static Future<List<ArticleData>> getArticleTopData() async{
-    Response response = await HttpUtils.get(Api.ARTICLE_TOP);
+  Future<List<ArticleData>> getArticleTopData() async{
+    Response response = await httpUtils.get(Api.ARTICLE_TOP);
     return ArticleTopBaseData.fromJson(response.data).data;
   }
 
@@ -81,10 +92,10 @@ class DataUtils{
 
 
   //知识体系下的文章
-  static Future<ArticleListData> getKnowledgeArticleData(int cid,int pageNum) async{
+  Future<ArticleListData> getKnowledgeArticleData(int cid,int pageNum) async{
     String path = '/article/list/$pageNum/json';
     Map<String, dynamic> params={"cid": cid};
-    Response response = await HttpUtils.get(Api.BASE_URL+path,params: params);
+    Response response = await httpUtils.get(path,params: params);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
   }
@@ -92,21 +103,21 @@ class DataUtils{
 
   /// 登录注册
   //登录
-  static Future<LoginData> getLoginData(String username,String password,BuildContext context) async{
+  Future<LoginData> getLoginData(String username,String password,BuildContext context) async{
     FormData formData = FormData.fromMap({"username": username, "password": password});
-    Response response = await HttpUtils.post(Api.LOGIN_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
+    Response response = await httpUtils.post(Api.LOGIN_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
 
   //注册
-  static Future<LoginData> getRegisterData(String username,String password,String repassword,BuildContext context) async{
+  Future<LoginData> getRegisterData(String username,String password,String repassword,BuildContext context) async{
     FormData formData =FormData.fromMap({"username": username, "password": password,"repassword": repassword});
-    Response response = await HttpUtils.post(Api.REGISTER_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
+    Response response = await httpUtils.post(Api.REGISTER_JSON,formData: formData,isAddLoading:true,context: context,loadingText: "正在登陆...");
     return BaseLoginData.fromJson(response.data).data;
   }
   //退出登录
-  static Future<String> getLoginOut() async{
-    Response response = await HttpUtils.get(Api.LOGIN_OUT_JSON);
+  Future<String> getLoginOut() async{
+    Response response = await httpUtils.get(Api.LOGIN_OUT_JSON);
     return response.data["data"];
   }
 
@@ -117,9 +128,9 @@ class DataUtils{
   // 站内文章收藏 （文章列表）
   //方法：POST
   //参数： 文章id，拼接在链接中。
-  static Future<String> getCollectInnerArticle(int id) async{
+  Future<String> getCollectInnerArticle(int id) async{
     String path = '/lg/collect/$id/json';
-    Response response = await HttpUtils.post(Api.BASE_URL+path);
+    Response response = await httpUtils.post(path);
     return response.data["data"];
   }
 
@@ -128,9 +139,9 @@ class DataUtils{
   //方法：POST
   //参数：
   //id:拼接在链接上
-  static Future<String> getCancelCollectInnerArticle(int id) async{
+  Future<String> getCancelCollectInnerArticle(int id) async{
     String path = '/lg/uncollect_originId/$id/json';
-    Response response = await HttpUtils.post(Api.BASE_URL+path);
+    Response response = await httpUtils.post(path);
     return response.data["data"];
   }
 
@@ -139,38 +150,38 @@ class DataUtils{
 
 
   //个人积分
-  static Future<CoinUserInfo> getCoinUserInfo() async{
-    Response response = await HttpUtils.get(Api.COIN_USER_INFO_JSON);
+  Future<CoinUserInfo> getCoinUserInfo() async{
+    Response response = await httpUtils.get(Api.COIN_USER_INFO_JSON);
     return BaseCoinInfo.fromJson(response.data).data;
   }
 
 
   /// SharedPreferences 存储 用户名 是否登录等状态
-  static void setUserName(String username){
+  void setUserName(String username){
      Application.sp.putString(SharedPreferencesKeys.USER_NAME_KEY,username);
   }
 
-  static String getUserName() {
+  String getUserName() {
     return Application.sp.getString(SharedPreferencesKeys.USER_NAME_KEY);
   }
 
-  static void setPassWord(String password) {
+  void setPassWord(String password) {
      Application.sp.putString(SharedPreferencesKeys.PASSWORD_KEY,password);
   }
 
-  static String getPassword() {
+  String getPassword() {
     return Application.sp.getString(SharedPreferencesKeys.PASSWORD_KEY);
   }
 
-  static void setLoginState(bool loginState) {
+  void setLoginState(bool loginState) {
      Application.sp.putBool(SharedPreferencesKeys.LOGIN_STATE_KEY,loginState);
   }
 
-  static bool getLoginState() {
+  bool getLoginState() {
     return Application.sp.getBool(SharedPreferencesKeys.LOGIN_STATE_KEY);
   }
   //是否登录
-  static bool hasLogin(){
+  bool hasLogin(){
     //是否存在登录的 key
     if(!Application.sp.hasKey(SharedPreferencesKeys.LOGIN_STATE_KEY)) return false;
     return getLoginState();

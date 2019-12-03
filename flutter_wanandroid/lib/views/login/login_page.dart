@@ -223,10 +223,10 @@ class _LoginPageState extends State<LoginPage> {
   void doLogin() async{
     _signInFormKey.currentState.save();
     //_showLoading(context);
-    LoginData loginData = await DataUtils.getLoginData(userName, passWord,context);
+    LoginData loginData = await dataUtils.getLoginData(userName, passWord,context);
     // events_bus
-    DataUtils.setUserName(loginData.username);
-    DataUtils.setLoginState(true);
+    dataUtils.setUserName(loginData.username);
+    dataUtils.setLoginState(true);
     //发出 登录成功事件
     Application.eventBus.fire(new LoginEvent(loginData));
     ToolUtils.ShowToast(msg: "登录成功");

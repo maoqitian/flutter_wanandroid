@@ -130,21 +130,21 @@ class _ListViewItemState extends State<ListViewItem> {
   }
 
   void _clickCollection() async {
-    if(!DataUtils.hasLogin()){
+    if(!dataUtils.hasLogin()){
       Application.router.navigateTo(context,Routes.login);
       ToolUtils.ShowToast(msg:"请先登录");
       return;
     }
     if(widget.articleData.collect){
       //取消收藏
-      await DataUtils.getCancelCollectInnerArticle(widget.articleData.id);
+      await dataUtils.getCancelCollectInnerArticle(widget.articleData.id);
       setState(() {
         widget.articleData.collect = false;
       });
       ToolUtils.ShowToast(msg:"取消收藏成功");
     }else{
       //添加收藏
-      await DataUtils.getCollectInnerArticle(widget.articleData.id);
+      await dataUtils.getCollectInnerArticle(widget.articleData.id);
       setState(() {
         widget.articleData.collect = true;
       });

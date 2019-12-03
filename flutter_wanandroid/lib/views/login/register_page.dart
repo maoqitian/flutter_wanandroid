@@ -303,10 +303,10 @@ class _RegisterPageState extends State<RegisterPage> {
        ToolUtils.ShowToast(msg: "两次输入的密码不一致！！");
        return;
      }
-     LoginData loginData = await DataUtils.getRegisterData(userName, passWord, rePassWord,context);
+     LoginData loginData = await dataUtils.getRegisterData(userName, passWord, rePassWord,context);
      // events_bus
-     DataUtils.setUserName(loginData.username);
-     DataUtils.setLoginState(true);
+     dataUtils.setUserName(loginData.username);
+     dataUtils.setLoginState(true);
      //发出 登录成功事件
      Application.eventBus.fire(new LoginEvent(loginData));
      ToolUtils.ShowToast(msg: "注册成功");

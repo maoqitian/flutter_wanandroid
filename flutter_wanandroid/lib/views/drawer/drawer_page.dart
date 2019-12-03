@@ -49,7 +49,7 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   void initState() {
     super.initState();
-    isLogin = DataUtils.hasLogin();
+    isLogin = dataUtils.hasLogin();
 
     if(isLogin){
       //如果已经登陆  获取积分 等级 保持积分数据更新
@@ -79,7 +79,7 @@ class _DrawerPageState extends State<DrawerPage> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         UserAccountsDrawerHeader(
-           accountName: Text(isLogin ? DataUtils.getUserName():"点击头像登录",
+           accountName: Text(isLogin ? dataUtils.getUserName():"点击头像登录",
                  style:TextStyle(color: Colors.white,
                      fontWeight: FontWeight.bold )),
            accountEmail: Container(
@@ -338,7 +338,7 @@ class _DrawerPageState extends State<DrawerPage> {
   }
 
   void getCoinUserInfo() async{
-    CoinUserInfo coinUserInfo = await DataUtils.getCoinUserInfo();
+    CoinUserInfo coinUserInfo = await dataUtils.getCoinUserInfo();
     setState(() {
       coin = coinUserInfo.coinCount;
       level = coinUserInfo.level;
@@ -397,11 +397,11 @@ class _DrawerPageState extends State<DrawerPage> {
 
   void doLoginOut() async{
     //退出登录
-    await DataUtils.getLoginOut();
+    await dataUtils.getLoginOut();
     //发出 登录成功事件
     Application.eventBus.fire(new LoginOutEvent());
-    DataUtils.setUserName("");
-    DataUtils.setLoginState(false);
+    dataUtils.setUserName("");
+    dataUtils.setLoginState(false);
     ToolUtils.ShowToast(msg: "退出登录成功");
   }
 }
