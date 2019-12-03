@@ -129,11 +129,15 @@ class _RefreshPageState extends State<RefreshPage> {
       if(isLoading){
         return _buildIsLoading();
       }else{
-        return _buildEmpty();
+        return _buildEmptyError();
       }
     } else if(widget.isHaveHeader && items.length == 0){
       ///如果需要头部，并且数据为0，渲染loading 面
-      return _buildIsLoading();
+      if(isLoading){
+        return _buildIsLoading();
+      }else{
+        return _buildEmptyError();
+      }
     } else {
       ///回调外部正常渲染Item，如果这里有需要，可以直接返回相对位置的index，如果有头部 index 减一 保持不会忽略 index = 0 的数据
       return widget.renderItem(index, items[widget.isHaveHeader ? index-1 : index]);
@@ -176,13 +180,37 @@ class _RefreshPageState extends State<RefreshPage> {
     }
   }
 
-  ///空页面 empty
-  Widget  _buildEmpty()  {
+  ///空页面  错误 页面 empty error
+  Widget  _buildEmptyError()  {
     return Container(
-      child: new Center(
-        child: new Text("空页面 empty"),
-      ),
-    );
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height*0.85,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text("页面出错了！！"),
+            RaisedButton(
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              child: Text(
+                  "重新加载"
+              ),
+              onPressed: (){
+                if (this.mounted) { //mounted == true  保证 当前widget 状态可以更新
+                  setState(() {
+                    items.clear();
+                    isLoading = false;
+                    _hasMore = true;
+                    _pageIndex = 0;
+                  });
+                  _getMoreData();
+                }
+              },
+            )
+          ],
+        ),
+      );
   }
 
 

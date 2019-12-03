@@ -3,6 +3,7 @@ import 'package:flutter_wanandroid/components/main_app_bar.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/drawer/drawer_page.dart';
 import 'package:flutter_wanandroid/views/home/page/first_page.dart';
+import 'package:flutter_wanandroid/views/home/page/latest_project_page.dart';
 
 /// Created with Android Studio.
 /// User: maoqitian
@@ -151,7 +152,12 @@ class HomePageTabBarViewLayout extends StatelessWidget {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
       case 1:
+        //最新博文
         return FirstPage();
+        break;
+      case 2:
+        //最新项目
+        return LatestProjectPage();
         break;
       default:
         return  Container(
