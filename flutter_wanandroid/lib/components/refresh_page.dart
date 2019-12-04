@@ -59,7 +59,7 @@ class _RefreshPageState extends State<RefreshPage> {
         setState(() => isLoading = true);
       }
       //if(_hasMore){ // 还有数据可以拉新
-      List newEntries = await mokeHttpRequest(false);
+      List newEntries = await makeHttpRequest(false);
       //if (newEntries.isEmpty) {
       _hasMore = (_pageIndex <= _pageTotal);
       if (this.mounted) {
@@ -74,7 +74,7 @@ class _RefreshPageState extends State<RefreshPage> {
     }
   }
 
-  Future<List> mokeHttpRequest(bool isRefresh) async {
+  Future<List> makeHttpRequest(bool isRefresh) async {
     if (widget.requestApi is Function) {
       Map listObj = new Map<String, dynamic>();
       if(isRefresh){
@@ -168,7 +168,7 @@ class _RefreshPageState extends State<RefreshPage> {
   // 其实就是列表重置
   Future<Null> _handleRefresh() async {
     print("下拉刷新 ");
-    List newEntries = await mokeHttpRequest(true);
+    List newEntries = await makeHttpRequest(true);
     if (this.mounted) { //mounted == true  保证 当前widget 状态可以更新
       setState(() {
         items.clear();
@@ -182,7 +182,7 @@ class _RefreshPageState extends State<RefreshPage> {
 
   ///空页面  错误 页面 empty error
   Widget  _buildEmptyError()  {
-    return Container(
+    return  Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height*0.85,
       child: Column(

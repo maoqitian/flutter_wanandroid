@@ -60,7 +60,7 @@ class DataUtils{
   // 首页 最新项目 列表数据
   //方法：GET
   //参数：页码，拼接在连接中，从0开始。
-  Future<ArticleListData> getListProjectData(int pageNum) async{
+  Future<ArticleListData> getLatestProjectData(int pageNum) async{
     String path = '/article/listproject/$pageNum/json';
     Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);

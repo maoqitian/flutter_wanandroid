@@ -15,13 +15,11 @@ import 'package:flutter_wanandroid/widget/stroke_widget.dart';
 
 class ListViewItem extends StatefulWidget {
 
-  final String itemUrl;
-  final String itemTitle;
-  final String data;
+
   final ArticleData articleData;
   final bool isHomeShow; // 是否首页展示 控制 是否还能点击 进入知识体系
 
-  const ListViewItem({Key key, this.itemUrl, this.itemTitle, this.data,this.articleData,this.isHomeShow = true})
+  const ListViewItem({Key key, this.articleData,this.isHomeShow = true})
       :super(key:key);
 
   @override
