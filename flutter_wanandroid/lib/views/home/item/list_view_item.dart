@@ -87,7 +87,10 @@ class _ListViewItemState extends State<ListViewItem> {
     ));
     widget.add(Padding(
       child: Text('时间：'+articleData.niceDate ,
-          style: TextStyle(color: Colors.black54, fontSize: 10.0)),
+          style: TextStyle(color: Colors.black54, fontSize: 10.0,),
+          maxLines: 1, // title 只显示一行
+          overflow: TextOverflow.ellipsis //超出一行 显示 ...
+      ),
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0,left: 5.0),
     ));
     widget.add(Expanded(
@@ -125,7 +128,7 @@ class _ListViewItemState extends State<ListViewItem> {
                 fontWeight: FontWeight.w100),
           )
       ),
-      padding: EdgeInsets.only(right: 10.0),
+      padding: EdgeInsets.only(right: 5.0),
     );
   }
 

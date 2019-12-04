@@ -50,25 +50,9 @@ class _FirstPageState extends State<FirstPage> {
   //获取 文章 列表数据
   Future<Map> getIndexListData([Map<String, dynamic> params]) async {
    var pageIndex = (params is Map) ? params['pageIndex'] : 0;
-    /*var  pageTotal = 0;
-    String path = '/article/list/$pageIndex/json';
-    try{
-    var response = await HttpUtils.get(Api.BASE_URL+path);
-    if(response != null && response['errorCode'] == 0){
-      pageTotal = response['data']['pageCount'];
-      if (!(pageTotal is int) || pageTotal <= 0) {
-        pageTotal = 0;
-      }
-      for (int i = 0; i < response['data']['datas'].length; i++) {
-        Map<String, dynamic> json = response['data']['datas'][i];
-        articleList.add(ArticleData.fromJson(json));
-       }
-      }
-     }catch(e){
-    }*/
+    Map<String, dynamic> result;
     if(pageIndex == 0){ //置顶 数据 正常列表数据 同时请求 第一次请求
       List<ArticleData> articleAllList = [];
-      Map<String, dynamic> result;
        await Future.wait([dataUtils.getArticleTopData(),dataUtils.getArticleData(pageIndex)])
           .then((List articleList){
         if(articleList == null){
@@ -82,14 +66,17 @@ class _FirstPageState extends State<FirstPage> {
         }
       },onError: (e){
             print("发生错误"+e.toString());
-            result = {"list":[], 'total':0, 'pageIndex':pageIndex};
+            result = {"list":[], 'total':0, 'pageIndex':0};
        }
       );
       return result;
     }else{
       //正常列表数据 加载更多
-      ArticleListData articleListData = await dataUtils.getArticleData(pageIndex);
-      Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
+       await dataUtils.getArticleData(pageIndex).then((ArticleListData articleListData){
+         result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
+      },onError: (e){
+         result = {"list":[], 'total':0, 'pageIndex':0};
+       });
       return result;
     }
   }

@@ -14,7 +14,7 @@ import 'api/Api.dart';
 /// User: maoqitian
 /// Date: 2019-11-03
 /// email: maoqitian068@163.com
-/// des:  网络请求工具类
+/// des:  网络请求工具类  单例模式
 
 
 Map<String, dynamic> optHeader = {
@@ -34,7 +34,6 @@ class HttpUtils {
 
   //单例模式
 
-
   Dio _dio;
 
   HttpUtils._internal() {
@@ -46,7 +45,6 @@ class HttpUtils {
       _dio.options.receiveTimeout = 30 * 1000;
     }
   }
-
 
 
   // url ：网络请求地址
@@ -79,22 +77,20 @@ class HttpUtils {
         String data = response.data["errorMsg"];
         ToolUtils.ShowToast(msg: data);
       }
+      disMissLoadingDialog(isAddLoading, context);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response!= null) {
-        ToolUtils.ShowToast(msg: "网络出现异常"+e.response.data);
         print(e.response.headers);
         print(e.response.request);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.request);
-        ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
       }
+      ToolUtils.ShowToast(msg: handleError(e));
+      disMissLoadingDialog(isAddLoading, context);
       return null;
-    }
-    if(isAddLoading){
-      dismissLoading(context);
     }
   }
 
@@ -124,6 +120,7 @@ class HttpUtils {
       }else{
         response = await _dio.post(url);
       }
+      disMissLoadingDialog(isAddLoading, context);
       if(response.data["errorCode"] == 0 ){
         return response;
       }else{
@@ -134,23 +131,24 @@ class HttpUtils {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response!= null) {
-        ToolUtils.ShowToast(msg: "网络出现异常"+e.response.data);
         print(e.response.headers);
         print(e.response.request);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.request);
-        ToolUtils.ShowToast(msg: "网络出现异常"+e.message);
       }
-      dismissLoading(context);
+      ToolUtils.ShowToast(msg: handleError(e));
+      disMissLoadingDialog(isAddLoading, context);
       return null;
-    }
-    if(isAddLoading){
-      dismissLoading(context);
     }
   }
 
 
+  void disMissLoadingDialog(bool isAddLoading,BuildContext context){
+    if(isAddLoading){
+      Navigator.of(context).pop();
+    }
+  }
 
   /// 显示Loading
   void showLoading(BuildContext context,String loadText) {
@@ -164,9 +162,45 @@ class HttpUtils {
           );
         });
   }
-  /// 隐藏Loading
-  void dismissLoading(BuildContext context) {
-    Navigator.of(context).pop();
+
+
+  static String handleError(error, {String defaultErrorStr = '未知错误!!!'}) {
+    String errStr;
+    if (error is DioError) {
+      if (error.type == DioErrorType.CONNECT_TIMEOUT) {
+        errStr = '连接超时!!!';
+      } else if (error.type == DioErrorType.SEND_TIMEOUT) {
+        errStr = '请求超时!!!';
+      } else if (error.type == DioErrorType.RECEIVE_TIMEOUT) {
+        errStr = '响应超时!!!';
+      } else if (error.type == DioErrorType.CANCEL) {
+        errStr = '请求取消!!!';
+      } else if (error.type == DioErrorType.RESPONSE) {
+        int statusCode = error.response.statusCode;
+        String msg = error.response.statusMessage;
+
+        /// 异常状态码的处理
+        switch (statusCode) {
+          case 500:
+            errStr = '服务器异常!!!';
+            break;
+          case 404:
+            errStr = '未找到资源!!!';
+            break;
+          default:
+            errStr = '$msg[$statusCode]';
+            break;
+        }
+      } else if (error.type == DioErrorType.DEFAULT) {
+        errStr = '${error.message}';
+        if (error.error is SocketException) {
+          errStr = '网络连接超时!!!';
+        }
+      } else {
+        errStr = '未知错误!!!';
+      }
+    }
+    return errStr ?? defaultErrorStr;
   }
 
 }

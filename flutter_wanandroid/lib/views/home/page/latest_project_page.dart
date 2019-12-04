@@ -2,7 +2,7 @@
 /// User: maoqitian
 /// Date: 2019/11/28 0028
 /// email: maoqitian068@163.com
-/// des:  最新项目
+/// des:  最新项目 page
 import 'package:flutter/material.dart';
 
 
@@ -13,6 +13,14 @@ class LatestProjectPage extends StatefulWidget {
 }
 
 class _LatestProjectPageState extends State<LatestProjectPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(

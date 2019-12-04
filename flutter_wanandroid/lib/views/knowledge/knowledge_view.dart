@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-30
@@ -38,18 +39,14 @@ class _KnowledgeViewState extends State<KnowledgeView> {
   //获取 文章 列表数据
   Future<Map> getIndexListData([Map<String, dynamic> params]) async {
     var pageIndex = (params is Map) ? params['pageIndex'] : 0;
-
-    if(pageIndex == 0){ //置顶 数据 正常列表数据 同时请求 第一次请求
-      ArticleListData articleListData = await dataUtils.getKnowledgeArticleData(widget.id, pageIndex);
-      pageIndex += 1;
-      Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':pageIndex};
+    Map<String, dynamic> result;
+      await dataUtils.getKnowledgeArticleData(widget.id, pageIndex).then((ArticleListData articleListData){
+        result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
+      },onError: (e){
+        print("onError 发生错误");
+        result = {"list":[], 'total':0, 'pageIndex':0};
+      });
       return result;
-    }else{
-      //正常列表数据 加载更多
-      ArticleListData articleListData = await dataUtils.getKnowledgeArticleData(widget.id,pageIndex);
-      Map<String, dynamic> result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
-      return result;
-    }
   }
 
   @override
