@@ -6,8 +6,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 
 class ProjectListItem extends StatefulWidget {
@@ -33,30 +35,92 @@ class _ProjectListItemState extends State<ProjectListItem> {
              Application.router.navigateTo(context, '${Routes.webViewPage}?title=${Uri.encodeComponent(widget.articleData.title)}&url=${Uri.encodeComponent(widget.articleData.link)}');
            },
            title: Row(
+             mainAxisAlignment: MainAxisAlignment.start,
+             crossAxisAlignment: CrossAxisAlignment.start,
              children: <Widget>[
-               Container(
-                 width: 200,
-                 height: 150,
-                 child: Text(widget.articleData.title,
-                     style: TextStyle(color: Colors.black, fontSize: 15.0),
-                     maxLines: 2, // title 显示2行
-                     overflow: TextOverflow.ellipsis //超出2行 显示 ...
-                 ),
+               Expanded(
+                 flex: 2,
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: <Widget>[
+                      Padding(
+                       padding: EdgeInsets.all(5.0),
+                       child:Row(
+                         children: <Widget>[
+                           Icon(Icons.person,size: 20.0),
+                          Padding(
+                           child: Text(widget.articleData.author == ""? widget.articleData.shareUser :widget.articleData.author,
+                           style: TextStyle(color: Colors.black54, fontSize: 10.0)),
+                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0,left: 5.0),
+                          )
+                         ],
+                       ),),
+                       Padding(
+                         padding: EdgeInsets.all(5.0),
+                         child: Text(widget.articleData.title,
+                             style: TextStyle(color: Colors.black, fontSize: 15.0,fontWeight: FontWeight.bold),
+                             maxLines: 2, // title 显示2行
+                             overflow: TextOverflow.ellipsis //超出2行 显示 ...
+                         ),
+                       ),
+                       Padding(
+                         padding: EdgeInsets.all(5.0),
+                         child: Text(widget.articleData.desc,
+                             style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                             maxLines: 2, // title 显示2行
+                             overflow: TextOverflow.ellipsis //超出2行 显示 ...
+                         ),
+                       ),
+                       Row(
+                         children: <Widget>[
+                           IconButton(icon: Icon(Icons.favorite_border),onPressed: (){
+                             print("点击收藏");
+                           }),
+                           Text("时间："+widget.articleData.niceDate,
+                               style: TextStyle(color: Colors.grey, fontSize: 10.0),
+                               maxLines: 1, // title 显示2行
+                               overflow: TextOverflow.ellipsis //超出2行 显示 ...
+                           ),
+                       Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.0),
+                           child: InkWell( //点击水波纹效果
+                             child: Text(widget.articleData.chapterName,
+                             maxLines: 1,
+                             style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
+                             overflow: TextOverflow.ellipsis,
+                          ),
+                        onTap: (){
+                         if(this.widget.isHomeShow){
+                          print("跳转 知识体系下文章 ");
+                          Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(widget.articleData)}');
+                           }
+                          },
+                         )
+                        ))],
+                       )
+                     ],
+                   )
                ),
-               ClipRRect(
-                 child: Image.network(
-                   widget.articleData.envelopePic,
-                   fit: BoxFit.fill,
-                   width: 120,
-                   height:240,
-                 ),
-                 borderRadius: BorderRadius.only(
-                   topLeft: Radius.circular(5),
-                   topRight: Radius.circular(5),
-                   bottomLeft:Radius.circular(5),
-                   bottomRight: Radius.circular(5),
-                 ),
-               )
+              Expanded(
+               flex: 1,
+                child:
+                ClipRRect(
+                  child: Image.network(
+                    widget.articleData.envelopePic,
+                    fit: BoxFit.fill,
+                    height:240,
+                  ),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(5),
+                    topRight: Radius.circular(5),
+                    bottomLeft:Radius.circular(5),
+                    bottomRight: Radius.circular(5),
+                  ),
+                )
+              )
+
              ],
            ),
            subtitle: Row(
