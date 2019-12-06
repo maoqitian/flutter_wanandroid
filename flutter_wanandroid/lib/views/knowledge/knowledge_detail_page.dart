@@ -1,3 +1,5 @@
+import 'dart:math';
+
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-11-30
@@ -17,10 +19,11 @@ TabController   _tabController;
 class KnowledegDetailPage extends StatefulWidget {
 
   String type; //页面跳转类型 首页跳转 还是知识体系跳转
+  String author;//作者名称
   final String articleJson;
   final String knowledgeJson;
 
-  KnowledegDetailPage({this.type,this.articleJson,this.knowledgeJson});
+  KnowledegDetailPage({this.type,this.author,this.articleJson,this.knowledgeJson});
 
   @override
   _KnowledegDetailPageState createState() => _KnowledegDetailPageState();
@@ -39,10 +42,21 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
     _items.clear();
     super.initState();
     if(Constants.RESULT_CODE_HOME_PAGE == widget.type){
+      //首页最新博文进入
       articleData= ArticleData.fromJson(ToolUtils.string2map(widget.articleJson));
       _title = articleData.superChapterName;
       _items.add(new KnowledgeHierarchyData(articleData.courseId,articleData.superChapterId,articleData.chapterName,0,0,false,1,null));
+    }else if(Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type){
+      //首页最新项目 进入 id 选择 chapterId
+      articleData= ArticleData.fromJson(ToolUtils.string2map(widget.articleJson));
+      _title = articleData.superChapterName;
+      _items.add(new KnowledgeHierarchyData(articleData.courseId,articleData.chapterId,articleData.chapterName,0,0,false,1,null));
+    } else if(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE == widget.type){
+      //约定 author 作者文章页面 id = -1 来标识 作者文章页面
+      _title = widget.author;
+      _items.add(new KnowledgeHierarchyData(0,-1,widget.author,0,0,false,1,null));
     }else{
+      //知识体系模块进入
       knowledgeHierarchyData = KnowledgeHierarchyData.fromJson(ToolUtils.string2map(widget.knowledgeJson));
       _title = knowledgeHierarchyData.name;
       _items.addAll(knowledgeHierarchyData.children);
@@ -87,7 +101,7 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
         //设置tab未选中得颜色
         unselectedLabelColor: Colors.white54,
         indicatorColor: Colors.white,
-        indicator: (Constants.RESULT_CODE_HOME_PAGE == widget.type) ? const BoxDecoration():null, //如果是首页进入 取消下划线，伪装成 app bar title
+        indicator: (isKnowledgeCome()) ? const BoxDecoration():null, //如果是首页进入 取消下划线，伪装成 app bar title
         //设置自定义tab的指示器，CustomUnderlineTabIndicator
         //若不需要自定义，可直接通过
         //indicatorColor 设置指示器颜色
@@ -108,12 +122,21 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
             Navigator.of(context).pop(this);
           }),
       //如果是首页进入知识体系 标题 之前嵌入 appbar
-      title: (Constants.RESULT_CODE_HOME_PAGE == widget.type)? buildTabBar():
+      title: (isKnowledgeCome())? buildTabBar():
       Text(_title,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: Colors.white)),
       centerTitle: true,
       //设置title 形式嵌入 tabbar 也可以 通过“bottom”属性在AppBar下方来添加一个导航栏底部tab按钮组
-      bottom: (Constants.RESULT_CODE_HOME_PAGE == widget.type)? null : buildTabBar(),
+      bottom: (isKnowledgeCome())? null : buildTabBar(),
     );
+  }
+
+  //判断是否为 知识体系模块跳转 控制 tabBar 显示位置
+  bool isKnowledgeCome(){
+    if(Constants.RESULT_CODE_HOME_PAGE == widget.type|| Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type|| Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE == widget.type){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }
@@ -128,7 +151,7 @@ class KnowledgeTabBarViewLayout extends StatelessWidget {
     return TabBarView(
       controller: _tabController,
       children: _items.map((KnowledgeHierarchyData hierarchyData){
-        return KnowledgeView(hierarchyData.id);
+        return KnowledgeView(id: hierarchyData.id,author: hierarchyData.name,);
       }).toList(),
     );
   }

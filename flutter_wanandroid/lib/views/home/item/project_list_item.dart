@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
@@ -72,34 +73,6 @@ class _ProjectListItemState extends State<ProjectListItem> {
                              overflow: TextOverflow.ellipsis //超出2行 显示 ...
                          ),
                        ),
-                       Row(
-                         children: <Widget>[
-                           IconButton(icon: Icon(Icons.favorite_border),onPressed: (){
-                             print("点击收藏");
-                           }),
-                           Text("时间："+widget.articleData.niceDate,
-                               style: TextStyle(color: Colors.grey, fontSize: 10.0),
-                               maxLines: 1, // title 显示2行
-                               overflow: TextOverflow.ellipsis //超出2行 显示 ...
-                           ),
-                       Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 5.0),
-                           child: InkWell( //点击水波纹效果
-                             child: Text(widget.articleData.chapterName,
-                             maxLines: 1,
-                             style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
-                             overflow: TextOverflow.ellipsis,
-                          ),
-                        onTap: (){
-                         if(this.widget.isHomeShow){
-                          print("跳转 知识体系下文章 ");
-                          Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(widget.articleData)}');
-                           }
-                          },
-                         )
-                        ))],
-                       )
                      ],
                    )
                ),
@@ -125,10 +98,56 @@ class _ProjectListItemState extends State<ProjectListItem> {
            ),
            subtitle: Row(
              children: <Widget>[
-
+               IconButton(icon: Icon(widget.articleData.collect ?Icons.favorite:Icons.favorite_border,
+                   color: widget.articleData.collect ? Colors.deepOrange : Colors.grey, size: 25.0),onPressed:_clickCollection,),
+               Text("时间："+widget.articleData.niceDate,
+                   style: TextStyle(color: Colors.grey, fontSize: 10.0),
+                   maxLines: 1, // title 显示2行
+                   overflow: TextOverflow.ellipsis //超出2行 显示 ...
+               ),
+               Expanded(
+                   child: Padding(
+                       padding: EdgeInsets.only(left: 5.0),
+                       child: InkWell( //点击水波纹效果
+                         child: Text("查看同类型文章",
+                           maxLines: 1,
+                           style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
+                           overflow: TextOverflow.ellipsis,
+                         ),
+                         onTap: (){
+                           if(this.widget.isHomeShow){
+                             print("跳转 知识体系下文章 ");
+                             Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_LATEST_PROJECT_PAGE)}&articleJson=${ToolUtils.object2string(widget.articleData)}');
+                           }
+                         },
+                       )
+                   ))
              ],
            ),
          )
     );
+  }
+
+  void _clickCollection() async {
+    if(!dataUtils.hasLogin()){
+      Application.router.navigateTo(context,Routes.login);
+      ToolUtils.ShowToast(msg:"请先登录");
+      return;
+    }
+    if(widget.articleData.collect){
+      //取消收藏
+      await dataUtils.getCancelCollectInnerArticle(widget.articleData.id);
+      setState(() {
+        widget.articleData.collect = false;
+      });
+      ToolUtils.ShowToast(msg:"取消收藏成功");
+    }else{
+      //添加收藏
+      await dataUtils.getCollectInnerArticle(widget.articleData.id);
+      setState(() {
+        widget.articleData.collect = true;
+      });
+      ToolUtils.ShowToast(msg:"收藏成功");
+    }
   }
 }

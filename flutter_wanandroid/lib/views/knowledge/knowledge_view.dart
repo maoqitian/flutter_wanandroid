@@ -14,8 +14,8 @@ import 'package:flutter_wanandroid/views/home/item/list_view_item.dart';
 class KnowledgeView extends StatefulWidget {
 
   int id;
-
-  KnowledgeView(this.id);
+  String author;
+  KnowledgeView({this.id,this.author});
 
   @override
   _KnowledgeViewState createState() => _KnowledgeViewState();
@@ -40,12 +40,21 @@ class _KnowledgeViewState extends State<KnowledgeView> {
   Future<Map> getIndexListData([Map<String, dynamic> params]) async {
     var pageIndex = (params is Map) ? params['pageIndex'] : 0;
     Map<String, dynamic> result;
-      await dataUtils.getKnowledgeArticleData(widget.id, pageIndex).then((ArticleListData articleListData){
-        result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
-      },onError: (e){
-        print("onError 发生错误");
-        result = {"list":[], 'total':0, 'pageIndex':0};
-      });
+      if(-1 == this.widget.id){
+        await dataUtils.getAuthorArticleData(widget.author, pageIndex).then((ArticleListData articleListData){
+          result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
+        },onError: (e){
+          print("onError 发生错误");
+          result = {"list":[], 'total':0, 'pageIndex':0};
+        });
+      }else{
+        await dataUtils.getKnowledgeArticleData(widget.id, pageIndex).then((ArticleListData articleListData){
+          result = {"list":articleListData.datas, 'total':articleListData.pageCount, 'pageIndex':articleListData.curPage};
+        },onError: (e){
+          print("onError 发生错误");
+          result = {"list":[], 'total':0, 'pageIndex':0};
+        });
+      }
       return result;
   }
 

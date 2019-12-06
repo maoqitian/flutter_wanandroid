@@ -42,9 +42,7 @@ class _ListViewItemState extends State<ListViewItem> {
         },
         leading: IconButton(icon: new Icon(widget.articleData.collect ? Icons.favorite : Icons.favorite_border,
             color: widget.articleData.collect ? Colors.deepOrange : Colors.grey, size: 25.0),
-            onPressed: (){
-              _clickCollection();
-            }),
+            onPressed: _clickCollection),
         title: Padding( //文章标题
           padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
           child: Text(
@@ -77,10 +75,19 @@ class _ListViewItemState extends State<ListViewItem> {
       //加入 tag 标签
       widget.add( _buildStrokeWidget(articleData.tags[0].name,Colors.green));
     }
-    widget.add(new Icon(Icons.person,size: 20.0));
+    widget.add(new Icon(articleData.author == ""?Icons.folder_shared:Icons.person,size: 20.0));
     widget.add( Padding(
-      child: Text(articleData.author == ""? articleData.shareUser :articleData.author,
-          style: TextStyle(color: Colors.black54, fontSize: 10.0)),
+      child: InkWell(
+        child: Text(articleData.author == ""? articleData.shareUser :articleData.author,
+            style: TextStyle(color: this.widget.isHomeShow? Colors.blue:Colors.black54, fontSize: 10.0)),
+        onTap: (){
+          if(!(articleData.author == "")){ //如果作者不为空，说明可以更加作者昵称查看文章 否则查看 分享人 个人信息主页
+            Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(articleData.author)}');
+          }else{
+            print("跳转分享人个人中心");
+          }
+        },
+      ),
       padding: EdgeInsets.only(top: 10.0, bottom: 10.0,left: 5.0),
     ));
     widget.add(Padding(
@@ -97,13 +104,13 @@ class _ListViewItemState extends State<ListViewItem> {
           child: InkWell( //点击水波纹效果
             child: Text(articleData.superChapterName+" / "+ articleData.chapterName,
             maxLines: 1,
-            style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
+            style: TextStyle(color:this.widget.isHomeShow? Colors.blue:Colors.black54, fontSize: 10.0,decoration: TextDecoration.none),
             overflow: TextOverflow.ellipsis,
           ),
           onTap: (){
             if(this.widget.isHomeShow){
               print("跳转 知识体系下文章 ");
-              Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(articleData)}');
+              Application.router.navigateTo(context,'${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(articleData)}');
             }
           },
           )

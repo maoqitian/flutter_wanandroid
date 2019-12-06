@@ -21,6 +21,8 @@ import 'package:flutter_wanandroid/model/friend/base_friend_data.dart';
 import 'package:flutter_wanandroid/model/friend/friend_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/base_hot_key_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/hot_key_data.dart';
+import 'package:flutter_wanandroid/model/knowledge/base_knowledge_hierarchy_data.dart';
+import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'api/Api.dart';
@@ -90,11 +92,26 @@ class DataUtils{
 
   /// 知识体系
 
+  //体系数据
+  Future<List<KnowledgeHierarchyData>> getKnowledgeTreeData() async{
+    Response response = await httpUtils.get(Api.KNOWLEDGE_TREE_JSON);
+    BaseKnowledgeHierarchyData baseKnowledgeHierarchyData = BaseKnowledgeHierarchyData.fromJson(response.data);
+    return baseKnowledgeHierarchyData.data;
+  }
 
   //知识体系下的文章
   Future<ArticleListData> getKnowledgeArticleData(int cid,int pageNum) async{
     String path = '/article/list/$pageNum/json';
     Map<String, dynamic> params={"cid": cid};
+    Response response = await httpUtils.get(path,params: params);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+  // 按照作者昵称搜索文章(点击文章作者头像)
+  Future<ArticleListData> getAuthorArticleData(String author,int pageNum) async{
+    String path = '/article/list/$pageNum/json';
+    Map<String, dynamic> params={"author": author};
     Response response = await httpUtils.get(path,params: params);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;

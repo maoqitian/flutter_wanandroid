@@ -29,7 +29,11 @@ class Constants{
   //页面跳转类型
   //首页跳转
   static const String RESULT_CODE_HOME_PAGE = 'result_code_home_page';
+  //最新项目跳转
+  static const String RESULT_CODE_LATEST_PROJECT_PAGE = 'result_code_latest_project_page';
   //知识体系跳转
   static const String RESULT_CODE_KNOWLEDGE_PAGE = 'result_code_knowledge_page';
+  //作者文章查看
+  static const String RESULT_CODE_AUTHOR_ARTICLE_PAGE = 'result_code_author_article_page';
 
 }
