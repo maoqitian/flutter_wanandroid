@@ -61,7 +61,7 @@ class _RefreshPageState extends State<RefreshPage> {
       //if(_hasMore){ // 还有数据可以拉新
       List newEntries = await makeHttpRequest(false);
       //if (newEntries.isEmpty) {
-      _hasMore = (_pageIndex <= _pageTotal);
+      _hasMore = (_pageIndex < _pageTotal);
       if (this.mounted) {
         setState(() {
           items.addAll(newEntries);
