@@ -21,8 +21,10 @@ class KnowledgeView extends StatefulWidget {
   _KnowledgeViewState createState() => _KnowledgeViewState();
 }
 
-class _KnowledgeViewState extends State<KnowledgeView> {
+class _KnowledgeViewState extends State<KnowledgeView> with AutomaticKeepAliveClientMixin {
 
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -60,12 +62,13 @@ class _KnowledgeViewState extends State<KnowledgeView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: <Widget>[
         new Expanded(
             child: listComp.RefreshPage(getIndexListData,makeCard,null,false)
         )
       ],
-    );;
+    );
   }
 }

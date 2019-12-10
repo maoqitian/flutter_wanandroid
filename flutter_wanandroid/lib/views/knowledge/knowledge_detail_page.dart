@@ -4,13 +4,14 @@ import 'dart:math';
 /// User: maoqitian
 /// Date: 2019-11-30
 /// email: maoqitian068@163.com
-/// des:  知识体系详情 文章列表打开  知识体系模块打开
+/// des:  知识体系详情 文章列表打开  最新项目查看同类型项目 知识体系模块打开
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
+import 'package:flutter_wanandroid/views/home/page/latest_project_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_view.dart';
 
 List <KnowledgeHierarchyData>_items=[];
@@ -69,7 +70,12 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: buildAppBar(),
-      body: KnowledgeTabBarViewLayout(),
+      body: TabBarView(
+        controller: _tabController,
+        children: _items.map((KnowledgeHierarchyData hierarchyData){
+          return (Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type) ? LatestProjectPage(id: hierarchyData.id,type: widget.type): KnowledgeView(id: hierarchyData.id,author: hierarchyData.name,);
+        }).toList(),
+      ),
     );
   }
 
@@ -139,20 +145,4 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
     }
   }
 
-}
-
-
-// TabBarView Widget
-class KnowledgeTabBarViewLayout extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    print("TabBarViewLayout build.......");
-    return TabBarView(
-      controller: _tabController,
-      children: _items.map((KnowledgeHierarchyData hierarchyData){
-        return KnowledgeView(id: hierarchyData.id,author: hierarchyData.name,);
-      }).toList(),
-    );
-  }
 }

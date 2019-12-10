@@ -17,8 +17,11 @@ class FirstPage extends StatefulWidget {
   _FirstPageState createState() => _FirstPageState();
 }
 
-class _FirstPageState extends State<FirstPage> {
+class _FirstPageState extends State<FirstPage> with AutomaticKeepAliveClientMixin {
 
+  //  防止页面重绘 三个步骤 扩展AutomaticKeepAliveClientMixin 重写wantKeepAlive 返回 true , build 方法加入super.build(context);
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -85,6 +88,7 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: <Widget>[
         new Expanded(

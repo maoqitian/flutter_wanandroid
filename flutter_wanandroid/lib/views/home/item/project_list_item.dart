@@ -109,7 +109,7 @@ class _ProjectListItemState extends State<ProjectListItem> {
                    child: Padding(
                        padding: EdgeInsets.only(left: 5.0),
                        child: InkWell( //点击水波纹效果
-                         child: Text("查看同类型文章",
+                         child: Text(widget.isHomeShow ? "查看同类型文章":"",
                            maxLines: 1,
                            style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
                            overflow: TextOverflow.ellipsis,
