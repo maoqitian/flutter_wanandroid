@@ -117,6 +117,24 @@ class DataUtils{
     return articleBaseData.data;
   }
 
+  ///项目
+  //项目分类
+  Future<List<KnowledgeHierarchyData>> getProjectClassifyData(BuildContext context) async{
+    Response response = await httpUtils.get(Api.PROJECT_TREE_JSON,isAddLoading:true,context: context,loadingText: "正在加载...");
+    BaseKnowledgeHierarchyData baseKnowledgeHierarchyData = BaseKnowledgeHierarchyData.fromJson(response.data);
+    return baseKnowledgeHierarchyData.data;
+  }
+
+  //项目列表数据
+  //cid 分类的id，上面项目分类接口
+  //页码：拼接在链接中，从1开始
+  Future<ArticleListData> getProjectListData(int cid,int pageNum) async{
+    String path = '/article/list/$pageNum/json';
+    Map<String, dynamic> params={"cid": cid};
+    Response response = await httpUtils.get(path,params: params);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
 
   /// 登录注册
   //登录
