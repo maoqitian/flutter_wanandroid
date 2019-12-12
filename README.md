@@ -2,6 +2,31 @@
 
 > wanandroid 客户端 Flutter 版本 持续开发中
 
+
+## 项目功能 (目前完成)
+### 首页
+- 首页文章列表
+- 首页banner
+- 置顶文章
+- 最新项目tab (首页的第二个tab)
+
+### 项目
+- 项目分类
+- 项目列表数据
+
+### 登录与注册
+- 登录、注册功能
+
+### 收藏
+- 收藏站外文章
+- 取消收藏
+
+### 积分
+- 获取个人积分
+
+### 主题切换
+- 切换App 主题
+
 ## 使用的第三方库
 
 第三方库 | 功能
@@ -15,3 +40,21 @@
 [provider](https://github.com/rrousselGit/provider) | 跨组件数据共享
 [event_bus](https://github.com/marcojakob/dart-event-bus) | 事件总线
 [flutter_spinkit](https://github.com/marcojakob/dart-event-bus) | 加载中指示器动画
+
+
+
+# License
+
+Copyright 2019 maoqitian
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.	
