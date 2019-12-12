@@ -71,13 +71,13 @@ class HttpUtils {
       } else {
         response = await _dio.get(url);
       }
+      disMissLoadingDialog(isAddLoading, context);
       if(response.data["errorCode"] == 0 ){
         return response;
       }else{
         String data = response.data["errorMsg"];
         ToolUtils.ShowToast(msg: data);
       }
-      disMissLoadingDialog(isAddLoading, context);
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.

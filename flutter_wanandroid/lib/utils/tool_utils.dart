@@ -32,6 +32,7 @@ class ToolUtils{
         .replaceAll("&ldquo;", "“")
         .replaceAll("&rdquo;", "”")
         .replaceAll("&bdquo;", "„")
+        .replaceAll("&amp;", "&")
         .replaceAll("&permil;", "‰")
         .replaceAll("&lsaquo;", "‹")
         .replaceAll("&rsaquo;", "›")

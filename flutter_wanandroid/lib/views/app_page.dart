@@ -35,6 +35,8 @@ class _AppPageState extends State<AppPage> {
   //当前 tab
   int _currentIndex = 0;
 
+  final pageController = PageController();
+
   List tabData = [
     {'text': '首页', 'icon': Icon(Icons.home)},
     {'text': '知识体系', 'icon': Icon(MyIcons.knowledge)},
@@ -123,7 +125,7 @@ class _AppPageState extends State<AppPage> {
 
   //是否显示 app bar 如为首页则不显示 app bar , app bar 由首页的 HomePage 创建
   renderAppBar(BuildContext context, Widget widget, int index) {
-   if(index != 0 ){
+   if(index != 0 && index != 4){
       return AppBar(
         leading: Builder( builder: (context){
           return IconButton(
@@ -164,14 +166,20 @@ class _AppPageState extends State<AppPage> {
        });
       }
      }
+  // 底部tab 切换
+  void _onTap(int index) {
+    pageController.jumpToPage(index);
+  }
 
   /// 创建 app page 页面
   Widget buildAppPage() {
     return Scaffold(
       appBar: renderAppBar(context, widget, _currentIndex),
-      body: IndexedStack(
-        index: _currentIndex,
+      body: PageView( //使用PageView 切换 优化界面全部加载问题
+        controller: pageController,
         children: _list,
+        onPageChanged: _itemTapped,
+        physics: NeverScrollableScrollPhysics(),// 禁止滑动
       ),
       /// 侧边栏 抽屉
       drawer: Drawer(
@@ -182,7 +190,7 @@ class _AppPageState extends State<AppPage> {
         //高亮  被点击高亮
         currentIndex: _currentIndex,
         //修改 页面
-        onTap: _itemTapped,
+        onTap: _onTap,
         //shifting :按钮点击移动效果
         //fixed：固定
         type: BottomNavigationBarType.fixed,

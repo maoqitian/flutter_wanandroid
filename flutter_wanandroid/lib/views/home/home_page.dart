@@ -119,7 +119,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         //设置tab选中得颜色
         labelColor: Colors.white,
         //设置tab未选中得颜色
-        unselectedLabelColor: Colors.white70,
+        unselectedLabelColor: Colors.white54,
+        indicatorColor: Colors.white,
         //设置自定义tab的指示器，CustomUnderlineTabIndicator
         //若不需要自定义，可直接通过
         //indicatorColor 设置指示器颜色
