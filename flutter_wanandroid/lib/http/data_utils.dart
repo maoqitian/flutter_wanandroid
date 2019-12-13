@@ -117,6 +117,38 @@ class DataUtils{
     return articleBaseData.data;
   }
 
+  ///公众号Tab
+  //获取公众号列表
+  Future<List<KnowledgeHierarchyData>> getWXArticleChaptersData() async{
+    Response response = await httpUtils.get(Api.WXARTICLE_CHAPTERS);
+    BaseKnowledgeHierarchyData baseKnowledgeHierarchyData = BaseKnowledgeHierarchyData.fromJson(response.data);
+    return baseKnowledgeHierarchyData.data;
+  }
+
+  //查看某个公众号历史数据（公众号文章列表数据）
+  //公众号 ID：拼接在 url 中，eg:405
+  //	公众号页码：拼接在url 中，eg:1
+  Future<ArticleListData> getWXArticleHistoryData(int id,int pageNum) async{
+    String path = '/article/list/$id/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+  //在某个公众号中搜索历史文章
+  //k : 字符串，eg:Java 搜索字段
+  //	公众号 ID：拼接在 url 中，eg:405
+  //	公众号页码：拼接在url 中，eg:1
+  Future<ArticleListData> getSearchWXArticleData(String searchKey,int id,int pageNum) async{
+    String path = '/wxarticle/list/$id/$pageNum/json';
+    Map<String, dynamic> params={"k": searchKey};
+    Response response = await httpUtils.get(path,params: params);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+  /// 导航
+
+
   ///项目
   //项目分类
   Future<List<KnowledgeHierarchyData>> getProjectClassifyData(BuildContext context) async{

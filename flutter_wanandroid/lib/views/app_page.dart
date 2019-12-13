@@ -6,12 +6,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/components/search_input.dart';
+import 'package:flutter_wanandroid/views/wechat/wechat_chapters_page.dart';
 import '../common/MyIcons.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/home/home_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_page.dart';
 import 'package:flutter_wanandroid/views/navigation/navigation_page.dart';
-import 'package:flutter_wanandroid/views/oa/oa_page.dart';
 import 'package:flutter_wanandroid/views/project/project_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -65,7 +65,7 @@ class _AppPageState extends State<AppPage> {
     _list
         ..add(new HomePage())
         ..add(new KnowledgePage())
-        ..add(new OfficialAccountsPage())
+        ..add(new WechatChaptersPage())
         ..add(new NavigationPage())
         ..add(new ProjectPage());
   }

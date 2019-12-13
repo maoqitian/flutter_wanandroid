@@ -13,12 +13,14 @@ class Api{
   //知识体系
   static const String KNOWLEDGE_TREE_JSON = 'tree/json';
 
-
   //导航数据
   static const String NAVIGATION_JSON = 'navi/json';
 
   //项目分类
   static const String PROJECT_TREE_JSON = 'project/tree/json';
+
+  //公众号列表数据
+  static const String WXARTICLE_CHAPTERS = 'wxarticle/chapters/json';
 
   //登录
   static const String LOGIN_JSON = 'user/login';

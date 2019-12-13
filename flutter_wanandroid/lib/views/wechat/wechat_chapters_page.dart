@@ -6,12 +6,12 @@
 import 'package:flutter/material.dart';
 
 
-class OfficialAccountsPage extends StatefulWidget {
+class WechatChaptersPage extends StatefulWidget {
   @override
-  _OfficialAccountsPageState createState() => _OfficialAccountsPageState();
+  _WechatChaptersPageState createState() => _WechatChaptersPageState();
 }
 
-class _OfficialAccountsPageState extends State<OfficialAccountsPage> {
+class _WechatChaptersPageState extends State<WechatChaptersPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
