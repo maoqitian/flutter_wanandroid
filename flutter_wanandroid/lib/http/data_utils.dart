@@ -25,6 +25,8 @@ import 'package:flutter_wanandroid/model/knowledge/base_knowledge_hierarchy_data
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
+import 'package:flutter_wanandroid/model/navigation/base_navigation_data.dart';
+import 'package:flutter_wanandroid/model/navigation/navigation_data.dart';
 import 'api/Api.dart';
 
 DataUtils dataUtils = new DataUtils();
@@ -147,7 +149,12 @@ class DataUtils{
     return articleBaseData.data;
   }
   /// 导航
-
+  //导航数据
+  Future<List<NavigationData>> getNavigationData() async{
+    Response response = await httpUtils.get(Api.NAVIGATION_JSON);
+    BaseNavigationData baseNavigationData = BaseNavigationData.fromJson(response.data);
+    return baseNavigationData.data;
+  }
 
   ///项目
   //项目分类
@@ -191,6 +198,16 @@ class DataUtils{
 
   /// 收藏模块
 
+  //收藏文章列表
+  //方法：GET
+  //参数： 页码：拼接在链接中，从0开始。
+  Future<ArticleListData> getCollectArticleListData(int pageNum) async{
+    String path = '/lg/collect/list/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
 
   // 站内文章收藏 （文章列表）
   //方法：POST
@@ -201,6 +218,11 @@ class DataUtils{
     return response.data["data"];
   }
 
+  //收藏站外文章
+  //方法：POST
+  //参数：
+  //	title，author，link
+  
 
   //取消收藏 文章列表
   //方法：POST
