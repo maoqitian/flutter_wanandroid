@@ -17,6 +17,8 @@ import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:flutter_wanandroid/model/coin/base_coin_info.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
+import 'package:flutter_wanandroid/model/collect/base_collect_list_data.dart';
+import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
 import 'package:flutter_wanandroid/model/friend/base_friend_data.dart';
 import 'package:flutter_wanandroid/model/friend/friend_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/base_hot_key_data.dart';
@@ -201,11 +203,11 @@ class DataUtils{
   //收藏文章列表
   //方法：GET
   //参数： 页码：拼接在链接中，从0开始。
-  Future<ArticleListData> getCollectArticleListData(int pageNum) async{
+  Future<CollectListData> getCollectArticleListData(int pageNum) async{
     String path = '/lg/collect/list/$pageNum/json';
     Response response = await httpUtils.get(path);
-    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
-    return articleBaseData.data;
+    BaseCollectListData baseCollectListData = BaseCollectListData.fromJson(response.data);
+    return baseCollectListData.data;
   }
 
 
@@ -222,6 +224,7 @@ class DataUtils{
   //方法：POST
   //参数：
   //	title，author，link
+
   
 
   //取消收藏 文章列表
@@ -234,6 +237,18 @@ class DataUtils{
     return response.data["data"];
   }
 
+  //取消收藏 我的收藏页面（该页面包含自己录入的内容）
+  //取消收藏 文章列表
+  //方法：POST
+  //参数：
+  //	id:拼接在链接上
+  //	originId:列表页下发，无则为-1
+  Future<String> getCancelCollect(int id,int originId) async{
+    String path = '/lg/uncollect/$id/json';
+    FormData formData = FormData.fromMap({"originId": originId});
+    Response response = await httpUtils.post(path,formData: formData);
+    return response.data["data"];
+  }
 
   /// 积分
 
