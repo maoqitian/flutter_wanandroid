@@ -67,7 +67,6 @@ class _DrawerPageState extends State<DrawerPage> {
     Application.eventBus.on<LoginOutEvent>().listen((event){
       setState(() {
         isLogin = false;
-
       });
     });
 
@@ -102,6 +101,7 @@ class _DrawerPageState extends State<DrawerPage> {
                  }else{
                    //登录则跳转用户中心
                    print("点击跳转用户中心");
+                   Application.router.navigateTo(context,Routes.userCenterPage);
                  }
               },
              )

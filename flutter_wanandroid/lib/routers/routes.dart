@@ -11,8 +11,8 @@ class Routes {
   static String knowledgedetail = "/knowledge_detail_page";
   static String login = "/login_page";
   static String register = "/register_page";
-  static String webViewPage = '/web-view-page';
-
+  static String webViewPage = '/web_view_page';
+  static String userCenterPage = '/user_center_page';
 
   static void configureRoutes(Router router){
 
@@ -26,6 +26,7 @@ class Routes {
     router.define(register, handler: registerHandler);
     router.define(webViewPage, handler: webViewPageHand);
     router.define(knowledgedetail, handler: knowledgeDetailHandler);
+    router.define(userCenterPage, handler: userCenterHandler);
   }
 
 

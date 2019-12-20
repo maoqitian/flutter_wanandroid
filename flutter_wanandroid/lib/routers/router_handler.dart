@@ -4,6 +4,7 @@ import 'package:flutter_wanandroid/views/app_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
+import 'package:flutter_wanandroid/views/user/user_center_page.dart';
 import 'package:flutter_wanandroid/views/web_page/web_view_page.dart';
 
 
@@ -43,5 +44,12 @@ var knowledgeDetailHandler = new Handler(
     String articleJson = params['articleJson']?.first;
     String knowledgeJson = params['knowledgeJson']?.first;
     return new KnowledegDetailPage(type:type,author:author,articleJson: articleJson,knowledgeJson: knowledgeJson,);
+  },
+);
+
+//用户中心
+var userCenterHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new UserCenterPage();
   },
 );

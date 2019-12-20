@@ -85,6 +85,7 @@ class _ListViewItemState extends State<ListViewItem> {
             Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(articleData.author)}');
           }else{
             print("跳转分享人个人中心");
+            Application.router.navigateTo(context, Routes.userCenterPage);
           }
         },
       ),
