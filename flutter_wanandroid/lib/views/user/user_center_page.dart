@@ -29,42 +29,52 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          //AppBar，包含一个导航栏
-          SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.white), //设置 icon 颜色
-            pinned: true,
-            expandedHeight: 150.0,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(dataUtils.getUserName(),style:TextStyle(color: Colors.white,
-                  fontWeight: FontWeight.bold )),
-              background: Image.asset(
-                ToolUtils.getImage("ic_zone_background",format: "webp"), fit: BoxFit.cover),
+      child: RefreshIndicator(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            //AppBar，包含一个导航栏
+            SliverAppBar(
+              iconTheme: IconThemeData(color: Colors.white), //设置 icon 颜色
+              pinned: true,
+              expandedHeight: 150.0,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(dataUtils.getUserName(),style:TextStyle(color: Colors.white,
+                    fontWeight: FontWeight.bold )),
+                background: Image.asset(
+                    ToolUtils.getImage("ic_zone_background",format: "webp"), fit: BoxFit.cover),
+              ),
+              //bottom: buildUserIconAndNickName(),
             ),
-            //bottom: buildUserIconAndNickName(),
-          ),
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: StickyTabBarDelegate(
-              child: buildTabBar(context)
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: StickyTabBarDelegate(
+                  child: buildTabBar(context)
+              ),
             ),
-          ),
 
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: _tabController,
-              children: Constants.userPages.map((Page page){
-                return buildTabView(context, page);
-              }).toList(),
-            ),
-          )
+            SliverFillRemaining(
+              child: TabBarView(
+                controller: _tabController,
+                children: Constants.userPages.map((Page page){
+                  return buildTabView(context, page);
+                }).toList(),
+              ),
+            )
 
 
-        ],
-      ),
+          ],
+        ),
+        onRefresh: _pageRefresh,
+        color: ToolUtils.getPrimaryColor(context), //指示器颜色
+      )
     );
   }
 
@@ -127,6 +137,13 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
         );
       //],
     //);
+  }
+
+  //页面刷新
+  Future<Null> _pageRefresh() async{
+    print("下拉刷新 ");
+
+    return null;
   }
 }
 //构造 TabBar
