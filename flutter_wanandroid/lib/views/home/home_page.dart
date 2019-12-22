@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/main_app_bar.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/drawer/drawer_page.dart';
@@ -10,23 +12,6 @@ import 'package:flutter_wanandroid/views/home/page/latest_project_page.dart';
 /// Date: 2019/10/31 0031
 /// email: maoqitian068@163.com
 /// des:  首页 widget  TabBar 、Tab、TabBarView 结合实现 选项卡
-
-
-
-
-//页面标题和id对象
-class _Page {
-  final String labelId;
-  final int labelIndex;
-
-  _Page(this.labelId,this.labelIndex);
-}
-
-//页面标题和id对象 集合
-final List<_Page> _allPages = <_Page>[
-  _Page('最新博文', 1),
-  _Page('最新项目', 2),
-];
 
 
 //用于控制/监听Tab菜单切换
@@ -55,7 +40,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: _allPages.length,vsync: this);
+    _tabController = new TabController(length: Constants.allPages.length,vsync: this);
   }
 
 
@@ -102,7 +87,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   buildTabBar() {
     return new TabBar(
       //构造Tab集合
-      tabs: _allPages.map((_Page page){
+      tabs: Constants.allPages.map((Page page){
         return Tab(
           text: page.labelId,
         );
@@ -143,13 +128,13 @@ class HomePageTabBarViewLayout extends StatelessWidget {
     print("TabBarViewLayout build.......");
     return TabBarView(
         controller: _tabController,
-        children: _allPages.map((_Page page){
+        children: Constants.allPages.map((Page page){
           return buildTabView(context, page);
         }).toList(),
     );
   }
 
-  Widget buildTabView(BuildContext context, _Page page) {
+  Widget buildTabView(BuildContext context, Page page) {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
       case 1:

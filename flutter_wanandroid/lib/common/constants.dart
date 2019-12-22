@@ -1,5 +1,7 @@
 import 'package:path_provider/path_provider.dart';
 
+import 'Page.dart';
+
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019/11/25 0025
@@ -36,4 +38,20 @@ class Constants{
   //作者文章查看
   static const String RESULT_CODE_AUTHOR_ARTICLE_PAGE = 'result_code_author_article_page';
 
+  //页面标题和id对象 集合 首页
+  static final List<Page> allPages = <Page>[
+    Page('最新博文', 1),
+    Page('最新项目', 2),
+  ];
+
+
+  //页面标题和id对象 集合 用户中心
+  static final List<Page> userPages = <Page>[
+    Page('收藏文章', 1),
+    Page('分享文章', 2),
+    Page('收藏网站', 3),
+  ];
 }
+
+
+
