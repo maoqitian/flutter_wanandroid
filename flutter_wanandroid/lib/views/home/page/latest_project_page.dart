@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/refresh_page.dart' as listComp;
+import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/views/home/item/project_list_item.dart';
@@ -66,7 +67,8 @@ class _LatestProjectPageState extends State<LatestProjectPage> with AutomaticKee
     return Column(
       children: <Widget>[
         new Expanded(
-            child: listComp.RefreshPage(getProjectListData,makeProjectCard,null,false)
+            child: RefreshPage(requestApi: getProjectListData,
+                               renderItem: makeProjectCard)
         )
       ],
     );

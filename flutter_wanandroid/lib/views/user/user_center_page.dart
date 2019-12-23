@@ -174,5 +174,4 @@ buildTabBar(BuildContext context) {
     controller: _tabController,
     //构造Tab集合
   );
-
 }

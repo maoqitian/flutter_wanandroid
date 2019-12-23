@@ -46,6 +46,12 @@ class Constants{
 
 
   //页面标题和id对象 集合 用户中心
+  static final List<Page> collectPages = <Page>[
+    Page('收藏文章', 1),
+    Page('分享文章', 2),
+  ];
+
+  //页面标题和id对象 集合 用户中心
   static final List<Page> userPages = <Page>[
     Page('收藏文章', 1),
     Page('分享文章', 2),

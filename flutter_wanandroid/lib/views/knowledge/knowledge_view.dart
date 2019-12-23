@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 /// des:  每个知识体系 内容对应的页面
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart' as listComp;
+import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/views/home/item/list_view_item.dart';
@@ -66,7 +66,8 @@ class _KnowledgeViewState extends State<KnowledgeView> with AutomaticKeepAliveCl
     return Column(
       children: <Widget>[
         new Expanded(
-            child: listComp.RefreshPage(getIndexListData,makeCard,null,false)
+            child: RefreshPage(requestApi: getIndexListData,
+                               renderItem: makeCard)
         )
       ],
     );

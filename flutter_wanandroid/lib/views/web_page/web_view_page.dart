@@ -46,7 +46,6 @@ class _WebViewPageState extends State<WebViewPage> {
         title: Text(widget.title,
          style: TextStyle(color: Colors.white),
         ),
-
       ),
       body: WebviewScaffold(
         url: widget.url,

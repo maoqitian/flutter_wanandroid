@@ -16,9 +16,18 @@ import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:flutter_wanandroid/model/coin/base_coin_info.dart';
+import 'package:flutter_wanandroid/model/coin/base_coin_sign_list_data.dart';
+import 'package:flutter_wanandroid/model/coin/base_rank_list_data.dart';
+import 'package:flutter_wanandroid/model/coin/coin_sign_in_list_data.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
+import 'package:flutter_wanandroid/model/coin/rank_list_data.dart';
+import 'package:flutter_wanandroid/model/collect/au_collect_web_data.dart';
+import 'package:flutter_wanandroid/model/collect/base_collect_article_data.dart';
 import 'package:flutter_wanandroid/model/collect/base_collect_list_data.dart';
+import 'package:flutter_wanandroid/model/collect/base_collect_web_data.dart';
+import 'package:flutter_wanandroid/model/collect/collect_data.dart';
 import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
+import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/model/friend/base_friend_data.dart';
 import 'package:flutter_wanandroid/model/friend/friend_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/base_hot_key_data.dart';
@@ -57,7 +66,7 @@ class DataUtils{
   //方法：GET
   //参数：页码，拼接在连接中，从0开始。
   Future<ArticleListData> getArticleData(int pageNum) async{
-    String path = '/article/list/$pageNum/json';
+    String path = 'article/list/$pageNum/json';
     Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
@@ -67,7 +76,7 @@ class DataUtils{
   //方法：GET
   //参数：页码，拼接在连接中，从0开始。
   Future<ArticleListData> getLatestProjectData(int pageNum) async{
-    String path = '/article/listproject/$pageNum/json';
+    String path = 'article/listproject/$pageNum/json';
     Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
@@ -105,7 +114,7 @@ class DataUtils{
 
   //知识体系下的文章
   Future<ArticleListData> getKnowledgeArticleData(int cid,int pageNum) async{
-    String path = '/article/list/$pageNum/json';
+    String path = 'article/list/$pageNum/json';
     Map<String, dynamic> params={"cid": cid};
     Response response = await httpUtils.get(path,params: params);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
@@ -114,7 +123,7 @@ class DataUtils{
 
   // 按照作者昵称搜索文章(点击文章作者头像)
   Future<ArticleListData> getAuthorArticleData(String author,int pageNum) async{
-    String path = '/article/list/$pageNum/json';
+    String path = 'article/list/$pageNum/json';
     Map<String, dynamic> params={"author": author};
     Response response = await httpUtils.get(path,params: params);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
@@ -133,7 +142,7 @@ class DataUtils{
   //公众号 ID：拼接在 url 中，eg:405
   //	公众号页码：拼接在url 中，eg:1
   Future<ArticleListData> getWXArticleHistoryData(int id,int pageNum) async{
-    String path = '/article/list/$id/$pageNum/json';
+    String path = 'article/list/$id/$pageNum/json';
     Response response = await httpUtils.get(path);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
     return articleBaseData.data;
@@ -170,7 +179,7 @@ class DataUtils{
   //cid 分类的id，上面项目分类接口
   //页码：拼接在链接中，从1开始
   Future<ArticleListData> getProjectListData(int cid,int pageNum) async{
-    String path = '/article/list/$pageNum/json';
+    String path = 'article/list/$pageNum/json';
     Map<String, dynamic> params={"cid": cid};
     Response response = await httpUtils.get(path,params: params);
     ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
@@ -204,7 +213,7 @@ class DataUtils{
   //方法：GET
   //参数： 页码：拼接在链接中，从0开始。
   Future<CollectListData> getCollectArticleListData(int pageNum) async{
-    String path = '/lg/collect/list/$pageNum/json';
+    String path = 'lg/collect/list/$pageNum/json';
     Response response = await httpUtils.get(path);
     BaseCollectListData baseCollectListData = BaseCollectListData.fromJson(response.data);
     return baseCollectListData.data;
@@ -215,7 +224,7 @@ class DataUtils{
   //方法：POST
   //参数： 文章id，拼接在链接中。
   Future<String> getCollectInnerArticle(int id) async{
-    String path = '/lg/collect/$id/json';
+    String path = 'lg/collect/$id/json';
     Response response = await httpUtils.post(path);
     return response.data["data"];
   }
@@ -224,15 +233,20 @@ class DataUtils{
   //方法：POST
   //参数：
   //	title，author，link
-
-  
+  Future<CollectData> getCollectOutsideArticle(String title,String author,String link) async{
+    String path = 'lg/collect/add/json';
+    FormData formData =FormData.fromMap({"title": title, "author": author,"link": link});
+    Response response = await httpUtils.post(path,formData: formData);
+    BaseCollectArticleData baseCollectArticleData= BaseCollectArticleData.fromJson(response.data);
+    return baseCollectArticleData.data;
+  }
 
   //取消收藏 文章列表
   //方法：POST
   //参数：
   //id:拼接在链接上
   Future<String> getCancelCollectInnerArticle(int id) async{
-    String path = '/lg/uncollect_originId/$id/json';
+    String path = 'lg/uncollect_originId/$id/json';
     Response response = await httpUtils.post(path);
     return response.data["data"];
   }
@@ -244,21 +258,103 @@ class DataUtils{
   //	id:拼接在链接上
   //	originId:列表页下发，无则为-1
   Future<String> getCancelCollect(int id,int originId) async{
-    String path = '/lg/uncollect/$id/json';
+    String path = 'lg/uncollect/$id/json';
     FormData formData = FormData.fromMap({"originId": originId});
     Response response = await httpUtils.post(path,formData: formData);
     return response.data["data"];
   }
 
+  //收藏网站列表
+  //方法：GET
+  //参数：无
+  Future<List<CollectWebData>> getCollectWebListData() async{
+    Response response = await httpUtils.get(Api.COLLECT_WEB_LIST_JSON);
+    BaseCollectWebData baseCollectWebData = BaseCollectWebData.fromJson(response.data);
+    return baseCollectWebData.data;
+  }
+
+  //收藏网址
+  //方法：POST
+  //参数：
+  //	name,link
+  Future<CollectWebData> getCollectWebData(String name,String link) async{
+    String path = 'lg/collect/addtool/json';
+    FormData formData =FormData.fromMap({"name": name, "link": link});
+    Response response = await httpUtils.post(path,formData: formData);
+    AuCollectWebData auCollectWebData= AuCollectWebData.fromJson(response.data);
+    return auCollectWebData.data;
+  }
+
+  //编辑收藏网站
+  //方法：POST
+  //参数：
+  //	id,name,link
+  Future<CollectWebData> getUpdateCollectWebData(int id,String name,String link) async{
+    String path = 'lg/collect/updatetool/json';
+    FormData formData =FormData.fromMap({"id": id,"name": name, "link": link});
+    Response response = await httpUtils.post(path,formData: formData);
+    AuCollectWebData auCollectWebData= AuCollectWebData.fromJson(response.data);
+    return auCollectWebData.data;
+  }
+
+  //删除收藏网站
+  //方法：POST
+  //参数：
+  //	id
+  Future<String> getDeleteCollectWeb(int id) async{
+    String path = 'lg/collect/deletetool/json';
+    FormData formData = FormData.fromMap({"id": id});
+    Response response = await httpUtils.post(path,formData: formData);
+    return response.data["data"];
+  }
+
+  ///搜索
+  //搜索 文章
+  //方法：POST
+  //参数：
+  //	页码：拼接在链接上，从0开始。
+  //	k ： 搜索关键词
+  Future<ArticleListData> getSearchListData(int pageNum,String key) async{
+    String path = 'article/query/$pageNum/json';
+    FormData formData =FormData.fromMap({"k": key});
+    Response response = await httpUtils.post(path,formData: formData);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+  ///TODO 工具
+
+
   /// 积分
+  //积分排行榜
+  //方法：get
+  //参数：
+  //页码：拼接在链接上，从1开始。
+  Future<RankListData> getCoinRankListData(int pageNum,String key) async{
+    String path = 'coin/rank/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    BaseRankListData baseRankListData = BaseRankListData.fromJson(response.data);
+    return baseRankListData.data;
+  }
 
-
-  //个人积分
+  //个人积分 需登录
   Future<CoinUserInfo> getCoinUserInfo() async{
     Response response = await httpUtils.get(Api.COIN_USER_INFO_JSON);
     return BaseCoinInfo.fromJson(response.data).data;
   }
 
+  //获取个人积分获取列表
+  //方法：get
+  //参数：
+  //页码：拼接在链接上，从1开始。
+  Future<CoinSignInListData> getCoinSignListData(int pageNum) async{
+    String path = 'lg/coin/list/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    BaseCoinSignListData baseCoinSignListData = BaseCoinSignListData.fromJson(response.data);
+    return baseCoinSignListData.data;
+  }
+
+  ///广场
 
   /// SharedPreferences 存储 用户名 是否登录等状态
   void setUserName(String username){

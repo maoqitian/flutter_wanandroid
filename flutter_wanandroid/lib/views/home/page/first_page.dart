@@ -4,11 +4,10 @@
 /// email: maoqitian068@163.com
 /// des:  首页最新博文 page 轮播图 + 文章列表
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/views/home/item/list_view_item.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
-import 'package:flutter_wanandroid/components/list_refresh.dart' as listComp;
-import 'package:flutter_wanandroid/components/refresh_page.dart' as listComp;
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/views/home/page/banner_page.dart';
 
@@ -93,7 +92,10 @@ class _FirstPageState extends State<FirstPage> with AutomaticKeepAliveClientMixi
       children: <Widget>[
         new Expanded(
             //child: listComp.ListRefresh(getIndexListData,makeCard,headerView)
-            child: listComp.RefreshPage(getIndexListData,makeCard,headerView,true)
+            child: RefreshPage(requestApi:getIndexListData,
+                               renderItem: makeCard,
+                               headerView : headerView,
+                               isHaveHeader:true)
         )
       ],
     );
