@@ -20,7 +20,7 @@ class RefreshPage extends StatefulWidget {
   final bool isHaveHeader;
   //是否支持下拉刷新 默认可以下拉刷新
   final bool isCanRefresh;
-  //是否支持下拉加载更多 默认可以加载更多
+  //是否支持上拉加载更多 默认可以加载更多
   final bool isCanLoadMore;
   const RefreshPage({@required this.requestApi,
     @required this.renderItem,

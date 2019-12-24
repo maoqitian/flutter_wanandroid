@@ -13,6 +13,8 @@ class Routes {
   static String register = "/register_page";
   static String webViewPage = '/web_view_page';
   static String userCenterPage = '/user_center_page';
+  static String collectItemPage = '/collect_page';
+
 
   static void configureRoutes(Router router){
 
@@ -27,6 +29,7 @@ class Routes {
     router.define(webViewPage, handler: webViewPageHand);
     router.define(knowledgedetail, handler: knowledgeDetailHandler);
     router.define(userCenterPage, handler: userCenterHandler);
+    router.define(collectItemPage, handler: collectPageHandler);
   }
 
 

@@ -6,19 +6,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
-import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
-import 'package:flutter_wanandroid/views/collect/item/collect_view_item.dart';
+import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
+import 'package:flutter_wanandroid/views/collect/item/collect_web_view_item.dart';
 
-class CollectItemPage extends StatefulWidget {
+class CollectWebItemPage extends StatefulWidget {
 
 
-  CollectItemPage();
+  CollectWebItemPage();
 
   @override
-  _CollectItemPageState createState() => _CollectItemPageState();
+  _CollectWebItemPageState createState() => _CollectWebItemPageState();
 }
 
-class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAliveClientMixin{
+class _CollectWebItemPageState extends State<CollectWebItemPage> with AutomaticKeepAliveClientMixin{
 
   @override
   bool get wantKeepAlive => true;
@@ -30,19 +30,20 @@ class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAli
 
   //  ListViewItem
   Widget makeCollectCard(index,item){
-    return CollectViewItem(collectData: item) ;
+    return CollectWebViewItem(collectWebData: item);
   }
 
   Future<Map> getIndexListData([Map<String, dynamic> params]) async {
-      //收藏文章
-      var pageIndex = (params is Map) ? params['pageIndex'] : 0;
-      Map<String, dynamic> result;
-      await dataUtils.getCollectArticleListData(pageIndex).then((CollectListData collectListData){
-        result = {"list":collectListData.datas, 'total':collectListData.pageCount, 'pageIndex':collectListData.curPage};
+    Map<String, dynamic> result;
+      //收藏网站数据
+      await dataUtils.getCollectWebListData().then((List<CollectWebData> list){
+        result = {"list":list, 'total':0, 'pageIndex':1};
       },onError: (e){
         print("onError 发生错误");
         result = {"list":[], 'total':0, 'pageIndex':0};
       });
+
+
     return result;
   }
 
@@ -53,7 +54,7 @@ class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAli
       children: <Widget>[
         new Expanded(
           // 收藏网站没有加载更多
-            child: RefreshPage(requestApi: getIndexListData, renderItem: makeCollectCard)
+            child: RefreshPage(requestApi: getIndexListData, renderItem: makeCollectCard,isCanLoadMore: false)
         )
       ],
     );

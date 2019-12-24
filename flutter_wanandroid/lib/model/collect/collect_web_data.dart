@@ -7,17 +7,27 @@ import 'package:json_annotation/json_annotation.dart';
 part 'collect_web_data.g.dart';
 @JsonSerializable()
 class CollectWebData{
+
+  ///    "desc": "",
+  //    "icon": "",
+  //    "id": 2350,
+  //    "link": "http://www.maoqitian.com",
+  //    "name": "maoqitian",
+  //    "order": 0,
+  //    "userId": 863,
+  //    "visible": 1
+
   String desc;
   int id;
   String icon ;
-  int isVisible ;
+  int visible ;
   int order ;
-  String title;
-  int type;
-  String url ;
+  String name;
+  int userId;
+  String link ;
 
-  CollectWebData(this.desc, this.id, this.icon, this.isVisible, this.order,
-      this.title, this.type, this.url);
+  CollectWebData(this.desc, this.id, this.icon, this.visible, this.order,
+      this.name, this.userId, this.link);
 
   factory CollectWebData.fromJson(Map<String, dynamic> json){
     return _$CollectWebDataFromJson(json);

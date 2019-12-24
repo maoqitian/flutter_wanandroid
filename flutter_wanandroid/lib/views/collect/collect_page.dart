@@ -6,6 +6,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
+import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 
 
 TabController _tabController;
@@ -59,10 +61,11 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
       labelPadding: EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
       ///指示器大小计算方式，TabBarIndicatorSize.label跟文字等宽,TabBarIndicatorSize.tab跟每个tab等宽
       indicatorSize: TabBarIndicatorSize.label,
+      isScrollable: true,
       //设置tab选中得颜色
-      labelColor: Theme.of(context).primaryColor,
+      labelColor: Colors.white,
       //设置tab未选中得颜色
-      unselectedLabelColor: Colors.grey,
+      unselectedLabelColor: Colors.white54,
       indicatorColor: Theme.of(context).primaryColor,
       controller: _tabController,
       //构造Tab集合
@@ -78,11 +81,18 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
        switch(labelIndex){
          case 1:
            //收藏文章
-           
+           return CollectItemPage();
            break;
          case 2:
            //收藏网站
-
+           return CollectWebItemPage();
+           break;
+         default:
+           return  Container(
+             child: new Center(
+               child: new Text("暂未实现 Page"),
+             ),
+           );
            break;
        }
   }

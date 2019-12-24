@@ -37,6 +37,10 @@ class Constants{
   static const String RESULT_CODE_KNOWLEDGE_PAGE = 'result_code_knowledge_page';
   //作者文章查看
   static const String RESULT_CODE_AUTHOR_ARTICLE_PAGE = 'result_code_author_article_page';
+  //收藏文章 type code
+  static const String RESULT_CODE_COLLECT_ARTICLE_PAGE = 'result_code_collect_article_page';
+  //收藏网站 type code
+  static const String RESULT_CODE_COLLECT_WEB_PAGE = 'result_code_collect_web_page';
 
   //页面标题和id对象 集合 首页
   static final List<Page> allPages = <Page>[

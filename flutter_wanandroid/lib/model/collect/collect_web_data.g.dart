@@ -11,11 +11,11 @@ CollectWebData _$CollectWebDataFromJson(Map<String, dynamic> json) {
     json['desc'] as String,
     json['id'] as int,
     json['icon'] as String,
-    json['isVisible'] as int,
+    json['visible'] as int,
     json['order'] as int,
-    json['title'] as String,
-    json['type'] as int,
-    json['url'] as String,
+    json['name'] as String,
+    json['userId'] as int,
+    json['link'] as String,
   );
 }
 
@@ -24,9 +24,9 @@ Map<String, dynamic> _$CollectWebDataToJson(CollectWebData instance) =>
       'desc': instance.desc,
       'id': instance.id,
       'icon': instance.icon,
-      'isVisible': instance.isVisible,
+      'visible': instance.visible,
       'order': instance.order,
-      'title': instance.title,
-      'type': instance.type,
-      'url': instance.url,
+      'name': instance.name,
+      'userId': instance.userId,
+      'link': instance.link,
     };

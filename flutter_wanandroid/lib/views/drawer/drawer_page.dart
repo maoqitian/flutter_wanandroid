@@ -170,8 +170,14 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
-            Navigator.pop(context);
+            if(!isLogin){
+              // 没有登录 跳转登录页面
+              Application.router.navigateTo(context,Routes.login);
+            }else{
+              //登录则跳转用户中心
+              print("点击跳转我的收藏");
+              Application.router.navigateTo(context,Routes.collectItemPage);
+            }
           },
         ),
         new Divider(),

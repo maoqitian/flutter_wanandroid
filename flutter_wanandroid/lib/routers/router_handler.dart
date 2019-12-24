@@ -1,6 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/views/app_page.dart';
+import 'package:flutter_wanandroid/views/collect/collect_page.dart';
+import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
@@ -51,5 +53,12 @@ var knowledgeDetailHandler = new Handler(
 var userCenterHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new UserCenterPage();
+  },
+);
+
+//用户中心
+var collectPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new CollectPage();
   },
 );

@@ -2,12 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-/// Created with Android Studio.
-/// User: maoqitian
-/// Date: 2019-11-03
-/// email: maoqitian068@163.com
-/// des:  数据获取帮助类
-
 import 'package:flutter_wanandroid/http/http_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_top_base_data.dart';
@@ -38,7 +32,16 @@ import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/model/navigation/base_navigation_data.dart';
 import 'package:flutter_wanandroid/model/navigation/navigation_data.dart';
+import 'package:flutter_wanandroid/model/usershare/base_user_share_data.dart';
+import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
 import 'api/Api.dart';
+
+
+/// Created with Android Studio.
+/// User: maoqitian
+/// Date: 2019-11-03
+/// email: maoqitian068@163.com
+/// des:  数据获取帮助类
 
 DataUtils dataUtils = new DataUtils();
 
@@ -355,6 +358,59 @@ class DataUtils{
   }
 
   ///广场
+  //广场列表数据
+  //GET请求
+  //页码拼接在url上从0开始
+  Future<ArticleListData> getShareArticleData(int pageNum) async{
+    String path = 'user_article/list/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+  //分享人对应列表数据
+  //GET请求
+  //参数：
+  //	用户id: 拼接在url上
+  //	页码拼接在url上从1开始
+  Future<UserShareData> getUserShareArticleData(int id,int pageNum) async{
+    String path = 'user/$id/articles/$pageNum';
+    Response response = await httpUtils.get(path);
+    BaseUserShareData baseUserShareData = BaseUserShareData.fromJson(response.data);
+    return baseUserShareData.data;
+  }
+
+  //自己的分享的文章列表
+  //方法：GET
+  //参数：
+  //	页码，从1开始
+  Future<UserShareData> getPrivateUserShareArticleData(int pageNum) async{
+    String path = 'user/lg/private_articles/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    BaseUserShareData baseUserShareData = BaseUserShareData.fromJson(response.data);
+    return baseUserShareData.data;
+  }
+
+  //删除自己分享的文章
+  //请求:POST
+  //参数：文章id，拼接在链接上
+  Future<String> getDeleteUserShareArticle(int id) async{
+    String path = 'lg/user_article/delete/$id/json';
+    Response response = await httpUtils.post(path);
+    return response.data["data"];
+  }
+
+  //分享文章
+  //请求：POST
+  //参数：
+  //	title 文章标题
+  //	link 文章链接
+  Future<String> getShareArticle(String title,String link) async{
+    String path = 'lg/user_article/add/json';
+    FormData formData =FormData.fromMap({"title": title,"link": link});
+    Response response = await httpUtils.post(path,formData: formData);
+    return response.data["data"];
+  }
 
   /// SharedPreferences 存储 用户名 是否登录等状态
   void setUserName(String username){
