@@ -33,7 +33,7 @@ class _CollectWebItemPageState extends State<CollectWebItemPage> with AutomaticK
     return CollectWebViewItem(collectWebData: item);
   }
 
-  Future<Map> getIndexListData([Map<String, dynamic> params]) async {
+  Future<Map> getCollectWebListData([Map<String, dynamic> params]) async {
     Map<String, dynamic> result;
       //收藏网站数据
       await dataUtils.getCollectWebListData().then((List<CollectWebData> list){
@@ -54,7 +54,7 @@ class _CollectWebItemPageState extends State<CollectWebItemPage> with AutomaticK
       children: <Widget>[
         new Expanded(
           // 收藏网站没有加载更多
-            child: RefreshPage(requestApi: getIndexListData, renderItem: makeCollectCard,isCanLoadMore: false)
+            child: RefreshPage(requestApi: getCollectWebListData, renderItem: makeCollectCard,isCanLoadMore: false)
         )
       ],
     );

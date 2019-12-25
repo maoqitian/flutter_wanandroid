@@ -5,6 +5,8 @@
 /// des:  收藏文章 view item
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/collect/collect_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
@@ -42,11 +44,68 @@ class _CollectViewItemState extends State<CollectViewItem> {
           )
         ),
         subtitle: Row(
-          children: <Widget>[
-
-          ],
+          children: setCollectWidget(widget.collectData),
         ),
       ),
     );
+  }
+
+  List<Widget> setCollectWidget(CollectData collectData){
+    List<Widget> list = [];
+    if(collectData.author!= ""){
+      list.add(new Icon(Icons.person,size: 20.0));
+      list.add( Padding(
+        child: InkWell(
+          child: Text(collectData.author,
+              style: TextStyle(color: Colors.blue, fontSize: 10.0)),
+          onTap: (){
+              //作者不为空，说明可以更加作者昵称查看文章 否则查看 分享人 个人信息主页
+              Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(collectData.author)}');
+          },
+        ),
+        padding: EdgeInsets.only(top: 10.0, bottom: 10.0,left: 5.0,right: 5.0),
+      ));
+    }
+    list.add(Padding(
+      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+      child: Text("分类：",
+        maxLines: 1,
+        style: TextStyle(color: Colors.black54, fontSize: 10.0,decoration: TextDecoration.none),
+        overflow: TextOverflow.ellipsis,
+      ),
+    ));
+    list.add(Padding(
+        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+        child: InkWell( //点击水波纹效果
+          child: Text(collectData.chapterName,
+            maxLines: 1,
+            style: TextStyle(color: Colors.blue, fontSize: 10.0,decoration: TextDecoration.none),
+            overflow: TextOverflow.ellipsis,
+          ),
+          onTap: (){
+              print("跳转 知识体系下文章 ");
+              ArticleData articleData =new ArticleData("", "", 0, collectData.chapterName, false, 0, "", "", false, 0, "", "", "", "", "", 0, collectData.chapterId, "", "", 0, 0, 0, 0, 0, null, "", 0, 0, "");
+              Application.router.navigateTo(context,'${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_HOME_PAGE)}&articleJson=${ToolUtils.object2string(articleData)}');
+          },
+        )
+    ));
+    list.add(Expanded(  //使用Expanded 占用剩余空间 ，保证 more_vert icon 按钮竖直方向对齐
+         child:  Padding(
+          padding: EdgeInsets.only(top: 10.0, bottom: 10.0,left: 5.0),
+          child: Text("收藏时间："+collectData.niceDate,
+          maxLines: 1,
+          style: TextStyle(color: Colors.black54, fontSize: 10.0,decoration: TextDecoration.none),
+          overflow: TextOverflow.ellipsis,
+      ),
+    )));
+    list.add(
+       InkWell(
+        child: Icon(Icons.more_vert,size: 20.0),
+        onTap: (){
+          print("点击取消收藏");
+        },
+      ),
+    );
+    return list;
   }
 }

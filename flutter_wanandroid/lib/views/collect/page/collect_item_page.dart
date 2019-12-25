@@ -33,7 +33,7 @@ class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAli
     return CollectViewItem(collectData: item) ;
   }
 
-  Future<Map> getIndexListData([Map<String, dynamic> params]) async {
+  Future<Map> getCollectListData([Map<String, dynamic> params]) async {
       //收藏文章
       var pageIndex = (params is Map) ? params['pageIndex'] : 0;
       Map<String, dynamic> result;
@@ -53,7 +53,7 @@ class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAli
       children: <Widget>[
         new Expanded(
           // 收藏网站没有加载更多
-            child: RefreshPage(requestApi: getIndexListData, renderItem: makeCollectCard)
+            child: RefreshPage(requestApi: getCollectListData, renderItem: makeCollectCard)
         )
       ],
     );

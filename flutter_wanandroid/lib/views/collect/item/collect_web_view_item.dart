@@ -43,7 +43,7 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
         ),
         subtitle: Row(
           children: <Widget>[
-
+              
           ],
         ),
       ),
