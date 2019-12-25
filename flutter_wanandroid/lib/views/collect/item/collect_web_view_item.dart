@@ -4,6 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:  收藏网站 view item
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
@@ -43,7 +44,12 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
         ),
         subtitle: Row(
           children: <Widget>[
-              
+              IconButton(icon: Icon(Icons.edit,size: 20.0),onPressed: (){
+
+              },),
+            IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
+
+            },),
           ],
         ),
       ),

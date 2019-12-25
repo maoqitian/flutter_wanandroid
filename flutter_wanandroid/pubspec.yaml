@@ -71,7 +71,9 @@ flutter:
     - family: myIcon1
       fonts:
         - asset: fonts/iconfont1.ttf
-
+    - family: myIcon2
+      fonts:
+        - asset: fonts/iconfont2.ttf
   # image 资源
   assets:
     - images/

@@ -42,4 +42,10 @@ class MyIcons{
       fontFamily: 'myIcon1',
       matchTextDirection: true
   );
+  //delete
+  static const IconData delete = const IconData(
+      0xe63b,
+      fontFamily: 'myIcon2',
+      matchTextDirection: true
+  );
 }
