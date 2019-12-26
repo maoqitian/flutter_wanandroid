@@ -44,12 +44,17 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
         ),
         subtitle: Row(
           children: <Widget>[
-              IconButton(icon: Icon(Icons.edit,size: 20.0),onPressed: (){
+              Expanded(
+                child: IconButton(icon: Icon(Icons.edit,size: 20.0),onPressed: (){
 
-              },),
-            IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
+                },),
+              ),
+              Expanded(
+                child: IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
+                    
+                },),
+              ),
 
-            },),
           ],
         ),
       ),
