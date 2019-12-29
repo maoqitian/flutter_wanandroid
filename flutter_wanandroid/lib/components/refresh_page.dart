@@ -5,6 +5,8 @@
 /// des:  通用下拉刷新 拉加载更多 page 支持灵活配置 下拉刷新和上拉加载更多
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/event/cancel_event.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class RefreshPage extends StatefulWidget {
@@ -63,6 +65,9 @@ class _RefreshPageState extends State<RefreshPage> {
       }
     });
     super.initState();
+    Application.eventBus.on<CollectEvent>().listen((event){
+      _handleRefresh();
+    });
   }
 
   // ListView 触底 ，触发加载更多
@@ -215,7 +220,7 @@ class _RefreshPageState extends State<RefreshPage> {
         items.clear();
         items.addAll(newEntries);
         isLoading = false;
-        _hasMore = true;
+        //_hasMore = true;
         return null;
       });
     }

@@ -26,6 +26,8 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
     _tabController = new TabController(length: Constants.collectPages.length,vsync: this);
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +47,11 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
           return buildTabView(context, page);
         }).toList(),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: _inAddCollect,
+        tooltip: 'Increment',
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(Icons.add)),
     );
   }
 
@@ -95,6 +102,11 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
            );
            break;
        }
+  }
+
+
+  void _inAddCollect() {
+    print("添加收藏");
   }
 }
 

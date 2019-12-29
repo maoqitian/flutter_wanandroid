@@ -1,11 +1,15 @@
+import 'package:event_bus/event_bus.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019/12/24 0024
 /// email: maoqitian068@163.com
 /// des:  收藏文章 view item
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/event/cancel_event.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/collect/collect_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
@@ -100,9 +104,40 @@ class _CollectViewItemState extends State<CollectViewItem> {
     )));
     list.add(
        InkWell(
-        child: Icon(Icons.more_vert,size: 20.0),
+        child: Icon(Icons.more_vert,size: 18.0),
         onTap: (){
-          print("点击取消收藏");
+          showModalBottomSheet( //使用showModalBottomSheet 模仿 底部弹出 dialog
+              backgroundColor: Colors.white,
+              context: context,
+              builder: (BuildContext context){
+                return new Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: new Icon(MyIcons.collection,color: Theme.of(context).primaryColor),
+                      title: new Text("取消收藏"),
+                      onTap: () async {
+                        //取消收藏
+                        await dataUtils.getCancelCollect(widget.collectData.id, widget.collectData.originId,context);
+                        Application.eventBus.fire(new CollectEvent());
+                        Navigator.pop(context);
+                      },
+                    ),
+                    Container(
+                      color: Colors.grey,
+                      width: MediaQuery.of(context).size.width,
+                      height: 3,
+                    ),
+                    ListTile(
+                      title: Center(child: new Text("取消"),),
+                      onTap: () async {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                );
+              }
+          );
         },
       ),
     );

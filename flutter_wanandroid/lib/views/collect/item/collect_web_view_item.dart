@@ -46,12 +46,17 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
           children: <Widget>[
               Expanded(
                 child: IconButton(icon: Icon(Icons.edit,size: 20.0),onPressed: (){
-
+                   //编辑 收藏网站
                 },),
+              ),
+              Expanded( //占位
+                flex: 2,
+                child: Container(),
               ),
               Expanded(
                 child: IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
-                    
+                  // 删除收藏网站
+
                 },),
               ),
 

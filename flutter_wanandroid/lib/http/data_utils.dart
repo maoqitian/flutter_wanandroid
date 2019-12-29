@@ -260,10 +260,10 @@ class DataUtils{
   //参数：
   //	id:拼接在链接上
   //	originId:列表页下发，无则为-1
-  Future<String> getCancelCollect(int id,int originId) async{
+  Future<String> getCancelCollect(int id,int originId,BuildContext context) async{
     String path = 'lg/uncollect/$id/json';
     FormData formData = FormData.fromMap({"originId": originId});
-    Response response = await httpUtils.post(path,formData: formData);
+    Response response = await httpUtils.post(path,formData: formData,isAddLoading: true,loadingText: "取消收藏",context: context);
     return response.data["data"];
   }
 
