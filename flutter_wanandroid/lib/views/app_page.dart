@@ -92,7 +92,7 @@ class _AppPageState extends State<AppPage> {
   bool _doubleExitApp(){
     if (_lastPressedAt == null ||
         DateTime.now().difference(_lastPressedAt) > Duration(seconds: 1)) {
-      ToolUtils.ShowToast(msg: "再点一次退出应用");
+      ToolUtils.showToast(msg: "再点一次退出应用");
       //两次点击间隔超过1秒则重新计时
       _lastPressedAt = DateTime.now();
       return false;
@@ -148,7 +148,7 @@ class _AppPageState extends State<AppPage> {
               icon:  Icon(Icons.search),
               color: Colors.white,
               onPressed: () {
-                ToolUtils.ShowToast(msg: '点击了搜索');
+                ToolUtils.showToast(msg: '点击了搜索');
               })
         ],);
     }

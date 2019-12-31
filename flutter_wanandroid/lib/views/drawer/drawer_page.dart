@@ -267,13 +267,18 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
-            showAlertDialog(context);
+            //showAlertDialog(context);
+            ToolUtils.showAlertDialog(context, "乃确定不是手滑了么？",confirmCallback: (){
+              //退出登录
+              doLoginOut();
+            });
           },
         ),
       ],
     );
   }
 
+  // 主题切换 dialog
   Future<Dialog> buildSimpleDialog(BuildContext context) {
     return showDialog(
         context: context,
@@ -372,35 +377,6 @@ class _DrawerPageState extends State<DrawerPage> {
     return list;
   }
 
-  void showAlertDialog(BuildContext context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text('乃确定不是手滑了么？'),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('我手滑了'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text('注销'),
-              onPressed: () {
-                //退出登录
-                doLoginOut();
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-          elevation: 20, //阴影
-        );
-      },
-    );
-  }
-
   void doLoginOut() async{
     //退出登录
     await dataUtils.getLoginOut();
@@ -408,6 +384,6 @@ class _DrawerPageState extends State<DrawerPage> {
     Application.eventBus.fire(new LoginOutEvent());
     dataUtils.setUserName("");
     dataUtils.setLoginState(false);
-    ToolUtils.ShowToast(msg: "退出登录成功");
+    ToolUtils.showToast(msg: "退出登录成功");
   }
 }

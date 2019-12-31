@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/components/simple_input_dialog_layout.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 
@@ -19,11 +20,30 @@ class CollectPage extends StatefulWidget {
 
 class _CollectPageState extends State<CollectPage> with SingleTickerProviderStateMixin {
 
+  //是否为收藏文章
+  bool collectType = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(length: Constants.collectPages.length,vsync: this);
+    _tabController.addListener((){
+      //监听当前tabController 索引
+      var index =  _tabController.index;
+      print("当前索引"+index.toString());
+      switch(index){
+        case 0:
+          setState(() {
+            collectType = true;
+          });
+          break;
+        case 1:
+          setState(() {
+            collectType = false;
+          });
+          break;
+      }
+    });
   }
 
 
@@ -106,7 +126,22 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
 
 
   void _inAddCollect() {
-    print("添加收藏");
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return SimpleInputDialogLayout(
+              isCollectArticle: collectType,
+              confirmCallback1: (collectTitle,collectAuthor,collectUrl){
+                //收藏文章
+                print(collectTitle+collectAuthor+collectUrl);
+              },confirmCallback2: (collectTitle,collectUrl){
+                //收藏网站
+                print(collectTitle+collectUrl);
+              },
+          );
+        }
+    );
   }
 }
 

@@ -131,7 +131,7 @@ class _ProjectListItemState extends State<ProjectListItem> {
   void _clickCollection() async {
     if(!dataUtils.hasLogin()){
       Application.router.navigateTo(context,Routes.login);
-      ToolUtils.ShowToast(msg:"请先登录");
+      ToolUtils.showToast(msg:"请先登录");
       return;
     }
     if(widget.articleData.collect){
@@ -140,14 +140,14 @@ class _ProjectListItemState extends State<ProjectListItem> {
       setState(() {
         widget.articleData.collect = false;
       });
-      ToolUtils.ShowToast(msg:"取消收藏成功");
+      ToolUtils.showToast(msg:"取消收藏成功");
     }else{
       //添加收藏
       await dataUtils.getCollectInnerArticle(widget.articleData.id);
       setState(() {
         widget.articleData.collect = true;
       });
-      ToolUtils.ShowToast(msg:"收藏成功");
+      ToolUtils.showToast(msg:"收藏成功");
     }
   }
 }

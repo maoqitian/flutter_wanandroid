@@ -48,7 +48,7 @@ class ToolUtils{
 
 
   // 显示 Toast
-  static void ShowToast({String msg}){
+  static void showToast({String msg}){
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
@@ -105,4 +105,39 @@ class ToolUtils{
     return value;
   }
 
+  //Dialog 封装
+  static void showAlertDialog(BuildContext context,
+      String contentText,{Function confirmCallback,
+        Function dismissCallback,String confirmText = ""}) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(contentText),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('我手滑了'),
+              onPressed: () {
+                if(dismissCallback!=null){
+                  dismissCallback();
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(confirmText == "" ? '注销':confirmText),
+              onPressed: () {
+                if(confirmCallback != null){
+                  confirmCallback();
+                }
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+          elevation: 20, //阴影
+        );
+      },
+    );
+  }
 }

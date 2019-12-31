@@ -126,6 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextFormField(
                   controller: _userNameEditingController,
                   focusNode: _userNameFocusNode,
+                  autofocus: true,//自动打开键盘？
                   onEditingComplete: (){
                     if(_focusScopeNode == null){
                       _focusScopeNode = FocusScope.of(context);
@@ -300,7 +301,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void doRegister() async {
      _registerFormKey.currentState.save();
      if(passWord != rePassWord){
-       ToolUtils.ShowToast(msg: "两次输入的密码不一致！！");
+       ToolUtils.showToast(msg: "两次输入的密码不一致！！");
        return;
      }
      LoginData loginData = await dataUtils.getRegisterData(userName, passWord, rePassWord,context);
@@ -309,7 +310,7 @@ class _RegisterPageState extends State<RegisterPage> {
      dataUtils.setLoginState(true);
      //发出 登录成功事件
      Application.eventBus.fire(new LoginEvent(loginData));
-     ToolUtils.ShowToast(msg: "注册成功");
+     ToolUtils.showToast(msg: "注册成功");
      //退出当前页面
      Application.router.navigateTo(context,Routes.root);
   }

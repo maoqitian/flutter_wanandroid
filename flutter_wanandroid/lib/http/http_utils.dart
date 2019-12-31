@@ -76,7 +76,7 @@ class HttpUtils {
         return response;
       }else{
         String data = response.data["errorMsg"];
-        ToolUtils.ShowToast(msg: data);
+        ToolUtils.showToast(msg: data);
       }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
@@ -88,7 +88,7 @@ class HttpUtils {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.request);
       }
-      ToolUtils.ShowToast(msg: handleError(e));
+      ToolUtils.showToast(msg: handleError(e));
       disMissLoadingDialog(isAddLoading, context);
       return null;
     }
@@ -125,7 +125,7 @@ class HttpUtils {
         return response;
       }else{
         String data = response.data["errorMsg"];
-        ToolUtils.ShowToast(msg: data);
+        ToolUtils.showToast(msg: data);
       }
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
@@ -137,7 +137,7 @@ class HttpUtils {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.request);
       }
-      ToolUtils.ShowToast(msg: handleError(e));
+      ToolUtils.showToast(msg: handleError(e));
       disMissLoadingDialog(isAddLoading, context);
       return null;
     }

@@ -12,7 +12,6 @@ import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
-import 'package:flutter_wanandroid/widget/loading_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -229,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
     dataUtils.setLoginState(true);
     //发出 登录成功事件
     Application.eventBus.fire(new LoginEvent(loginData));
-    ToolUtils.ShowToast(msg: "登录成功");
+    ToolUtils.showToast(msg: "登录成功");
     //退出当前页面
     Navigator.of(context).pop();
   }

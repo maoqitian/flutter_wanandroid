@@ -1,4 +1,3 @@
-import 'package:event_bus/event_bus.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019/12/24 0024
@@ -120,6 +119,7 @@ class _CollectViewItemState extends State<CollectViewItem> {
                         //取消收藏
                         await dataUtils.getCancelCollect(widget.collectData.id, widget.collectData.originId,context);
                         Application.eventBus.fire(new CollectEvent());
+                        ToolUtils.showToast(msg:"取消收藏成功");
                         Navigator.pop(context);
                       },
                     ),

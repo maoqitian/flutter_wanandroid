@@ -24,7 +24,7 @@ class SingleThemeColor extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ()async{
-         ToolUtils.ShowToast(msg: "改变主题颜色为"+colorName);
+         ToolUtils.showToast(msg: "改变主题颜色为"+colorName);
          Provider.of<ThemeModel>(context,listen: false).changeTheme(this.themeColor);
          Application.sp.putInt(SharedPreferencesKeys.THEME_COLOR_KEY, this.themeColor);
          Navigator.pop(context);

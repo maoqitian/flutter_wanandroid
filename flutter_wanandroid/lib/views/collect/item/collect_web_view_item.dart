@@ -6,6 +6,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/event/cancel_event.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
@@ -55,8 +57,14 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
               ),
               Expanded(
                 child: IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
-                  // 删除收藏网站
 
+                  ToolUtils.showAlertDialog(context, "确定删除收藏网站"+widget.collectWebData.name+"?",
+                      confirmCallback: ()async{
+                        // 删除收藏网站
+                        await dataUtils.getDeleteCollectWeb(widget.collectWebData.id);
+                        Application.eventBus.fire(new CollectEvent());
+                        ToolUtils.showToast(msg: "删除收藏网站成功");
+                  },confirmText: "确定");
                 },),
               ),
 

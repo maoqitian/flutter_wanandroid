@@ -18,8 +18,11 @@ class CollectItemPage extends StatefulWidget {
   _CollectItemPageState createState() => _CollectItemPageState();
 }
 
-class _CollectItemPageState extends State<CollectItemPage> {
+class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAliveClientMixin{
 
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -46,6 +49,7 @@ class _CollectItemPageState extends State<CollectItemPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
       children: <Widget>[
         new Expanded(

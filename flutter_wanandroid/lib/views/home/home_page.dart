@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               icon:  Icon(Icons.search),
               color: Colors.white,
               onPressed: () {
-                ToolUtils.ShowToast(msg: '点击了搜索');
+                ToolUtils.showToast(msg: '点击了搜索');
               })
         ],
       ),

@@ -62,7 +62,7 @@ class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStat
             icon:  Icon(Icons.search),
             color: Colors.white,
             onPressed: () {
-              ToolUtils.ShowToast(msg: '点击了搜索');
+              ToolUtils.showToast(msg: '点击了搜索');
             })
       ],
       title: buildTabBar(),
@@ -108,7 +108,7 @@ class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStat
         print("项目分类数据加载成功");
       });
     },onError: (e){
-      ToolUtils.ShowToast(msg:"获取项目分类错误" );
+      ToolUtils.showToast(msg:"获取项目分类错误" );
     });
   }
 }
