@@ -72,15 +72,14 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
     Navigator.of(context).pop();
   }
 
-  _confirmDialog() {
-    _dismissDialog();
+  _confirmDialog() async{
     if (widget.confirmCallback1 != null && widget.isCollectArticle) {
-        widget.confirmCallback1(collectTitle,collectAuthor,collectUrl);
+        await widget.confirmCallback1(collectTitle,collectAuthor,collectUrl);
       }
-
     if(widget.confirmCallback2 != null && !widget.isCollectArticle) {
-        widget.confirmCallback2(collectTitle,collectUrl);
+       await widget.confirmCallback2(collectTitle,collectUrl);
       }
+    _dismissDialog();
   }
 
   @override
@@ -94,20 +93,18 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
             type: MaterialType.transparency,
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              body: Center(child: Column( //包裹Column 防止Container 设置宽高不生效 https://zhuanlan.zhihu.com/p/41801871
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      width: MediaQuery.of(context).size.width*0.85,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        color: Colors.white,
-                      ),
-                      child: buildContent()
-                  )
-                ],
-              ),)
+              body: SingleChildScrollView( //让包裹的 widget 可以滑动 防止布局溢出
+                child: Center(
+                      child:Container(
+                          width: MediaQuery.of(context).size.width*0.85,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                            color: Colors.white,
+                          ),
+                          child: buildContent()
+                      )
+                )
+              )
             ),
         ),
       ),

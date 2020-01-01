@@ -236,10 +236,10 @@ class DataUtils{
   //方法：POST
   //参数：
   //	title，author，link
-  Future<CollectData> getCollectOutsideArticle(String title,String author,String link) async{
+  Future<CollectData> getCollectOutsideArticle(String title,String author,String link,BuildContext context) async{
     String path = 'lg/collect/add/json';
     FormData formData =FormData.fromMap({"title": title, "author": author,"link": link});
-    Response response = await httpUtils.post(path,formData: formData);
+    Response response = await httpUtils.post(path,formData: formData,isAddLoading: true,loadingText: "收藏文章",context: context);
     BaseCollectArticleData baseCollectArticleData= BaseCollectArticleData.fromJson(response.data);
     return baseCollectArticleData.data;
   }
@@ -280,10 +280,10 @@ class DataUtils{
   //方法：POST
   //参数：
   //	name,link
-  Future<CollectWebData> getCollectWebData(String name,String link) async{
+  Future<CollectWebData> getCollectWebData(String name,String link,BuildContext context) async{
     String path = 'lg/collect/addtool/json';
     FormData formData =FormData.fromMap({"name": name, "link": link});
-    Response response = await httpUtils.post(path,formData: formData);
+    Response response = await httpUtils.post(path,formData: formData,isAddLoading: true,loadingText: "收藏网站",context: context);
     AuCollectWebData auCollectWebData= AuCollectWebData.fromJson(response.data);
     return auCollectWebData.data;
   }

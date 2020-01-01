@@ -5,8 +5,12 @@
 /// des:  收藏 页面 展示收藏数据 收藏文章 收藏网站  发布文章
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/event/cancel_event.dart';
 import 'package:flutter_wanandroid/components/simple_input_dialog_layout.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 
@@ -132,12 +136,16 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
         builder: (BuildContext context) {
           return SimpleInputDialogLayout(
               isCollectArticle: collectType,
-              confirmCallback1: (collectTitle,collectAuthor,collectUrl){
+              confirmCallback1: (collectTitle,collectAuthor,collectUrl) async{
                 //收藏文章
-                print(collectTitle+collectAuthor+collectUrl);
-              },confirmCallback2: (collectTitle,collectUrl){
+                await dataUtils.getCollectOutsideArticle(collectTitle, collectAuthor, collectUrl,context);
+                ToolUtils.showToast(msg: "收藏文章成功");
+                Application.eventBus.fire(new CollectEvent());
+              },confirmCallback2: (collectTitle,collectUrl)async{
                 //收藏网站
-                print(collectTitle+collectUrl);
+                await dataUtils.getCollectWebData(collectTitle, collectUrl, context);
+                ToolUtils.showToast(msg: "收藏网站成功");
+                Application.eventBus.fire(new CollectEvent());
               },
           );
         }
