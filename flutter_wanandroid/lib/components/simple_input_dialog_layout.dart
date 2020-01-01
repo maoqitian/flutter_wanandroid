@@ -229,8 +229,8 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
           ),
           style: TextStyle(fontSize: 16,color: Colors.black),
           //输入验证
-          validator: (collectUrl){
-            if(collectUrl ==null || collectUrl.isEmpty){
+          validator: (collecturl){
+            if(collecturl ==null || collecturl.isEmpty){
               return "链接地址不能为空!";
             }
             return null;
@@ -285,6 +285,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
                   ),
                   onPressed: (){
                      if(_dialogFormKey.currentState.validate()){
+                       _dialogFormKey.currentState.save();
                        //验证通过
                        _confirmDialog();
                      }
