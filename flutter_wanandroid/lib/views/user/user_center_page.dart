@@ -58,6 +58,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
             SliverPersistentHeader(
               pinned: true,
               delegate: StickyTabBarDelegate(
+                  color: Colors.white,
                   child: buildTabBar(context)
               ),
             ),

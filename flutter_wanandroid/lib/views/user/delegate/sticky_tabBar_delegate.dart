@@ -8,12 +8,16 @@ import 'package:flutter/material.dart';
 
 class StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   final TabBar child;
+  final  Color color;
 
-  StickyTabBarDelegate({@required this.child});
+  StickyTabBarDelegate({@required this.child,this.color});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return this.child;//构建渲染的内容
+    return new Container(
+      child: child,
+      color: color,
+    );//构建渲染的内容
   }
 
   @override
