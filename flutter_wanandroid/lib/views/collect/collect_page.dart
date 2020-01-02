@@ -112,11 +112,11 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
        switch(labelIndex){
          case 1:
            //收藏文章
-           return CollectItemPage();
+           return CollectItemPage(true);
            break;
          case 2:
            //收藏网站
-           return CollectWebItemPage();
+           return CollectWebItemPage(true);
            break;
          default:
            return  Container(

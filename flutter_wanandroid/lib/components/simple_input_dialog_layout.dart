@@ -5,6 +5,7 @@
 /// des:  简单dialog 布局 用于 添加收藏 dialog
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 
 class SimpleInputDialogLayout extends StatefulWidget {
@@ -51,13 +52,8 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
   FocusScopeNode _focusScopeNode = new FocusScopeNode();
 
   //获取用户输入的 Controller
-  TextEditingController _collectTitleController =
-  new TextEditingController();
   TextEditingController _collectAuthorController =
   new TextEditingController();
-  TextEditingController _collectUrlController =
-  new TextEditingController();
-
 
   //输入的收藏标题 作者 链接
   String collectTitle = '';
@@ -153,7 +149,14 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
       child: Padding(
         padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
         child: TextFormField(
-          controller: _collectTitleController,
+          //设置默认值 和光标位置  编辑
+          controller: TextEditingController.fromValue(TextEditingValue(
+            text: ToolUtils.isNullOrEmpty(widget.collectTitle) ? "" : widget.collectTitle,
+            selection: TextSelection.fromPosition(TextPosition(
+                affinity: TextAffinity.downstream,
+                offset:ToolUtils.isNullOrEmpty(widget.collectTitle) ? 0 : widget.collectTitle.length
+            ))
+          )),
           focusNode: _collectTitleFocusNode,
           autofocus: true, //自动获取焦点 打开键盘
           onEditingComplete: (){
@@ -217,12 +220,17 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
       child: Padding(
         padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
         child: TextFormField(
-          controller: _collectUrlController,
+          controller: TextEditingController.fromValue(TextEditingValue(
+              text: ToolUtils.isNullOrEmpty(widget.collectUrl) ? "" : widget.collectUrl,
+              selection: TextSelection.fromPosition(TextPosition(
+                  affinity: TextAffinity.downstream,
+                  offset:ToolUtils.isNullOrEmpty(widget.collectUrl) ? 0 : widget.collectUrl.length
+              ))
+          )),
           focusNode: _collectUrlFocusNode,
           decoration: InputDecoration(
             hintText: "链接地址",
             border: InputBorder.none,
-
           ),
           style: TextStyle(fontSize: 16,color: Colors.black),
           //输入验证
@@ -293,5 +301,13 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
         padding: EdgeInsets.only(left: 20.0,right: 20.0),
       )
     );
+  }
+
+  collectTitleHintText() {
+    if(!ToolUtils.isNullOrEmpty(widget.collectTitle)){
+      return widget.collectTitle;
+    }else{
+      return widget.isCollectArticle? "收藏文章标题":"收藏网站名称";
+    }
   }
 }

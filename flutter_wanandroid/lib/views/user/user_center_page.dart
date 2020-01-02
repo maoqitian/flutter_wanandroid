@@ -9,6 +9,8 @@ import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
+import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
+import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 import 'package:flutter_wanandroid/views/user/delegate/sticky_tabBar_delegate.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
 
@@ -83,11 +85,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
     switch(labelIndex){
       case 1:
       //最新博文
-        return Container(
-          child: new Center(
-            child: new Text(page.labelId+"Page"),
-          ),
-        );
+        return CollectItemPage(false);
         break;
       case 2:
       //最新项目
@@ -96,6 +94,10 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
             child: new Text(page.labelId+"Page"),
           ),
         );
+        break;
+      case 3:
+      //收藏网站
+        return CollectWebItemPage(false);
         break;
       default:
         return  Container(

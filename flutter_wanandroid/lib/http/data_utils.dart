@@ -292,10 +292,10 @@ class DataUtils{
   //方法：POST
   //参数：
   //	id,name,link
-  Future<CollectWebData> getUpdateCollectWebData(int id,String name,String link) async{
+  Future<CollectWebData> getUpdateCollectWebData(int id,String name,String link,BuildContext context) async{
     String path = 'lg/collect/updatetool/json';
     FormData formData =FormData.fromMap({"id": id,"name": name, "link": link});
-    Response response = await httpUtils.post(path,formData: formData);
+    Response response = await httpUtils.post(path,formData: formData,isAddLoading: true,loadingText: "编辑收藏网站",context: context);
     AuCollectWebData auCollectWebData= AuCollectWebData.fromJson(response.data);
     return auCollectWebData.data;
   }

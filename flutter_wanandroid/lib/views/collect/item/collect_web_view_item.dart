@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/cancel_event.dart';
+import 'package:flutter_wanandroid/components/simple_input_dialog_layout.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
@@ -49,6 +50,23 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
               Expanded(
                 child: IconButton(icon: Icon(Icons.edit,size: 20.0),onPressed: (){
                    //编辑 收藏网站
+                  showDialog<void>(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return SimpleInputDialogLayout(
+                          isCollectArticle: false,
+                          collectTitle: widget.collectWebData.name,
+                          collectUrl: widget.collectWebData.link,
+                          confirmCallback2: (collectTitle,collectUrl)async{
+                          //编辑收藏网站
+                          await dataUtils.getUpdateCollectWebData(widget.collectWebData.id ,collectTitle, collectUrl, context);
+                          ToolUtils.showToast(msg: "修改成功");
+                          Application.eventBus.fire(new CollectEvent());
+                        },
+                        );
+                      }
+                  );
                 },),
               ),
               Expanded( //占位

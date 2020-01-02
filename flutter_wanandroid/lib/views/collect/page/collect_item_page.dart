@@ -11,8 +11,10 @@ import 'package:flutter_wanandroid/views/collect/item/collect_view_item.dart';
 
 class CollectItemPage extends StatefulWidget {
 
+  //设置当前页面是否可以下拉刷新，个人中心页面不能下拉刷新
+  bool isUserCenter;
 
-  CollectItemPage();
+  CollectItemPage(this.isUserCenter);
 
   @override
   _CollectItemPageState createState() => _CollectItemPageState();
@@ -54,7 +56,7 @@ class _CollectItemPageState extends State<CollectItemPage> with AutomaticKeepAli
       children: <Widget>[
         new Expanded(
           // 收藏网站没有加载更多
-            child: RefreshPage(requestApi: getCollectListData, renderItem: makeCollectCard)
+            child: RefreshPage(requestApi: getCollectListData, renderItem: makeCollectCard,isCanRefresh: widget.isUserCenter)
         )
       ],
     );
