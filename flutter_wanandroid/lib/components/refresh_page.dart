@@ -24,12 +24,15 @@ class RefreshPage extends StatefulWidget {
   final bool isCanRefresh;
   //是否支持上拉加载更多 默认可以加载更多
   final bool isCanLoadMore;
+  final bool isNeedController;
+
   const RefreshPage({@required this.requestApi,
     @required this.renderItem,
     this.headerView,
     this.isHaveHeader = false,
     this.isCanRefresh = true,
-    this.isCanLoadMore = true })
+    this.isCanLoadMore = true,
+    this.isNeedController = true})
       : assert(requestApi is Function),
         assert(renderItem is Function),
         super();
@@ -55,7 +58,7 @@ class _RefreshPageState extends State<RefreshPage> {
   void initState() {
     //第一次进入加载数据
     _getMoreData();
-    //添加滑动监听
+    //正常页面 添加滑动监听
     _scrollController.addListener((){
       // 如果下拉的当前位置到scroll的最下面
       if(_scrollController.position.pixels == _scrollController.position.maxScrollExtent){
@@ -183,31 +186,43 @@ class _RefreshPageState extends State<RefreshPage> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.isCanRefresh ? RefreshIndicator(
-      child: ListView.builder(
+    if(widget.isNeedController){
+      return widget.isCanRefresh ? RefreshIndicator(
+        child: ListView.builder(
           ///保持ListView任何情况都能滚动，解决在RefreshIndicator的兼容问题。
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context,index){
-              return _getItem(index);
+            return _getItem(index);
           },
           ///根据状态返回绘制 item 数量
           itemCount: _getListCount(),
           ///滑动监听
           controller: _scrollController,
-      ),
-      onRefresh: _handleRefresh,
-      color: ToolUtils.getPrimaryColor(context), //指示器颜色
-    ) : ListView.builder(
-      ///不支持下拉刷新 则直接返回list view。
+        ),
+        onRefresh: _handleRefresh,
+        color: ToolUtils.getPrimaryColor(context), //指示器颜色
+      ) : ListView.builder(
+        ///不支持下拉刷新 则直接返回list view。
 
-      itemBuilder: (context,index){
-        return _getItem(index);
-      },
-      ///根据状态返回绘制 item 数量
-      itemCount: _getListCount(),
-      ///滑动监听
-      controller: _scrollController,
-    );
+        itemBuilder: (context,index){
+          return _getItem(index);
+        },
+        ///根据状态返回绘制 item 数量
+        itemCount: _getListCount(),
+        ///滑动监听
+        controller: _scrollController,
+      );
+    }else{
+      return ListView.builder(
+        ///不支持下拉刷新 则直接返回list view。
+        itemBuilder: (context,index){
+          return _getItem(index);
+        },
+        ///根据状态返回绘制 item 数量
+        itemCount: _getListCount(),
+      );
+    }
+
   }
 
   // 下拉加载的事件，清空之前list内容，取前X个

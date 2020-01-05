@@ -7,8 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
+import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
+import 'package:flutter_wanandroid/views/collect/item/collect_view_item.dart';
+import 'package:flutter_wanandroid/views/collect/item/collect_web_view_item.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 import 'package:flutter_wanandroid/views/user/delegate/sticky_tabBar_delegate.dart';
@@ -38,7 +43,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return /*Material(
       child: RefreshIndicator(
         child: CustomScrollView(
           slivers: <Widget>[
@@ -72,24 +77,57 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
               ),
             )
 
-
           ],
         ),
         onRefresh: _pageRefresh,
         color: ToolUtils.getPrimaryColor(context), //指示器颜色
       )
-    );
+    );*/
+      new DefaultTabController(
+          length: Constants.userPages.length,
+          child: Scaffold(
+            body: new NestedScrollView(
+              headerSliverBuilder: (context, bool) {
+                return [
+                  SliverAppBar(
+                      iconTheme: IconThemeData(color: Colors.white), //设置 icon 颜色
+                      pinned: true,
+                      expandedHeight: 150.0,
+                      flexibleSpace: FlexibleSpaceBar(
+                        title: Text(dataUtils.getUserName(),style:TextStyle(color: Colors.white,
+                        fontWeight: FontWeight.bold )),
+                        background: Image.asset(
+                        ToolUtils.getImage("ic_zone_background",format: "webp"), fit: BoxFit.cover),
+                     )
+                  ),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: StickyTabBarDelegate(
+                        color: Colors.white,
+                        child: buildTabBar(context)
+                    ),
+                  ),
+                ];
+              },
+              body: TabBarView(
+                //controller: _tabController,
+                children: Constants.userPages.map((Page page){
+                  return buildTabView(context, page);
+                }).toList(),
+              ),
+            ),
+          ));
   }
 
   Widget buildTabView(BuildContext context, Page page) {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
       case 1:
-      //最新博文
+      //收藏文章
         return CollectItemPage(false);
         break;
       case 2:
-      //最新项目
+      //分享文章
         return Container(
           child: new Center(
             child: new Text(page.labelId+"Page"),
@@ -174,7 +212,7 @@ buildTabBar(BuildContext context) {
     //indicatorWight 设置指示器厚度
     //indicatorPadding
     //indicatorSize  设置指示器大小计算方式
-    controller: _tabController,
+    //controller: _tabController,
     //构造Tab集合
   );
 }
