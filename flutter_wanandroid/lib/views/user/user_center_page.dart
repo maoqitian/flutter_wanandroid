@@ -7,17 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
-import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
-import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
-import 'package:flutter_wanandroid/views/collect/item/collect_view_item.dart';
-import 'package:flutter_wanandroid/views/collect/item/collect_web_view_item.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
 import 'package:flutter_wanandroid/views/user/delegate/sticky_tabBar_delegate.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 
 TabController _tabController;
 
@@ -28,11 +24,14 @@ class UserCenterPage extends StatefulWidget {
 
 class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProviderStateMixin {
 
+  // 滚动控制器
+  ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(length: Constants.userPages.length,vsync: this);
+    _scrollController = ScrollController();
   }
 
   @override
@@ -83,10 +82,11 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
         color: ToolUtils.getPrimaryColor(context), //指示器颜色
       )
     );*/
-      new DefaultTabController(
-          length: Constants.userPages.length,
-          child: Scaffold(
-            body: new NestedScrollView(
+       Scaffold(
+            body: extended.NestedScrollView(  //使用扩展 extended.NestedScrollView 处理 联动问题
+              innerScrollPositionKeyBuilder: (){
+                return Key(Constants.userPages[_tabController.index].labelId + _tabController.index.toString());
+              },
               headerSliverBuilder: (context, bool) {
                 return [
                   SliverAppBar(
@@ -110,23 +110,25 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
                 ];
               },
               body: TabBarView(
-                //controller: _tabController,
+                controller: _tabController,
                 children: Constants.userPages.map((Page page){
                   return buildTabView(context, page);
                 }).toList(),
               ),
             ),
-          ));
+          );
   }
 
   Widget buildTabView(BuildContext context, Page page) {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
-      case 1:
+      case 0:
       //收藏文章
-        return CollectItemPage(false);
+        return extended.NestedScrollViewInnerScrollPositionKeyWidget( //使用扩展 extended.NestedScrollView 处理 联动问题
+             Key(Constants.userPages[labelIndex].labelId+labelIndex.toString()),CollectItemPage(false)
+        );
         break;
-      case 2:
+      case 1:
       //分享文章
         return Container(
           child: new Center(
@@ -134,7 +136,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
           ),
         );
         break;
-      case 3:
+      case 2:
       //收藏网站
         return CollectWebItemPage(false);
         break;
@@ -173,7 +175,6 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
                "积分：66666",
               style: TextStyle(color: Colors.white,fontSize: 15.0),
             )
-
           ],
         );
       //],
@@ -212,7 +213,7 @@ buildTabBar(BuildContext context) {
     //indicatorWight 设置指示器厚度
     //indicatorPadding
     //indicatorSize  设置指示器大小计算方式
-    //controller: _tabController,
+    controller: _tabController,
     //构造Tab集合
   );
 }

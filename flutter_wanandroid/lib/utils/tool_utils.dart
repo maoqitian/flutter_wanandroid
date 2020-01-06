@@ -40,6 +40,7 @@ class ToolUtils{
         .replaceAll("&quot;","'")
         .replaceAll("<p>", "")
         .replaceAll("&middot;","·")
+        .replaceAll("&hellip;", "...")
         .replaceAll("</p>", "")
         .replaceAll("</br>", "\n")
         .replaceAll("<br>", "\n")
