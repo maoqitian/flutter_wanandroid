@@ -42,6 +42,13 @@ class Constants{
   //收藏网站 type code
   static const String RESULT_CODE_COLLECT_WEB_PAGE = 'result_code_collect_web_page';
 
+  // 页面列表展示类型
+  //普通 listview 类型
+  static const String LIST_PAGE_TYPE = 'list_page_type';
+  // 瀑布流 类型
+  static const String STAGGERED_GRID_PAGE_TYPE = 'staggered_grid_page_type';
+
+
   //页面标题和id对象 集合 首页
   static final List<Page> allPages = <Page>[
     Page('最新博文', 1),
