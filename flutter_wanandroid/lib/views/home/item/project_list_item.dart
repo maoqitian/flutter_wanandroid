@@ -9,6 +9,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -33,7 +34,8 @@ class _ProjectListItemState extends State<ProjectListItem> {
         margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
          child: ListTile(
            onTap: (){ //link 跳转  webview
-             Application.router.navigateTo(context, '${Routes.webViewPage}?title=${Uri.encodeComponent(widget.articleData.title)}&url=${Uri.encodeComponent(widget.articleData.link)}');
+             RoutePageData routePageData = new RoutePageData(widget.articleData.id, widget.articleData.title, widget.articleData.link,Constants.COLLECT_PAGE_TYPE , widget.articleData.collect);
+             Application.router.navigateTo(context, '${Routes.webViewPage}??routePageJson=${ToolUtils.object2string(routePageData)}');
            },
            title: Row(
              mainAxisAlignment: MainAxisAlignment.start,

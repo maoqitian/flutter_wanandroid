@@ -11,6 +11,7 @@ import 'package:flutter_wanandroid/common/event/cancel_event.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/collect/collect_data.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -35,7 +36,8 @@ class _CollectViewItemState extends State<CollectViewItem> {
       margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
       child: ListTile(
         onTap: (){ //link 跳转  webview
-          Application.router.navigateTo(context, '${Routes.webViewPage}?title=${Uri.encodeComponent(widget.collectData.title)}&url=${Uri.encodeComponent(widget.collectData.link)}');
+          RoutePageData routePageData = new RoutePageData(widget.collectData.id, widget.collectData.title, widget.collectData.link,Constants.NOT_COLLECT_PAGE_TYPE , false);
+          Application.router.navigateTo(context, '${Routes.webViewPage}?routePageJson=${ToolUtils.object2string(routePageData)}');
         },
         title: Padding( //文章标题
           padding: EdgeInsets.only(top: 10.0,bottom: 10.0),

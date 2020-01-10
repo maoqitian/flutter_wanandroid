@@ -22,10 +22,8 @@ import 'common/constants.dart';
 SpUtil sp;
 
 void main() async{
-
+  WidgetsFlutterBinding.ensureInitialized();
   Application.sp = await SpUtil.getInstance();
-  runApp(MyApp());
-
   if (Platform.isAndroid) {
     // 以下两行 设置android状态栏为透明的沉浸。写在组件渲染之后，
     // 是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
@@ -33,6 +31,7 @@ void main() async{
     SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -75,7 +74,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_){  //Provider 主题颜色数据共享
+        ChangeNotifierProvider(
+          create: (BuildContext context) {
           return ThemeModel(this.themeColor);
         },)
       ],

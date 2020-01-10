@@ -6,13 +6,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/cancel_event.dart';
 import 'package:flutter_wanandroid/components/simple_input_dialog_layout.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
-
+import 'package:flutter_wanandroid/model/route_page_data.dart';
 class CollectWebViewItem extends StatefulWidget {
 
   final CollectWebData collectWebData;
@@ -34,7 +35,9 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
       margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
       child: ListTile(
         onTap: (){ //link 跳转  webview
-          Application.router.navigateTo(context, '${Routes.webViewPage}?title=${Uri.encodeComponent(widget.collectWebData.name)}&url=${Uri.encodeComponent(widget.collectWebData.link)}');
+          //routePageJson=${ToolUtils.object2string(routePageData)
+          RoutePageData routePageData = new RoutePageData(widget.collectWebData.id, widget.collectWebData.name, widget.collectWebData.link,Constants.NOT_COLLECT_PAGE_TYPE , false);
+          Application.router.navigateTo(context, '${Routes.webViewPage}??routePageJson=${ToolUtils.object2string(routePageData)}');
         },
         title: Padding( //文章标题
           padding: EdgeInsets.only(top: 10.0,bottom: 10.0),

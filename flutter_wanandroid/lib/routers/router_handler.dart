@@ -33,9 +33,8 @@ var registerHandler = new Handler(
 // webview 页面
 var webViewPageHand = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      String title = params['title']?.first;
-      String url = params['url']?.first;
-      return new WebViewPage(url, title);
+      String routePageJson = params['routePageJson']?.first;
+      return new WebViewPage(routePageData: routePageJson);
     });
 
 //知识体系下的文章

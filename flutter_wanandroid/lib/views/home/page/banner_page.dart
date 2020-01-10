@@ -4,11 +4,15 @@
 /// email: maoqitian068@163.com
 /// des:  轮播图 widget
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/home_banner.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 
 class BannerPage extends StatefulWidget {
@@ -31,9 +35,9 @@ class _BannerPageState extends State<BannerPage> {
 
   // banner 跳转 webViewPage
   void _launchURL(BannerData bannerData)  {
+    RoutePageData routePageData = new RoutePageData(bannerData.id, bannerData.title, bannerData.url,Constants.NOT_COLLECT_PAGE_TYPE , false);
     Application.router.navigateTo(context,
-        '${Routes.webViewPage}?title=${Uri.encodeComponent(bannerData.title)}&url=${Uri.encodeComponent(bannerData.url)}');
-
+        '${Routes.webViewPage}?routePageJson=${ToolUtils.object2string(routePageData)}');
   }
 
   @override
