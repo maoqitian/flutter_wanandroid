@@ -79,7 +79,7 @@ class WebPageMenu extends StatelessWidget {
              PopupMenuItem<MenuOptions>(
               value: MenuOptions.reloadPage,
               child: Row(children: <Widget>[
-                Icon(Icons.replay),
+                Icon(Icons.replay,color: Colors.grey,),
                 Text('刷新页面')
               ],),
             ),
