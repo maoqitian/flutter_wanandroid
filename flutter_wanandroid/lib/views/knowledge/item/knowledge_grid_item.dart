@@ -4,7 +4,11 @@
 /// email: maoqitian068@163.com
 /// des:
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
+import 'package:flutter_wanandroid/routers/routes.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class KnowledgeGridItem extends StatefulWidget {
   final KnowledgeHierarchyData knowledgeHierarchyData;
@@ -22,14 +26,12 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
         color: Colors.white,
         elevation: 4.0,
         margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                heightFactor: 2.0,
-                child: Text("主题切换"),
-              ),
-              Wrap(
+        child: ListTile(
+              onTap: (){
+                Application.router.navigateTo(context,'${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_KNOWLEDGE_PAGE)}&knowledgeJson=${ToolUtils.object2string(widget.knowledgeHierarchyData)}');
+              },
+              title: Text(widget.knowledgeHierarchyData.name),
+              subtitle: Wrap(
                 spacing: 10, //主轴上子控件的间距
                 runSpacing: 10, //交叉轴上子控件之间的间距
                 // 扩展方式，横向堆砌
@@ -48,6 +50,6 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
                 //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
                 //children: buildTagItem(),
               ),
-            ]));
+        ));
   }
 }
