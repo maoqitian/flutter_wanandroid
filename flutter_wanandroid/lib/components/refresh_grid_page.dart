@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class RefreshGridPage extends StatefulWidget {
@@ -45,6 +46,12 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
   int _pageTotal = 0; // 页面的索引
   List items = new List();
 
+
+  String pageStatus;
+
+
+
+
   //滑动监听
   final ScrollController _scrollController = new ScrollController();
 
@@ -52,6 +59,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
   void initState() {
     //第一次进入加载数据
     _getMoreData();
+    pageStatus = Constants.LOAD;
     //正常页面 添加滑动监听
     _scrollController.addListener(() {
       // 如果下拉的当前位置到scroll的最下面
@@ -60,6 +68,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
         if (this._getMoreData != null && _hasMore && widget.isCanLoadMore) {
           setState(() {
             isLoadMore = true;
+            pageStatus = Constants.LOAD;
           });
           _getMoreData();
         }
@@ -81,15 +90,21 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
           }
         });
       }
-      //if(_hasMore){ // 还有数据可以拉新
+
       List newEntries = await makeHttpRequest(false);
-      //if (newEntries.isEmpty) {
       _hasMore = (_pageIndex < _pageTotal);
       if (this.mounted) {
         setState(() {
           items.addAll(newEntries);
           isLoading = false;
           isLoadMore = false;
+          pageStatus =Constants.SUCCESS;
+
+        });
+      }else{
+        //发生错误 界面无法在刷新， 如何解决？
+        setState(() {
+          pageStatus =Constants.ERROR;
         });
       }
     } else if (!isLoading && !_hasMore) {
@@ -165,7 +180,38 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
 
   ///上拉加载更多 Widget
   Widget _buildProgressIndicator() {
-    return _hasMore
+    switch (pageStatus){
+      case Constants.LOAD:
+        return _buildIsLoading();
+        break;
+      case Constants.SUCCESS:
+        return Container(
+            child: new Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SpinKitFadingCircle(color: ToolUtils.getPrimaryColor(context)),
+                  Padding(
+                      child: Text("正在加载..",
+                          style:
+                          TextStyle(color: Colors.black54, fontSize: 15.0)),
+                      padding: EdgeInsets.only(left: 10.0))
+                ],
+              ),
+            ));
+        break;
+      case Constants.ERROR:
+        return _buildEmptyError();
+        break;
+      default:
+        return Container(
+          child: new Center(
+            child: new Text("暂未实现 Page"),
+          ),
+        );
+        break;
+    }
+    /*return _hasMore
         ? Container(
             child: new Center(
              child: Row(
@@ -184,7 +230,8 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
             child: new Center(
              child: new Text("哥，这回真没了！！",
                 style: TextStyle(color: Colors.black54, fontSize: 15.0)),
-          ));
+          ));*/
+
   }
 
   ///  loading
@@ -235,6 +282,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
                   isLoading = false;
                   _hasMore = true;
                   _pageIndex = 0;
+                  pageStatus = Constants.LOAD;
                 });
                 _getMoreData();
               }

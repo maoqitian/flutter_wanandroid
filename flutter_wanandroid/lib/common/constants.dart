@@ -72,6 +72,15 @@ class Constants{
     Page('分享文章', 1),
     Page('收藏网站', 2),
   ];
+
+
+  static const String LOAD = 'load';
+
+  static const SUCCESS = 'success';
+
+  static const ERROR = 'error';
+
+  static const EMPTY = 'empty';
 }
 
 
