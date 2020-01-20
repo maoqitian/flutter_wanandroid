@@ -240,24 +240,21 @@ class _RefreshPageState extends State<RefreshPage> {
         }
         break;
       case Constants.STAGGERED_GRID_PAGE_TYPE:
-        //瀑布流
+        //瀑布流 加载有问题 废弃 ！！！！
         return RefreshIndicator(
-          child: StaggeredGridView.countBuilder(
-            crossAxisCount: 4,
-            mainAxisSpacing: 4.0,
-            crossAxisSpacing: 4.0,
-            controller: _scrollController,
-            itemBuilder: (BuildContext context, int index) {
-              return _getItem(index);
-            },
-            itemCount: _getListCount(),
-            staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-
-
-          ),
-          onRefresh: _handleRefresh,
-          color: ToolUtils.getPrimaryColor(context), //指示器颜色
-        );
+            onRefresh: _handleRefresh,
+            color: ToolUtils.getPrimaryColor(context), //指示器颜色
+            child:  StaggeredGridView.countBuilder(
+                padding: EdgeInsets.all(8),
+                crossAxisCount: 4,
+                controller: _scrollController,
+                itemCount: _getListCount(),
+                itemBuilder: (BuildContext context, int index) {
+                  return _getItem(index);
+                },
+                staggeredTileBuilder: (index) => new StaggeredTile.count(2, index == 0 ? 2.5 : 3),
+              ),
+            );
         break;
       default:
         return Container(
@@ -337,7 +334,7 @@ class _RefreshPageState extends State<RefreshPage> {
           ))
         : Container(
             child: new Center(
-            child: new Text("哥，这回真没了！！",
+             child: new Text("哥，这回真没了！！",
                 style: TextStyle(color: Colors.black54, fontSize: 15.0)),
           ));
   }
@@ -349,17 +346,17 @@ class _RefreshPageState extends State<RefreshPage> {
         height: MediaQuery.of(context).size.height * 0.85,
         child: new Center(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SpinKitCubeGrid(
                     size: 55.0, color: ToolUtils.getPrimaryColor(context)),
               ],
-            ),
-            Padding(
+             ),
+             Padding(
               child: Text("正在加载..",
                   style: TextStyle(color: Colors.black54, fontSize: 15.0)),
               padding: EdgeInsets.all(15.0),

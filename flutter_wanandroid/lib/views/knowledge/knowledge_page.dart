@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/components/refresh_grid_page.dart';
+import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
+import 'package:flutter_wanandroid/views/knowledge/item/knowledge_grid_item.dart';
 
 /// Created with Android Studio.
 /// User: maoqitian
@@ -12,12 +18,47 @@ class KnowledgePage extends StatefulWidget {
   _KnowledgePageState createState() => _KnowledgePageState();
 }
 
-class _KnowledgePageState extends State<KnowledgePage> {
+class _KnowledgePageState extends State<KnowledgePage> with AutomaticKeepAliveClientMixin{
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<Map> getKnowLedgeListData([Map<String, dynamic> params]) async {
+    //收藏文章
+    Map<String, dynamic> result;
+    await dataUtils.getKnowledgeTreeData().then((List<KnowledgeHierarchyData> list){
+      result = {"list":list, 'total':0, 'pageIndex':0};
+    },onError: (e){
+      print("onError 发生错误");
+      result = {"list":[], 'total':0, 'pageIndex':0};
+    });
+    return result;
+  }
+
+
+  //  GridViewItem
+  Widget makeItem(index,item){
+    return KnowledgeGridItem(item) ;
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.white ,
-      child: new Center(
-        child: new Text("Knowledge Page"),
-      ),);
+    super.build(context);
+    return Column(
+      children: <Widget>[
+        new Expanded(
+          //child: listComp.ListRefresh(getIndexListData,makeCard,headerView)
+            child: RefreshGridPage(
+              requestApi:getKnowLedgeListData,
+              renderItem: makeItem)
+        )
+      ],
+    );
   }
 }

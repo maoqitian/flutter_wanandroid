@@ -47,6 +47,8 @@ class Constants{
   static const String LIST_PAGE_TYPE = 'list_page_type';
   // 瀑布流 类型
   static const String STAGGERED_GRID_PAGE_TYPE = 'staggered_grid_page_type';
+
+
   //页面是否支持收藏 type
   static const String COLLECT_PAGE_TYPE = 'collect_page_type';
   static const String NOT_COLLECT_PAGE_TYPE = 'not_collect_page_type';

@@ -4,6 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:
 import 'package:flutter/material.dart';
+import 'package:flutter_tags/tag.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
@@ -48,8 +49,25 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
                 verticalDirection: VerticalDirection.down,
                 //mainAxisAlignment: MainAxisAlignment.spaceAround,
                 //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
-                //children: buildTagItem(),
+                //children: buildTagItem(widget.knowledgeHierarchyData.children),
               ),
         ));
+  }
+
+  buildTagItem(List<KnowledgeHierarchyData> list) {
+    return Tags(
+       itemCount: list.length,
+       itemBuilder: (int index){
+         KnowledgeHierarchyData knowledgeHierarchyData = list[index];
+        return Tooltip(
+            message: knowledgeHierarchyData.name,
+            child:ItemTags(
+              key: Key(index.toString()),
+              index: index,
+              title: knowledgeHierarchyData.name,
+            )
+        );
+      },
+    );
   }
 }
