@@ -76,6 +76,8 @@ class Constants{
 
   static const String LOAD = 'load';
 
+  static const String LOAD_MORD = 'load_more';
+
   static const SUCCESS = 'success';
 
   static const ERROR = 'error';
