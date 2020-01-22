@@ -2,7 +2,7 @@
 /// User: maoqitian
 /// Date: 2019/10/31 0031
 /// email: maoqitian068@163.com
-/// des:  
+/// des:  导航 page
 import 'package:flutter/material.dart';
 
 
@@ -19,6 +19,5 @@ class _NavigationPageState extends State<NavigationPage> {
         child: new Text("Navigation Page"),
       ),
     );
-
   }
 }

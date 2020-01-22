@@ -4,6 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:  
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class TagItemView extends StatelessWidget {
 
@@ -26,8 +27,8 @@ class TagItemView extends StatelessWidget {
           textTitle,
           style: TextStyle(
               fontSize: 12.0,
-              //color: CommonUtil.randomColor(),
-              fontStyle: FontStyle.italic),
+              color: ToolUtils.getRandomColor(),
+              fontStyle: FontStyle.normal),
         ),
         labelPadding: EdgeInsets.only(left: 3.0, right: 3.0),
         // backgroundColor: Color(0xfff1f1f1),

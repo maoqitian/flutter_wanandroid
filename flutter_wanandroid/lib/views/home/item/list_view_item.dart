@@ -49,7 +49,7 @@ class _ListViewItemState extends State<ListViewItem> {
           padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
           child: Text(
             ToolUtils.signToStr(widget.articleData.title),
-            style: TextStyle(color: Colors.black, fontSize: 15.0),
+            style: TextStyle(color: Colors.black, fontSize: 15.0,fontWeight: FontWeight.bold),
             maxLines: 1, // title 只显示一行
             overflow: TextOverflow.ellipsis //超出一行 显示 ...
           ),

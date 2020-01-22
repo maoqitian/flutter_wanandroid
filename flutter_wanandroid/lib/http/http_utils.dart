@@ -58,7 +58,7 @@ class HttpUtils {
     var dir = new Directory("$documentsPath/cookies");
     await dir.create();
 
-    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
+    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path,ignoreExpires: true)));
 
     //显示 加载中的 loading
     if(isAddLoading){

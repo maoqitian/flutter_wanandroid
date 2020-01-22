@@ -50,6 +50,6 @@ class _KnowledgePageState extends State<KnowledgePage> with AutomaticKeepAliveCl
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RefreshGridPage(requestApi:getKnowLedgeListData, renderItem: makeItem,isCanLoadMore: false,);
+    return RefreshGridPage(requestApi:getKnowLedgeListData, renderItem: makeItem,isCanLoadMore: false);
   }
 }

@@ -20,9 +20,14 @@ class KnowledgeGridItem extends StatefulWidget {
   _KnowledgeGridItemState createState() => _KnowledgeGridItemState();
 }
 
-class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
+class _KnowledgeGridItemState extends State<KnowledgeGridItem> with AutomaticKeepAliveClientMixin{
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Card(
         color: Colors.white,
         elevation: 4.0,
@@ -31,16 +36,18 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
               onTap: (){
                 Application.router.navigateTo(context,'${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_KNOWLEDGE_PAGE)}&knowledgeJson=${ToolUtils.object2string(widget.knowledgeHierarchyData)}');
               },
-              title: Text(widget.knowledgeHierarchyData.name),
+              title: Text(widget.knowledgeHierarchyData.name,
+                style:TextStyle(color: Colors.black, fontSize: 15.0,fontWeight: FontWeight.bold),),
               subtitle: buildTagItem(widget.knowledgeHierarchyData.children),
         ));
   }
 
   buildTagItem(List<KnowledgeHierarchyData> list) {
-    List<Widget> tiles = [];
+    /*List<Widget> tiles = [];
+    list.map(f)
     for (var item in list) {
       tiles.add(TagItemView(textTitle: item.name));
-    }
+    }*/
     return Wrap(
       spacing: 3, //主轴上子控件的间距
       runSpacing: 3, //交叉轴上子控件之间的间距
@@ -58,7 +65,9 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> {
       verticalDirection: VerticalDirection.down,
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
-      children: tiles,
+      children: list.map((KnowledgeHierarchyData knowledgeHierarchyData){
+        return TagItemView(textTitle: knowledgeHierarchyData.name);
+      }).toList(),
     );
   }
 }
