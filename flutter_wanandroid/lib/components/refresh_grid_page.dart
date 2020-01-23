@@ -194,11 +194,13 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
     list.add(
       //是否支持下拉刷新
       Expanded(
-        child: widget.isCanRefresh ? RefreshIndicator(
+        child: widget.isCanRefresh ?
+        RefreshIndicator(
           onRefresh: _handleRefresh,
           color: ToolUtils.getPrimaryColor(context), //指示器颜色
-          child: _buildGridWidget(),
-        ) : _buildGridWidget() )
+          child: _buildGridWidget())
+            : _buildGridWidget()
+      )
     );
     if(widget.isCanLoadMore){
        list.add(
@@ -213,6 +215,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
 
   // Grid Widget
   Widget _buildGridWidget(){
+    //瀑布流 高度自适应
     return StaggeredGridView.countBuilder(
       primary: false,
       crossAxisCount: 4,
@@ -221,7 +224,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
       controller: _scrollController,
       itemCount: items.length,
       itemBuilder: (BuildContext context, int index) {
-        return widget.renderItem(index, items[index]);
+        return widget.renderItem(items[index]);
       },
       //高度自适应
       staggeredTileBuilder: (index) =>

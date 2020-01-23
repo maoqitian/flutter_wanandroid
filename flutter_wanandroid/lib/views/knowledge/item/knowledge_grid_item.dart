@@ -66,7 +66,7 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> with AutomaticKee
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
       children: list.map((KnowledgeHierarchyData knowledgeHierarchyData){
-        return TagItemView(textTitle: knowledgeHierarchyData.name);
+        return TagItemView(textTitle: knowledgeHierarchyData.name,textColor: ToolUtils.getRandomColor());
       }).toList(),
     );
   }

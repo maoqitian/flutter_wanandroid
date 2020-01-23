@@ -10,32 +10,39 @@ class TagItemView extends StatelessWidget {
 
   final Function pressCallback;
   final String textTitle;
-
-  TagItemView({this.pressCallback, this.textTitle});
+  final Color backgroundColor;
+  final Color textColor;
+  TagItemView({this.pressCallback, this.textTitle, this.backgroundColor, this.textColor});
 
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        if(pressCallback != null){
-          pressCallback();
-        }
-      },
-      child: Chip(
-        label: Text(
-          textTitle,
-          style: TextStyle(
-              fontSize: 12.0,
-              color: ToolUtils.getRandomColor(),
-              fontStyle: FontStyle.normal),
-        ),
-        labelPadding: EdgeInsets.only(left: 3.0, right: 3.0),
-        // backgroundColor: Color(0xfff1f1f1),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0)),
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-      ),
-    );
+    return
+      Padding(
+        padding: EdgeInsets.only(left: 3.0),
+        child: ActionChip(
+          onPressed: (){
+            if(pressCallback != null){
+              pressCallback();
+            }
+          },
+          label: Text(
+            textTitle,
+            maxLines: 1, // title 只显示一行
+            overflow: TextOverflow.ellipsis ,//超出一行 显示 ...
+            style: TextStyle(
+                fontSize: 12.0,
+                color: textColor == null ? null: textColor,
+                fontStyle: FontStyle.normal),
+          ),
+          labelPadding: EdgeInsets.only(left: 2.0, right: 2.0),
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          /*shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0)),*/
+          elevation: 1,
+          backgroundColor: backgroundColor == null ? null : backgroundColor,
+        )
+      );
+
   }
 }

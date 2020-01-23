@@ -42,7 +42,7 @@ class _KnowledgePageState extends State<KnowledgePage> with AutomaticKeepAliveCl
 
 
   //  GridViewItem
-  Widget makeItem(index,item){
+  Widget makeItem(item){
     return KnowledgeGridItem(item) ;
   }
 
