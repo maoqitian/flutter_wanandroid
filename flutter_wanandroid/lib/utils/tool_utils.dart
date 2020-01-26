@@ -172,4 +172,25 @@ class ToolUtils{
     }*/
     return colors[temp];
   }
+
+
+  static Widget getErrorWidget(BuildContext context,{Function onPressCallBack}){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text("页面出错了！！"),
+        RaisedButton(
+          textColor: Colors.white,
+          color: Theme.of(context).primaryColor,
+          child: Text("重新加载"),
+          onPressed: () {
+            if(onPressCallBack !=null){
+              onPressCallBack();
+            }
+          },
+        )
+      ],
+    );
+  }
 }

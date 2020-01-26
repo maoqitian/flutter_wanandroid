@@ -56,6 +56,11 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
       //约定 author 作者文章页面 id = -1 来标识 作者文章页面
       _title = widget.author;
       _items.add(new KnowledgeHierarchyData(0,-1,widget.author,0,0,false,1,null));
+    }else if(Constants.RESULT_CODE_WECHAT_PAGE == widget.type){
+      //微信公众号
+      knowledgeHierarchyData = KnowledgeHierarchyData.fromJson(ToolUtils.string2map(widget.knowledgeJson));
+      _title = knowledgeHierarchyData.name;
+      _items.add(knowledgeHierarchyData);
     }else{
       //知识体系模块进入
       knowledgeHierarchyData = KnowledgeHierarchyData.fromJson(ToolUtils.string2map(widget.knowledgeJson));
@@ -73,7 +78,9 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
       body: TabBarView(
         controller: _tabController,
         children: _items.map((KnowledgeHierarchyData hierarchyData){
-          return (Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type) ? LatestProjectPage(id: hierarchyData.id,type: widget.type): KnowledgeView(id: hierarchyData.id,author: hierarchyData.name,);
+          return (Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type)
+              ? LatestProjectPage(id: hierarchyData.id,type: widget.type):
+          KnowledgeView(id: hierarchyData.id,author: hierarchyData.name,);
         }).toList(),
       ),
     );
@@ -138,7 +145,10 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
 
   //判断是否为 知识体系模块跳转 控制 tabBar 显示位置
   bool isKnowledgeCome(){
-    if(Constants.RESULT_CODE_HOME_PAGE == widget.type|| Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type|| Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE == widget.type){
+    if(Constants.RESULT_CODE_HOME_PAGE == widget.type
+        || Constants.RESULT_CODE_LATEST_PROJECT_PAGE == widget.type
+        || Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE == widget.type
+        || Constants.RESULT_CODE_WECHAT_PAGE == widget.type){
       return true;
     }else{
       return false;

@@ -35,6 +35,8 @@ class Constants{
   static const String RESULT_CODE_LATEST_PROJECT_PAGE = 'result_code_latest_project_page';
   //知识体系跳转
   static const String RESULT_CODE_KNOWLEDGE_PAGE = 'result_code_knowledge_page';
+  //微信公众号模块跳转
+  static const String RESULT_CODE_WECHAT_PAGE = 'result_code_wechat_page';
   //作者文章查看
   static const String RESULT_CODE_AUTHOR_ARTICLE_PAGE = 'result_code_author_article_page';
   //收藏文章 type code

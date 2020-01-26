@@ -21,6 +21,9 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStateMixin{
 
   List <KnowledgeHierarchyData>_items=[];
+
+  bool loadSuccess = true;
+
   @override
   void initState() {
     super.initState();
@@ -36,7 +39,13 @@ class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     //规避 没有获取 项目分类时 _items.length = 0 TabController 无法初始化的情况
-    return (_items.length == 0)? Container():DefaultTabController(
+    return (_items.length == 0)? Container(
+      child: loadSuccess ? null :
+      ToolUtils.getErrorWidget(context,
+          onPressCallBack: (){
+            loadProjectTreeData();
+          })
+    ):DefaultTabController(
       length: _items.length,
       child:  new Scaffold(
         appBar: buildAppBar(),
@@ -105,9 +114,12 @@ class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStat
       setState(() {
         _items.clear();
         _items.addAll(list);
-        print("项目分类数据加载成功");
+        loadSuccess = true;
       });
     },onError: (e){
+      setState(() {
+        loadSuccess = false;
+      });
       ToolUtils.showToast(msg:"获取项目分类错误" );
     });
   }

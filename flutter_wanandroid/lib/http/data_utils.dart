@@ -164,8 +164,8 @@ class DataUtils{
   }
   /// 导航
   //导航数据
-  Future<List<NavigationData>> getNavigationData() async{
-    Response response = await httpUtils.get(Api.NAVIGATION_JSON);
+  Future<List<NavigationData>> getNavigationData(BuildContext context,bool isRefresh) async{
+    Response response = await httpUtils.get(Api.NAVIGATION_JSON,isAddLoading:isRefresh,context: context,loadingText: "正在加载...");
     BaseNavigationData baseNavigationData = BaseNavigationData.fromJson(response.data);
     return baseNavigationData.data;
   }
