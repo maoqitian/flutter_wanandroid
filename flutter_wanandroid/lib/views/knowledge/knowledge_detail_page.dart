@@ -134,6 +134,14 @@ class _KnowledegDetailPageState extends State<KnowledegDetailPage> with SingleTi
           onPressed: (){
             Navigator.of(context).pop(this);
           }),
+      actions: <Widget>[
+        IconButton(
+            icon:  Icon(Icons.search),
+            color: Colors.white,
+            onPressed: () {
+              ToolUtils.showToast(msg: '点击了搜索');
+            })
+      ],
       //如果是首页进入知识体系 标题 之前嵌入 appbar
       title: (isKnowledgeCome())? buildTabBar():
       Text(_title,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: Colors.white)),
