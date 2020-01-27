@@ -155,8 +155,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ),
           onTap: () {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
-            Navigator.pop(context);
+            Application.router.navigateTo(context,Routes.commonWebPage);
           },
         ),
         ListTile(

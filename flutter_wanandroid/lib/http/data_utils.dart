@@ -86,8 +86,8 @@ class DataUtils{
   }
 
   //常用网站
-  Future<List<FriendData>> getFriendListData() async{
-    Response response = await HttpUtils().get(Api.FRIEND_JSON);
+  Future<List<FriendData>> getFriendListData(BuildContext context) async{
+    Response response = await HttpUtils().get(Api.FRIEND_JSON,isAddLoading:true,context: context,loadingText: "正在加载...");
     BaseFriendData baseFriendData = BaseFriendData.fromJson(response.data);
     return baseFriendData.data;
   }

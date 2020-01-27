@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/views/app_page.dart';
 import 'package:flutter_wanandroid/views/collect/collect_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
+import 'package:flutter_wanandroid/views/home/common/common_web_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
@@ -55,9 +56,16 @@ var userCenterHandler = new Handler(
   },
 );
 
-//用户中心
+//收藏
 var collectPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new CollectPage();
+  },
+);
+
+//收藏
+var commonWebPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new CommonWebPage();
   },
 );

@@ -14,6 +14,7 @@ class Routes {
   static String webViewPage = '/web_view_page';
   static String userCenterPage = '/user_center_page';
   static String collectItemPage = '/collect_page';
+  static String commonWebPage = '/common_web_page';
 
 
   static void configureRoutes(Router router){
@@ -30,6 +31,7 @@ class Routes {
     router.define(knowledgedetail, handler: knowledgeDetailHandler);
     router.define(userCenterPage, handler: userCenterHandler);
     router.define(collectItemPage, handler: collectPageHandler);
+    router.define(commonWebPage, handler: commonWebPageHandler);
   }
 
 
