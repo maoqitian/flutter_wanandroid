@@ -17,6 +17,13 @@ class SimpleInputDialogLayout extends StatefulWidget {
   //收藏地址
   final String collectUrl;
 
+  // 自定义分享 配置
+  final String dialogTitleText; //弹窗title
+  final String themeText; //自定Dialog 主题文字 （例如 分享）
+  //是否自定义 弹窗文字显示
+  final bool isDIYText;
+
+  //收藏模块配置
   final bool isCollectArticle; //dialog 默认为展示 收藏文章
 
   final Function(String collectTitle,String collectAuthor,String collectUrl) confirmCallback1; //点击确定按钮回调 收藏文章
@@ -33,7 +40,9 @@ class SimpleInputDialogLayout extends StatefulWidget {
         this.confirmCallback1,
         this.confirmCallback2,
         this.dismissCallback,
-        this.outsideDismiss = true}):
+        this.outsideDismiss = true,
+        this.isDIYText = false,
+        this.dialogTitleText, this.themeText}):
         super();
 
   @override
@@ -122,7 +131,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(widget.isCollectArticle ? "收藏站外文章" :"收藏网站")
+                Text(widget.isDIYText ? widget.dialogTitleText :(widget.isCollectArticle ? "收藏站外文章" :"收藏网站"))
               ],
             ),
             buildTextForm(),
@@ -166,14 +175,14 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
             _focusScopeNode.requestFocus(_collectAuthorNode);
           },
           decoration: InputDecoration(
-              hintText: widget.isCollectArticle? "收藏文章标题":"收藏网站名称",
+              hintText: widget.isDIYText? widget.themeText+"标题":(widget.isCollectArticle? "收藏文章标题":"收藏网站名称"),
               border: InputBorder.none
           ),
           style: TextStyle(fontSize: 16,color: Colors.black),
           //输入验证
           validator: (collecttitle){
             if(collecttitle ==null ||collecttitle.isEmpty){
-              return "收藏标题不能为空!";
+              return widget.isDIYText? widget.themeText+"标题不能为空!":"收藏标题不能为空!";
             }
             return null;
           },
@@ -285,7 +294,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
                  RaisedButton(
                    color: Theme.of(context).primaryColor,
                    child: Text(
-                    "收藏",
+                    widget.isDIYText ? widget.themeText : "收藏",
                     style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                   onPressed: (){
@@ -303,11 +312,4 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
     );
   }
 
-  collectTitleHintText() {
-    if(!ToolUtils.isNullOrEmpty(widget.collectTitle)){
-      return widget.collectTitle;
-    }else{
-      return widget.isCollectArticle? "收藏文章标题":"收藏网站名称";
-    }
-  }
 }

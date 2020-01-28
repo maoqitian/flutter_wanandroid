@@ -35,7 +35,7 @@ class _KnowledgeViewState extends State<KnowledgeView> with AutomaticKeepAliveCl
   //  ListViewItem
   Widget makeCard(index,item){
 
-    return new ListViewItem(articleData: item,isHomeShow: false);
+    return new ListViewItem(articleData: item,isHomeShow: false,isClickUser: false);
   }
 
   //获取 文章 列表数据

@@ -4,6 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:  侧边栏 抽屉
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/login_event.dart';
 import 'package:flutter_wanandroid/common/event/login_out_event.dart';
 import 'package:flutter_wanandroid/components/single_theme_color.dart';
@@ -101,7 +102,7 @@ class _DrawerPageState extends State<DrawerPage> {
                  }else{
                    //登录则跳转用户中心
                    print("点击跳转用户中心");
-                   Application.router.navigateTo(context,Routes.userCenterPage);
+                   Application.router.navigateTo(context,'${Routes.userCenterPage}?type=${Uri.encodeComponent(Constants.USER_CENTER_PAGE_TYPE)}');
                  }
               },
              )
@@ -139,9 +140,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
-            Navigator.pop(context);
+            Application.router.navigateTo(context,Routes.shareArticlePage);
           },
         ),
         ListTile(

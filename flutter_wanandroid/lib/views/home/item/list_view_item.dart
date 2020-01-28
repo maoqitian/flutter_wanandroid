@@ -19,8 +19,9 @@ class ListViewItem extends StatefulWidget {
 
   final ArticleData articleData;
   final bool isHomeShow; // 是否首页展示 控制 是否还能点击 进入知识体系
+  final bool isClickUser; // 是可以点击作者 跳转对应页面
 
-  const ListViewItem({Key key, this.articleData,this.isHomeShow = true})
+  const ListViewItem({Key key, this.articleData,this.isHomeShow = true, this.isClickUser=true})
       :super(key:key);
 
   @override
@@ -81,13 +82,15 @@ class _ListViewItemState extends State<ListViewItem> {
     widget.add( Padding(
       child: InkWell(
         child: Text(articleData.author == ""? articleData.shareUser :articleData.author,
-            style: TextStyle(color: this.widget.isHomeShow? Colors.blue:Colors.black54, fontSize: 10.0)),
+            style: TextStyle(color: this.widget.isClickUser? Colors.blue:Colors.black54, fontSize: 10.0)),
         onTap: (){
-          if(!(articleData.author == "")){ //如果作者不为空，说明可以更加作者昵称查看文章 否则查看 分享人 个人信息主页
-            Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(articleData.author)}');
-          }else{
-            print("跳转分享人个人中心");
-            Application.router.navigateTo(context, Routes.userCenterPage);
+          if(this.widget.isClickUser){
+            if(!(articleData.author == "")){ //如果作者不为空，说明可以更加作者昵称查看文章 否则查看 分享人 个人信息主页
+              Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(articleData.author)}');
+            }else{
+              print("跳转分享人个人中心");
+              Application.router.navigateTo(context, '${Routes.userCenterPage}?type=${Uri.encodeComponent(Constants.USER_SHARE_CENTER_PAGE_TYPE)}&authorId=${Uri.encodeComponent(articleData.userId.toString())}&authorName=${Uri.encodeComponent(articleData.shareUser)}');
+            }
           }
         },
       ),

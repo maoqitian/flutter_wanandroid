@@ -15,7 +15,7 @@ class Routes {
   static String userCenterPage = '/user_center_page';
   static String collectItemPage = '/collect_page';
   static String commonWebPage = '/common_web_page';
-
+  static String shareArticlePage = '/share_article_page';
 
   static void configureRoutes(Router router){
 
@@ -32,6 +32,7 @@ class Routes {
     router.define(userCenterPage, handler: userCenterHandler);
     router.define(collectItemPage, handler: collectPageHandler);
     router.define(commonWebPage, handler: commonWebPageHandler);
+    router.define(shareArticlePage, handler: shareArticlePageHandler);
   }
 
 

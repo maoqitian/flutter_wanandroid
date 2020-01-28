@@ -55,6 +55,11 @@ class Constants{
   static const String COLLECT_PAGE_TYPE = 'collect_page_type';
   static const String NOT_COLLECT_PAGE_TYPE = 'not_collect_page_type';
 
+  //个人中心显示数据
+  static const String USER_CENTER_PAGE_TYPE = 'user_center_page_type';
+  //用户个人中心
+  static const String USER_SHARE_CENTER_PAGE_TYPE = 'user_center_share_page_type';
+
   //页面标题和id对象 集合 首页
   static final List<Page> allPages = <Page>[
     Page('最新博文', 1),
@@ -70,11 +75,15 @@ class Constants{
 
   //页面标题和id对象 集合 用户中心
   static final List<Page> userPages = <Page>[
-    Page('收藏文章', 0),
-    Page('分享文章', 1),
+    Page('分享文章', 0),
+    Page('收藏文章', 1),
     Page('收藏网站', 2),
   ];
 
+  //页面标题和id对象 集合 用户中心
+  static final List<Page> userSharePages = <Page>[
+    Page('分享文章', 0),
+  ];
 
   static const String LOAD = 'load';
 

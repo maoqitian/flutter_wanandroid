@@ -11,6 +11,7 @@ import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';
+import 'package:flutter_wanandroid/views/share/page/user_share_page.dart';
 import 'package:flutter_wanandroid/views/user/delegate/sticky_tabBar_delegate.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
@@ -18,6 +19,13 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 TabController _tabController;
 
 class UserCenterPage extends StatefulWidget {
+
+  final String type;
+  final String authorId;
+  final String authorName;
+
+  UserCenterPage({this.type = Constants.USER_CENTER_PAGE_TYPE, this.authorId, this.authorName});
+
   @override
   _UserCenterPageState createState() => _UserCenterPageState();
 }
@@ -30,7 +38,8 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: Constants.userPages.length,vsync: this);
+    _tabController = new TabController(length:Constants.USER_CENTER_PAGE_TYPE == widget.type ?
+    Constants.userPages.length:Constants.userSharePages.length,vsync: this);
     _scrollController = ScrollController();
   }
 
@@ -85,7 +94,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
        Scaffold(
             body: extended.NestedScrollView(  //使用扩展 extended.NestedScrollView 处理 联动问题
               innerScrollPositionKeyBuilder: (){
-                return Key(Constants.userPages[_tabController.index].labelId + _tabController.index.toString());
+                return Key(getKey(_tabController.index));
               },
               headerSliverBuilder: (context, bool) {
                 return [
@@ -94,7 +103,7 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
                       pinned: true,
                       expandedHeight: 150.0,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: Text(dataUtils.getUserName(),style:TextStyle(color: Colors.white,
+                        title: Text(Constants.USER_CENTER_PAGE_TYPE == widget.type ?  dataUtils.getUserName():widget.authorName,style:TextStyle(color: Colors.white,
                         fontWeight: FontWeight.bold )),
                         background: Image.asset(
                         ToolUtils.getImage("ic_zone_background",format: "webp"), fit: BoxFit.cover),
@@ -111,7 +120,10 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
               },
               body: TabBarView(
                 controller: _tabController,
-                children: Constants.userPages.map((Page page){
+                children: Constants.USER_CENTER_PAGE_TYPE == widget.type ? Constants.userPages.map((Page page){
+                  return buildTabView(context, page);
+                }).toList() :
+                Constants.userSharePages.map((Page page){
                   return buildTabView(context, page);
                 }).toList(),
               ),
@@ -122,18 +134,16 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
   Widget buildTabView(BuildContext context, Page page) {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
-      case 0:
+      case 1:
       //收藏文章
         return extended.NestedScrollViewInnerScrollPositionKeyWidget( //使用扩展 extended.NestedScrollView 处理 联动问题
-             Key(Constants.userPages[labelIndex].labelId+labelIndex.toString()),CollectItemPage(false)
+             Key(getKey(labelIndex)),CollectItemPage(false)
         );
         break;
-      case 1:
+      case 0:
       //分享文章
-        return Container(
-          child: new Center(
-            child: new Text(page.labelId+"Page"),
-          ),
+        return extended.NestedScrollViewInnerScrollPositionKeyWidget( //使用扩展 extended.NestedScrollView 处理 联动问题
+            Key(getKey(labelIndex)),UserSharePage(type: widget.type,authorId: widget.authorId)
         );
         break;
       case 2:
@@ -148,6 +158,15 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
         );
         break;
     }
+  }
+
+  String getKey(int index){
+    if(Constants.USER_CENTER_PAGE_TYPE == widget.type){
+      return Constants.userPages[index].labelId+index.toString();
+    }else{
+      return Constants.userSharePages[index].labelId+index.toString();
+    }
+
   }
 
   buildUserIconAndNickName() {
@@ -187,33 +206,37 @@ class _UserCenterPageState extends State<UserCenterPage> with SingleTickerProvid
 
     return null;
   }
-}
-//构造 TabBar
-buildTabBar(BuildContext context) {
-  return new TabBar(
-    //构造Tab集合
-    tabs: Constants.userPages.map((Page page ){
-      return Tab(
-        text: page.labelId,
-      );
-    }).toList(),
-    //设置tab文字得类型
-    labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-    labelPadding: EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-    ///指示器大小计算方式，TabBarIndicatorSize.label跟文字等宽,TabBarIndicatorSize.tab跟每个tab等宽
-    indicatorSize: TabBarIndicatorSize.label,
-    //设置tab选中得颜色
-    labelColor: Theme.of(context).primaryColor,
-    //设置tab未选中得颜色
-    unselectedLabelColor: Colors.grey,
-    indicatorColor: Theme.of(context).primaryColor,
-    //设置自定义tab的指示器，CustomUnderlineTabIndicator
-    //若不需要自定义，可直接通过
-    //indicatorColor 设置指示器颜色
-    //indicatorWight 设置指示器厚度
-    //indicatorPadding
-    //indicatorSize  设置指示器大小计算方式
-    controller: _tabController,
-    //构造Tab集合
-  );
+  //构造 TabBar
+  buildTabBar(BuildContext context) {
+    return new TabBar(
+      //构造Tab集合
+      tabs: Constants.USER_CENTER_PAGE_TYPE == widget.type ? Constants.userPages.map((Page page ){
+        return Tab(
+          text: page.labelId,
+        );
+      }).toList(): Constants.userSharePages.map((Page page){
+        return Tab(
+          text: page.labelId,
+        );
+      }).toList(),
+      //设置tab文字得类型
+      labelStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      labelPadding: EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
+      ///指示器大小计算方式，TabBarIndicatorSize.label跟文字等宽,TabBarIndicatorSize.tab跟每个tab等宽
+      indicatorSize: TabBarIndicatorSize.label,
+      //设置tab选中得颜色
+      labelColor: Theme.of(context).primaryColor,
+      //设置tab未选中得颜色
+      unselectedLabelColor: Colors.grey,
+      indicatorColor: Theme.of(context).primaryColor,
+      //设置自定义tab的指示器，CustomUnderlineTabIndicator
+      //若不需要自定义，可直接通过
+      //indicatorColor 设置指示器颜色
+      //indicatorWight 设置指示器厚度
+      //indicatorPadding
+      //indicatorSize  设置指示器大小计算方式
+      controller: _tabController,
+      //构造Tab集合
+    );
+  }
 }

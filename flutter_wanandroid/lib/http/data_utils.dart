@@ -374,7 +374,7 @@ class DataUtils{
   //	用户id: 拼接在url上
   //	页码拼接在url上从1开始
   Future<UserShareData> getUserShareArticleData(int id,int pageNum) async{
-    String path = 'user/$id/articles/$pageNum';
+    String path = 'user/$id/share_articles/$pageNum/json';
     Response response = await httpUtils.get(path);
     BaseUserShareData baseUserShareData = BaseUserShareData.fromJson(response.data);
     return baseUserShareData.data;
@@ -394,9 +394,9 @@ class DataUtils{
   //删除自己分享的文章
   //请求:POST
   //参数：文章id，拼接在链接上
-  Future<String> getDeleteUserShareArticle(int id) async{
+  Future<String> getDeleteUserShareArticle(int id,BuildContext context) async{
     String path = 'lg/user_article/delete/$id/json';
-    Response response = await httpUtils.post(path);
+    Response response = await httpUtils.post(path,isAddLoading: true,loadingText: "删除分享...",context: context);
     return response.data["data"];
   }
 
@@ -405,10 +405,10 @@ class DataUtils{
   //参数：
   //	title 文章标题
   //	link 文章链接
-  Future<String> getShareArticle(String title,String link) async{
+  Future<String> getShareArticle(String title,String link,BuildContext context) async{
     String path = 'lg/user_article/add/json';
     FormData formData =FormData.fromMap({"title": title,"link": link});
-    Response response = await httpUtils.post(path,formData: formData);
+    Response response = await httpUtils.post(path,formData: formData,isAddLoading: true,loadingText: "分享文章...",context: context);
     return response.data["data"];
   }
 
