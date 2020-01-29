@@ -53,6 +53,7 @@ class _UserShareArticleItemState extends State<UserShareArticleItem> {
         subtitle: Row(
           children: <Widget>[
             Expanded(
+              flex: 4,
               child: Text('时间：'+widget.articleData.niceDate ,
                   style: TextStyle(color: Colors.black54, fontSize: 10.0,),
                   maxLines: 1, // title 只显示一行

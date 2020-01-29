@@ -16,6 +16,8 @@ class Routes {
   static String collectItemPage = '/collect_page';
   static String commonWebPage = '/common_web_page';
   static String shareArticlePage = '/share_article_page';
+  static String coinRankPage = '/coin_rank_page';
+  static String userCoinPage = '/user_coin_page';
 
   static void configureRoutes(Router router){
 
@@ -33,6 +35,8 @@ class Routes {
     router.define(collectItemPage, handler: collectPageHandler);
     router.define(commonWebPage, handler: commonWebPageHandler);
     router.define(shareArticlePage, handler: shareArticlePageHandler);
+    router.define(coinRankPage, handler: coinRankPageHandler);
+    router.define(userCoinPage, handler: userCoinPageHandler);
   }
 
 

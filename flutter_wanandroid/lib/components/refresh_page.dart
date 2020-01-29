@@ -29,6 +29,8 @@ class RefreshPage extends StatefulWidget {
   final bool isNeedController;
   //页面展示类型
   final String pageType;
+  //可自行配置初始页面 pageNum 默认是零
+  final int startIndex;
 
   const RefreshPage(
       {@required this.requestApi,
@@ -38,7 +40,7 @@ class RefreshPage extends StatefulWidget {
       this.isCanRefresh = true,
       this.isCanLoadMore = true,
       this.isNeedController = true,
-      this.pageType = Constants.LIST_PAGE_TYPE})
+      this.pageType = Constants.LIST_PAGE_TYPE, this.startIndex = 0})
       : assert(requestApi is Function),
         assert(renderItem is Function),
         super();
@@ -60,6 +62,7 @@ class _RefreshPageState extends State<RefreshPage> {
   @override
   void initState() {
     //第一次进入加载数据
+    _pageIndex = widget.startIndex;
     _getMoreData();
     //正常页面 添加滑动监听
     _scrollController.addListener(() {
@@ -100,7 +103,7 @@ class _RefreshPageState extends State<RefreshPage> {
       }
     } else if (!isLoading && !_hasMore) {
       // 这样判断,减少以后的绘制
-      _pageIndex = 0;
+      _pageIndex = widget.startIndex;
     }
   }
 
@@ -109,7 +112,7 @@ class _RefreshPageState extends State<RefreshPage> {
       Map listObj = new Map<String, dynamic>();
       if (isRefresh) {
         //下拉刷新
-        listObj = await widget.requestApi({'pageIndex': 0});
+        listObj = await widget.requestApi({'pageIndex': widget.startIndex});
       } else {
         //上拉加载更多
         listObj = await widget.requestApi({'pageIndex': _pageIndex});
@@ -308,7 +311,7 @@ class _RefreshPageState extends State<RefreshPage> {
                   items.clear();
                   isLoading = false;
                   _hasMore = true;
-                  _pageIndex = 0;
+                  _pageIndex = widget.startIndex;
                 });
                 _getMoreData();
               }

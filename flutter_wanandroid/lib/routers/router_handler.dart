@@ -1,6 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/views/app_page.dart';
+import 'package:flutter_wanandroid/views/coin/coin_rank_page.dart';
+import 'package:flutter_wanandroid/views/coin/user_coin_page.dart';
 import 'package:flutter_wanandroid/views/collect/collect_page.dart';
 import 'package:flutter_wanandroid/views/home/common/common_web_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
@@ -77,5 +79,19 @@ var commonWebPageHandler = new Handler(
 var shareArticlePageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new ShareArticlePage();
+  },
+);
+
+//积分排行榜
+var coinRankPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new CoinRankPage();
+  },
+);
+
+//我的积分
+var userCoinPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new UserCoinPage();
   },
 );

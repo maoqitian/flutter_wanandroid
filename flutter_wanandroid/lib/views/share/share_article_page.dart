@@ -29,7 +29,6 @@ class _ShareArticlePageState extends State<ShareArticlePage> {
     super.initState();
   }
 
-  //  ListViewItem
   Widget makeShareCard(index,item){
     return ListViewItem(articleData: item,isHomeShow: false,isClickUser: true);
   }

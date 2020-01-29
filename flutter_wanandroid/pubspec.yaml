@@ -82,6 +82,9 @@ flutter:
     - family: myIcon2
       fonts:
         - asset: fonts/iconfont2.ttf
+    - family: myIcon3
+      fonts:
+        - asset: fonts/iconfont3.ttf
   # image 资源
   assets:
     - images/

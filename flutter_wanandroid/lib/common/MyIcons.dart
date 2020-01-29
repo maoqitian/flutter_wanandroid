@@ -48,4 +48,23 @@ class MyIcons{
       fontFamily: 'myIcon2',
       matchTextDirection: true
   );
+
+  //冠军
+  static const IconData first = const IconData(
+      0xe610,
+      fontFamily: 'myIcon3',
+      matchTextDirection: true
+  );
+  //亚军
+  static const IconData second = const IconData(
+      0xe60e,
+      fontFamily: 'myIcon3',
+      matchTextDirection: true
+  );
+  //季军
+  static const IconData third = const IconData(
+      0xe60f,
+      fontFamily: 'myIcon3',
+      matchTextDirection: true,
+  );
 }

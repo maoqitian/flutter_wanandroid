@@ -333,7 +333,7 @@ class DataUtils{
   //方法：get
   //参数：
   //页码：拼接在链接上，从1开始。
-  Future<RankListData> getCoinRankListData(int pageNum,String key) async{
+  Future<RankListData> getCoinRankListData(int pageNum) async{
     String path = 'coin/rank/$pageNum/json';
     Response response = await httpUtils.get(path);
     BaseRankListData baseRankListData = BaseRankListData.fromJson(response.data);

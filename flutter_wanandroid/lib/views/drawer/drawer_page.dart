@@ -12,7 +12,6 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
-import 'package:flutter_wanandroid/routers/router_handler.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
@@ -57,18 +56,22 @@ class _DrawerPageState extends State<DrawerPage> {
       getCoinUserInfo();
     }
     Application.eventBus.on<LoginEvent>().listen((event) {
-      setState((){
+      if(this.mounted){
+        setState((){
           isLogin = true;
           loginData = event.loginData;
-      });
-      //获取积分 等级
-      getCoinUserInfo();
+        });
+        //获取积分 等级
+        getCoinUserInfo();
+      }
     });
 
     Application.eventBus.on<LoginOutEvent>().listen((event){
-      setState(() {
-        isLogin = false;
-      });
+      if(this.mounted){
+        setState(() {
+          isLogin = false;
+        });
+      }
     });
 
   }
@@ -173,7 +176,6 @@ class _DrawerPageState extends State<DrawerPage> {
               Application.router.navigateTo(context,Routes.login);
             }else{
               //登录则跳转用户中心
-              print("点击跳转我的收藏");
               Application.router.navigateTo(context,Routes.collectItemPage);
             }
           },
@@ -189,9 +191,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
-            Navigator.pop(context);
+            Application.router.navigateTo(context,Routes.coinRankPage);
           },
         ),
         ListTile(
@@ -204,9 +204,8 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
             Navigator.pop(context);
+            //Application.router.navigateTo(context,Routes.userCoinPage);
           },
         ),
         ListTile(
