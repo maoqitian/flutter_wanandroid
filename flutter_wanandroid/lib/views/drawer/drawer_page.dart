@@ -204,8 +204,13 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            Navigator.pop(context);
-            //Application.router.navigateTo(context,Routes.userCoinPage);
+            //Navigator.pop(context);
+            if(!isLogin){
+              // 没有登录 跳转登录页面
+              Application.router.navigateTo(context,Routes.login);
+            }else {
+              Application.router.navigateTo(context, Routes.userCoinPage);
+            }
           },
         ),
         ListTile(
