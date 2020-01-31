@@ -8,6 +8,8 @@ import 'package:flutter_wanandroid/views/home/common/common_web_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
+import 'package:flutter_wanandroid/views/setting/about_page.dart';
+import 'package:flutter_wanandroid/views/setting/setting_page.dart';
 import 'package:flutter_wanandroid/views/share/share_article_page.dart';
 import 'package:flutter_wanandroid/views/user/user_center_page.dart';
 import 'package:flutter_wanandroid/views/web_page/web_view_page.dart';
@@ -93,5 +95,19 @@ var coinRankPageHandler = new Handler(
 var userCoinPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new UserCoinPage();
+  },
+);
+
+//设置
+var settingPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new SettingPage();
+  },
+);
+
+//设置
+var aboutPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new AboutPage();
   },
 );

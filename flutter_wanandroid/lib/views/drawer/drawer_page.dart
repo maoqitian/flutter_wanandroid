@@ -128,7 +128,6 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
             ///关闭侧边栏
             Navigator.pop(context);
           },
@@ -143,6 +142,8 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
+            ///关闭侧边栏
+            Navigator.pop(context);
             Application.router.navigateTo(context,Routes.shareArticlePage);
           },
         ),
@@ -156,7 +157,8 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
+            ///关闭侧边栏
+            Navigator.pop(context);
             Application.router.navigateTo(context,Routes.commonWebPage);
           },
         ),
@@ -175,6 +177,8 @@ class _DrawerPageState extends State<DrawerPage> {
               // 没有登录 跳转登录页面
               Application.router.navigateTo(context,Routes.login);
             }else{
+              ///关闭侧边栏
+              Navigator.pop(context);
               //登录则跳转用户中心
               Application.router.navigateTo(context,Routes.collectItemPage);
             }
@@ -191,6 +195,8 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
+            ///关闭侧边栏
+            Navigator.pop(context);
             Application.router.navigateTo(context,Routes.coinRankPage);
           },
         ),
@@ -204,11 +210,12 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //Navigator.pop(context);
             if(!isLogin){
               // 没有登录 跳转登录页面
               Application.router.navigateTo(context,Routes.login);
             }else {
+              ///关闭侧边栏
+              Navigator.pop(context);
               Application.router.navigateTo(context, Routes.userCoinPage);
             }
           },
@@ -241,6 +248,7 @@ class _DrawerPageState extends State<DrawerPage> {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
             ///关闭侧边栏
             Navigator.pop(context);
+            Application.router.navigateTo(context, Routes.settingPage);
           },
         ),
         ListTile(
@@ -253,27 +261,8 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
             ///关闭侧边栏
             Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.close,
-            size: 27.0,
-          ),
-          title: Text(
-            '退出登录',
-            style: textStyle,
-          ),
-          onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            //showAlertDialog(context);
-            ToolUtils.showAlertDialog(context, "乃确定不是手滑了么？",confirmCallback: (){
-              //退出登录
-              doLoginOut();
-            });
           },
         ),
       ],

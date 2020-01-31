@@ -18,6 +18,7 @@ class UserCoinRecordItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(coinSignInData.desc),
+      subtitle: new Divider(),
     );
   }
 }

@@ -18,6 +18,8 @@ class Routes {
   static String shareArticlePage = '/share_article_page';
   static String coinRankPage = '/coin_rank_page';
   static String userCoinPage = '/user_coin_page';
+  static String settingPage = '/setting_page';
+  static String aboutPage = '/about_page';
 
   static void configureRoutes(Router router){
 
@@ -37,6 +39,8 @@ class Routes {
     router.define(shareArticlePage, handler: shareArticlePageHandler);
     router.define(coinRankPage, handler: coinRankPageHandler);
     router.define(userCoinPage, handler: userCoinPageHandler);
+    router.define(settingPage, handler: settingPageHandler);
+    router.define(aboutPage, handler: aboutPageHandler);
   }
 
 

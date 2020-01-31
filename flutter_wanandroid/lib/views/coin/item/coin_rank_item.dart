@@ -52,7 +52,7 @@ class CoinRankItem extends StatelessWidget {
       list.add(Padding(
         padding: EdgeInsets.only(left: 10.0),
         child:Text(
-          (data.username),
+          (data.username+"  积分："+data.coinCount.toString()),
           style: TextStyle(color: Colors.black, fontSize: 15.0,fontWeight: FontWeight.bold),
           maxLines: 1, // title 只显示一行
           overflow: TextOverflow.ellipsis //超出一行 显示 ...
@@ -61,7 +61,7 @@ class CoinRankItem extends StatelessWidget {
       list.add(Padding(
           padding: EdgeInsets.only(left: 10.0),
           child: Text(
-          (data.rank.toString()+".  "+data.username),
+          (data.rank.toString()+".  "+data.username + "  积分："+data.coinCount.toString()),
           style: TextStyle(color: data.username == userName ? Colors.blue:Colors.black, fontSize: 15.0,fontWeight: FontWeight.bold),
           maxLines: 1, // title 只显示一行
           overflow: TextOverflow.ellipsis //超出一行 显示 ...

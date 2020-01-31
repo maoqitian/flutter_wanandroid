@@ -193,4 +193,27 @@ class ToolUtils{
       ],
     );
   }
+
+  //清除缓存
+  static void clearCache() async {
+    Directory tempDir = await getTemporaryDirectory();
+    //删除缓存目录
+    await delDir(tempDir);
+    //清除图片缓存
+    PaintingBinding.instance.imageCache.clear();
+    //await loadCache();
+    showToast(msg: '清除缓存成功');
+  }
+
+  ///递归方式删除目录
+  static Future<Null> delDir(FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await delDir(child);
+      }
+    }
+    await file.delete();
+  }
+
 }

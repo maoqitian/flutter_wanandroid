@@ -80,6 +80,13 @@ class Constants{
     Page('收藏网站', 2),
   ];
 
+  static final List<String> settingItems = [
+    "夜间模式",
+    "清除缓存",
+    "关于我们",
+  ];
+
+
   //页面标题和id对象 集合 用户中心
   static final List<Page> userSharePages = <Page>[
     Page('分享文章', 0),
