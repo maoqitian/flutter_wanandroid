@@ -223,6 +223,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.8"
+  flutter_html:
+    dependency: "direct main"
+    description:
+      name: flutter_html
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.11.1"
   flutter_spinkit:
     dependency: "direct main"
     description:

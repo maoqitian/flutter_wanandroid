@@ -54,6 +54,8 @@ dependencies:
   flutter_staggered_grid_view: ^0.3.0
   # packageinfo
   package_info: ^0.4.0+13
+  # 加载html 字符串
+  flutter_html: ^0.11.1
 
 dev_dependencies:
   flutter_test:

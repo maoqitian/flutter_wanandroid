@@ -263,6 +263,7 @@ class _DrawerPageState extends State<DrawerPage> {
           onTap: () {
             ///关闭侧边栏
             Navigator.pop(context);
+            ToolUtils.showToast(msg: "暂未实现");
           },
         ),
       ],
