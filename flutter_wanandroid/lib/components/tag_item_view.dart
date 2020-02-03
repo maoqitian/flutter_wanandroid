@@ -12,13 +12,34 @@ class TagItemView extends StatelessWidget {
   final String textTitle;
   final Color backgroundColor;
   final Color textColor;
-  TagItemView({this.pressCallback, this.textTitle, this.backgroundColor, this.textColor});
+  final bool isChip;
+  TagItemView({this.pressCallback, this.textTitle, this.backgroundColor, this.textColor, this.isChip=false});
 
 
   @override
   Widget build(BuildContext context) {
-    return
-      Padding(
+    return isChip? InkWell(
+        onTap: () {
+          if(pressCallback != null){
+            pressCallback();
+          }
+        },
+        child: Chip(
+          backgroundColor: backgroundColor == null ? null : backgroundColor,
+          label: Text(
+            textTitle,
+            style: TextStyle(
+                fontSize: 12.0,
+                color: textColor == null ? null: textColor,
+                fontStyle: FontStyle.italic),
+          ),
+          labelPadding: EdgeInsets.only(left: 5.0, right: 5.0),
+          // backgroundColor: Color(0xfff1f1f1),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0)),
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+        ),
+      ) : Padding(
         padding: EdgeInsets.only(left: 3.0),
         child: ActionChip(
           onPressed: (){

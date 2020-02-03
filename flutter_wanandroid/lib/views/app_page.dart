@@ -5,7 +5,9 @@
 /// des: 底层基础页面 BottomNavigationBar
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/components/search_input.dart';
+import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/views/wechat/wechat_chapters_page.dart';
 import '../common/MyIcons.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
@@ -148,7 +150,8 @@ class _AppPageState extends State<AppPage> {
               icon:  Icon(Icons.search),
               color: Colors.white,
               onPressed: () {
-                ToolUtils.showToast(msg: '点击了搜索');
+                //ToolUtils.showToast(msg: '点击了搜索');
+                Application.router.navigateTo(context, Routes.searchPage);
               })
         ],);
     }

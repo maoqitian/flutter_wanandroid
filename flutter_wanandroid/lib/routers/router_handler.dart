@@ -8,6 +8,7 @@ import 'package:flutter_wanandroid/views/home/common/common_web_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
+import 'package:flutter_wanandroid/views/search/search_page.dart';
 import 'package:flutter_wanandroid/views/setting/about_page.dart';
 import 'package:flutter_wanandroid/views/setting/setting_page.dart';
 import 'package:flutter_wanandroid/views/share/share_article_page.dart';
@@ -109,5 +110,12 @@ var settingPageHandler = new Handler(
 var aboutPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new AboutPage();
+  },
+);
+
+//搜索
+var searchPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new SearchPage();
   },
 );

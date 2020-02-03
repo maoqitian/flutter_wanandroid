@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/main_app_bar.dart';
+import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/drawer/drawer_page.dart';
 import 'package:flutter_wanandroid/views/home/page/first_page.dart';
@@ -72,6 +74,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               color: Colors.white,
               onPressed: () {
                 ToolUtils.showToast(msg: '点击了搜索');
+                Application.router.navigateTo(context, Routes.searchPage);
               })
         ],
       ),

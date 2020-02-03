@@ -20,6 +20,7 @@ class Routes {
   static String userCoinPage = '/user_coin_page';
   static String settingPage = '/setting_page';
   static String aboutPage = '/about_page';
+  static String searchPage = '/search_page';
 
   static void configureRoutes(Router router){
 
@@ -41,6 +42,7 @@ class Routes {
     router.define(userCoinPage, handler: userCoinPageHandler);
     router.define(settingPage, handler: settingPageHandler);
     router.define(aboutPage, handler: aboutPageHandler);
+    router.define(searchPage, handler: searchPageHandler);
   }
 
 
