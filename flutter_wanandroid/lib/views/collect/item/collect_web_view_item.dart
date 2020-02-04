@@ -78,7 +78,6 @@ class _CollectWebViewItemState extends State<CollectWebViewItem> {
               ),
               Expanded(
                 child: IconButton(icon: Icon(MyIcons.delete,size: 20.0),onPressed: (){
-
                   ToolUtils.showAlertDialog(context, "确定删除收藏网站"+widget.collectWebData.name+"?",
                       confirmCallback: ()async{
                         // 删除收藏网站

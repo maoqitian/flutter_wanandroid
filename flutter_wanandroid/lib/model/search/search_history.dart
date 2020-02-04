@@ -1,17 +1,9 @@
-///
-/// Created with Android Studio.
-/// User: 三帆
-/// Date: 18/02/2019
-/// Time: 14:19
-/// email: sanfan.hx@alibaba-inc.com
-/// target: 搜索WidgetDemo中的历史记录model
-///
+/// target: 搜索历史记录model
+
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-
 import 'package:flutter_wanandroid/common/shared_preferences.dart';
 
 
@@ -20,7 +12,7 @@ class SearchHistory {
   final String name;
   final String targetRouter;
 
-  SearchHistory({@required this.name, @required this.targetRouter});
+  SearchHistory({@required this.name,this.targetRouter});
 }
 
 class SearchHistoryList {
@@ -76,9 +68,13 @@ class SearchHistoryList {
   }
 
   add(SearchHistory item) {
-    print("add item to serach history ${item.targetRouter}");
+    print("add item to serach history ${item.name}");
     for (SearchHistory value in _searchHistoryList) {
       if (value.name == item.name) {
+        //如果已经存在则删除重新添加
+        _searchHistoryList.remove(value);
+        _searchHistoryList.add(item);
+        save();
         return;
       }
     }

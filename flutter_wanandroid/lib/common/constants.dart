@@ -1,5 +1,3 @@
-import 'package:path_provider/path_provider.dart';
-
 import 'Page.dart';
 
 /// Created with Android Studio.
@@ -59,6 +57,10 @@ class Constants{
   static const String USER_CENTER_PAGE_TYPE = 'user_center_page_type';
   //用户个人中心
   static const String USER_SHARE_CENTER_PAGE_TYPE = 'user_center_share_page_type';
+
+  //搜索 页面 类型
+  static const String NORMAL_SEARCH_PAGE_TYPE = 'normal_search_page_type';
+  static const String WECHAT_SEARCH_PAGE_TYPE = 'wechat_search_page_type';
 
   //页面标题和id对象 集合 首页
   static final List<Page> allPages = <Page>[

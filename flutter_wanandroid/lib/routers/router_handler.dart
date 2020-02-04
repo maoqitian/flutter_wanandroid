@@ -116,6 +116,7 @@ var aboutPageHandler = new Handler(
 //搜索
 var searchPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return new SearchPage();
+    String routePageJson = params['routePageJson']?.first;
+    return new SearchPage(routePageData: routePageJson);
   },
 );

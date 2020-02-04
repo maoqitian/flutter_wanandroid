@@ -32,6 +32,7 @@ import 'package:flutter_wanandroid/model/login/base_login_data.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/model/navigation/base_navigation_data.dart';
 import 'package:flutter_wanandroid/model/navigation/navigation_data.dart';
+import 'package:flutter_wanandroid/model/search/search_history.dart';
 import 'package:flutter_wanandroid/model/usershare/base_user_share_data.dart';
 import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
 import 'api/Api.dart';
@@ -47,8 +48,14 @@ DataUtils dataUtils = new DataUtils();
 
 class DataUtils{
 
+  SearchHistoryList searchHistoryList;
+
   //私有构造函数
-  DataUtils._internal();
+  DataUtils._internal(){
+    if(null == searchHistoryList){
+      searchHistoryList = SearchHistoryList(Application.sp);
+    }
+  }
 
   //保存单例
   static DataUtils _singleton = new DataUtils._internal();
@@ -443,4 +450,19 @@ class DataUtils{
     return getLoginState();
   }
 
+  /// 搜索历史 增加 删除 获取
+
+  //获取搜索历史数据
+  Iterable<SearchHistory> getSearchHistoryListData(){
+    var reversed2 = searchHistoryList.getList().reversed;
+    return reversed2;
+  }
+
+  void addSearchHistory(SearchHistory item){
+    searchHistoryList.add(item);
+  }
+
+  void clearSearchHistoryListData(){
+    searchHistoryList.clear();
+  }
 }

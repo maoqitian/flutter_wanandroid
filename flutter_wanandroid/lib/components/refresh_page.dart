@@ -299,7 +299,7 @@ class _RefreshPageState extends State<RefreshPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text("页面出错了！！"),
+          Text("获取数据为空或页面加载失败！！"),
           RaisedButton(
             textColor: Colors.white,
             color: Theme.of(context).primaryColor,

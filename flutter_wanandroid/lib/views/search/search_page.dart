@@ -5,51 +5,79 @@
 /// des:  搜索页面
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/MyIcons.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/refresh_page.dart';
 import 'package:flutter_wanandroid/components/search_bar.dart';
 import 'package:flutter_wanandroid/components/tag_item_view.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/hot_key_data.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:flutter_wanandroid/model/search/search_history.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/home/item/list_view_item.dart';
 
 class SearchPage extends StatefulWidget {
+
+  final String routePageData;
+
+  SearchPage({this.routePageData});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
+
+  //页面跳转传递数据
+  RoutePageData routePageData;
+
   SearchBar searchBar;
   //是否展示结果
   bool isResult = false;
-  String key;
-
+  //搜索关键字
+  String key = "";
+  //搜索热词
   List<HotKeyData> hotList = [];
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  AppBar buildAppBar(BuildContext context) {
-    return new AppBar(actions: [searchBar.getSearchAction(context)]);
-  }
-
-  //确认搜索文字
-  void onSubmitted(String value) {
-    print(value);
-    key = value;
-    gotoSearch();
-  }
+  FocusNode searchFocus = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    routePageData= RoutePageData.fromJson(ToolUtils.string2map(widget.routePageData));
     searchBar = new SearchBar(
         inBar: true,
         buildDefaultAppBar: buildAppBar,
-        setState: setState,
+        setState: this.setState,
         onSubmitted: onSubmitted,
+        searchFocus: searchFocus,
+        hintText: isWeChatSearch() ? "搜索"+routePageData.title+"公众号历史文章":"搜索关键词",
+        onClear: () {
+          //清空搜索输入回调
+          if (this.mounted) {
+            if (isResult) {
+              setState(() {
+                isResult = false;
+              });
+            }
+          }
+        },
         onClosed: () {
-          print("closed");
+          //页面关闭回调
+          if (this.mounted) {
+            if (isResult) {
+              //获取键盘焦点
+              FocusScope.of(context).requestFocus(searchFocus);
+              setState(() {
+                isResult = false;
+              });
+            } else {
+              //退出搜索页面
+              Navigator.maybePop(context);
+            }
+          }
         });
     getHotKeyListData();
   }
@@ -63,31 +91,83 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  //构建搜索框 appbar
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(actions: [searchBar.getSearchAction(context)]);
+  }
+
+  //确认搜索文字
+  void onSubmitted(String value) {
+    print("onSubmitted" + value);
+    if (ToolUtils.isNullOrEmpty(value)) {
+      ToolUtils.showToast(msg: "请输入搜索关键字");
+      return;
+    }
+    key = value;
+    searchBar.controller.text = value;
+    dataUtils.addSearchHistory(SearchHistory(name: value));
+    gotoSearch();
+  }
+
   //搜索历史 搜索热词
   buildHistoryAndHotKey() {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text("搜索历史"),
-          SizedBox(
-            height: 10,
-          ),
-          buildHistory(),
-          Text("大家都在搜"),
-          buildHotKey(),
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: buildHistoryAndHotKeyPageList()),
     );
+  }
+
+  List<Widget> buildHistoryAndHotKeyPageList() {
+    List<Widget> widgetList = [];
+
+    if (dataUtils.getSearchHistoryListData().length > 0) {
+      widgetList.add(Text("搜索历史"));
+      widgetList.add(SizedBox(height: 10));
+      widgetList.add(buildTagItem(dataUtils
+          .getSearchHistoryListData()
+          .map((SearchHistory searchHistory) {
+        return buildTagView(searchHistory.name);
+      }).toList()));
+      widgetList.add(SizedBox(height: 20));
+      widgetList.add(GestureDetector(
+          onTap: () {
+            ToolUtils.showAlertDialog(context, "确认清除全部历史记录吗？",
+                confirmText: "确认", confirmCallback: () {
+              dataUtils.clearSearchHistoryListData();
+              if (this.mounted) {
+                setState(() {});
+              }
+            });
+          },
+          child: Row(
+            children: <Widget>[
+              Icon(MyIcons.delete, size: 20.0),
+              Text("清空搜索历史")
+            ],
+          )));
+    }
+
+    if (hotList.length > 0) {
+      widgetList.add(SizedBox(height: 20));
+      widgetList.add(Text("大家都在搜"));
+      widgetList.add(buildTagItem(hotList.map((HotKeyData hotKeyData) {
+        return buildTagView(hotKeyData.name);
+      }).toList()));
+    } else {
+      widgetList.add(Container());
+    }
+    return widgetList;
   }
 
   //搜索结果
   buildSearchResult() {
     return RefreshPage(
-        requestApi: getSearchResultListData,
+        requestApi: isWeChatSearch()? getSearchResultWechatListData : getSearchResultListData,
         renderItem: makeCard,
+        startIndex: isWeChatSearch()? 1 : 0,
         isCanRefresh: false);
   }
 
@@ -96,13 +176,70 @@ class _SearchPageState extends State<SearchPage> {
     return ListViewItem(articleData: item, isHomeShow: false);
   }
 
-  //获取 最新项目 列表数据
+  buildTagItem(List<Widget> widgetList) {
+    return Wrap(
+        spacing: 3, //主轴上子控件的间距
+        runSpacing: 3, //交叉轴上子控件之间的间距
+        // 扩展方式，横向堆砌
+        direction: Axis.horizontal,
+        // 对齐方式
+        alignment: WrapAlignment.start,
+        // run的对齐方式 开始位置
+        runAlignment: WrapAlignment.start,
+        // 交叉轴对齐方式
+        crossAxisAlignment: WrapCrossAlignment.end,
+        // 文本对齐方向
+        textDirection: TextDirection.ltr,
+        // 确定垂直放置子元素的顺序，以及如何在垂直方向上解释开始和结束。 默认down
+        verticalDirection: VerticalDirection.down,
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
+        children: widgetList);
+  }
+
+  Widget buildTagView(String text) {
+    return TagItemView(
+      textTitle: text,
+      textColor: Colors.white,
+      backgroundColor: ToolUtils.getRandomColor(),
+      isChip: true,
+      pressCallback: () {
+        //print("pressCallback"+text);
+        key = text;
+        searchBar.controller.text = text;
+        dataUtils.addSearchHistory(new SearchHistory(name: text));
+        //关闭键盘
+        //FocusScope.of(context).requestFocus(FocusNode());
+        searchFocus.unfocus();
+        gotoSearch();
+      },
+    );
+  }
+
+  //搜索热词
+  void getHotKeyListData() async {
+    await dataUtils.getHotKeyListData().then((List<HotKeyData> list) {
+      if (this.mounted) {
+        setState(() {
+          hotList.clear();
+          hotList.addAll(list);
+        });
+      }
+    }, onError: (e) {
+      ToolUtils.showToast(msg: "获取搜索热词数据失败");
+    });
+  }
+
+  //搜索结果
   Future<Map> getSearchResultListData([Map<String, dynamic> params]) async {
     Map<String, dynamic> result;
     //最新项目
     var pageIndex = (params is Map) ? params['pageIndex'] : 0;
     await dataUtils.getSearchListData(pageIndex, key).then(
         (ArticleListData articleListData) {
+          if(articleListData.datas.length == 0){
+            ToolUtils.showToast(msg: "没有找到相关文章");
+          }
       result = {
         "list": articleListData.datas,
         'total': articleListData.pageCount,
@@ -115,65 +252,26 @@ class _SearchPageState extends State<SearchPage> {
     return result;
   }
 
-  //搜索历史 数据库
-  buildHistory() {
-    return Container();
-  }
-
-  //搜索热词
-  buildHotKey() {
-    return hotList.length > 0 ? buildTagItem(hotList) : Container();
-  }
-
-  buildTagItem(List<HotKeyData> list) {
-    /*List<Widget> tiles = [];
-    list.map(f)
-    for (var item in list) {
-      tiles.add(TagItemView(textTitle: item.name));
-    }*/
-    return Wrap(
-      spacing: 3, //主轴上子控件的间距
-      runSpacing: 3, //交叉轴上子控件之间的间距
-      // 扩展方式，横向堆砌
-      direction: Axis.horizontal,
-      // 对齐方式
-      alignment: WrapAlignment.start,
-      // run的对齐方式 开始位置
-      runAlignment: WrapAlignment.start,
-      // 交叉轴对齐方式
-      crossAxisAlignment: WrapCrossAlignment.end,
-      // 文本对齐方向
-      textDirection: TextDirection.ltr,
-      // 确定垂直放置子元素的顺序，以及如何在垂直方向上解释开始和结束。 默认down
-      verticalDirection: VerticalDirection.down,
-      //mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
-      children: list.map((HotKeyData hotKeyData) {
-        return TagItemView(
-            textTitle: hotKeyData.name,
-            textColor: Colors.white,
-            backgroundColor: ToolUtils.getRandomColor(),
-            isChip: true,
-            pressCallback: (){
-             key = hotKeyData.name;
-             gotoSearch();
-
-        },
-        );
-      }).toList(),
-    );
-  }
-
-  void getHotKeyListData() async {
-    await dataUtils.getHotKeyListData().then((List<HotKeyData> list) {
-      if (this.mounted) {
-        setState(() {
-          hotList.addAll(list);
-        });
-      }
-    }, onError: (e) {
-      ToolUtils.showToast(msg: "获取搜索热词数据失败");
+  //搜索公众号历史结果
+  Future<Map> getSearchResultWechatListData([Map<String, dynamic> params]) async {
+    Map<String, dynamic> result;
+    //最新项目
+    var pageIndex = (params is Map) ? params['pageIndex'] : 1;
+    await dataUtils.getSearchWXArticleData(key,routePageData.id,pageIndex).then(
+            (ArticleListData articleListData) {
+              if(articleListData.datas.length == 0){
+                ToolUtils.showToast(msg: "没有找到相关文章");
+              }
+          result = {
+            "list": articleListData.datas,
+            'total': articleListData.pageCount,
+            'pageIndex': articleListData.curPage
+          };
+        }, onError: (e) {
+      print("onError 发生错误");
+      result = {"list": [], 'total': 0, 'pageIndex': 0};
     });
+    return result;
   }
 
   //执行搜索
@@ -184,5 +282,9 @@ class _SearchPageState extends State<SearchPage> {
       });
     }
     getSearchResultListData();
+  }
+
+  bool isWeChatSearch(){
+    return Constants.WECHAT_SEARCH_PAGE_TYPE == routePageData.type;
   }
 }

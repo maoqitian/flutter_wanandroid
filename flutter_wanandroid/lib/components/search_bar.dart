@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 typedef Widget AppBarCallback(BuildContext context);
 typedef void TextFieldSubmitCallback(String value);
 typedef void TextFieldChangeCallback(String value);
+typedef void TextFieldClearCallback();
 typedef void SetStateCallback(void fn());
 
 class SearchBar {
@@ -49,6 +50,9 @@ class SearchBar {
   /// A callback which is invoked each time the text field's value changes
   final TextFieldChangeCallback onChanged;
 
+  /// A callback which is invoked each time the text field's value clear
+  final TextFieldClearCallback onClear;
+
   /// The controller to be used in the textField.
   TextEditingController controller;
 
@@ -58,22 +62,30 @@ class SearchBar {
   /// The last built default AppBar used for colors and such.
   AppBar _defaultAppBar;
 
-  SearchBar({
+  FocusNode searchFocus;
+
+  SearchBar( {
     @required this.setState,
     @required this.buildDefaultAppBar,
     this.onSubmitted,
     this.controller,
-    this.hintText = 'Search',
+    this.searchFocus,
+    this.hintText = '搜索关键词',
     this.inBar = true,
     this.colorBackButton = true,
     this.closeOnSubmit = true,
     this.clearOnSubmit = true,
     this.showClearButton = true,
     this.onChanged,
-    this.onClosed
+    this.onClosed,
+    this.onClear,
   }) {
     if (this.controller == null) {
       this.controller = new TextEditingController();
+    }
+
+    if(this.searchFocus == null){
+      this.searchFocus = FocusNode();
     }
 
     // Don't waste resources on listeners for the text controller if the dev
@@ -160,13 +172,13 @@ class SearchBar {
               onClosed();
             }
             controller.clear();
-            Navigator.maybePop(context);
           }),
       backgroundColor: barColor,
       title: new Directionality(
           textDirection: Directionality.of(context),
           child: new TextField(
             key: new Key('SearchBarTextField'),
+            focusNode: searchFocus,
             keyboardType: TextInputType.text,
             style: new TextStyle(
                 color: textColor,
@@ -182,13 +194,6 @@ class SearchBar {
             ),
             onChanged: this.onChanged,
             onSubmitted: (String val) async {
-              if (closeOnSubmit) {
-                //await Navigator.maybePop(context);
-              }
-
-              if (clearOnSubmit) {
-                controller.clear();
-              }
 
               onSubmitted(val);
             },
@@ -201,7 +206,12 @@ class SearchBar {
         new IconButton(
             icon: new Icon(Icons.clear, color: _clearActive ? buttonColor : buttonDisabledColor),
             disabledColor: buttonDisabledColor,
-            onPressed: !_clearActive ? null : () { controller.clear(); })
+            onPressed: !_clearActive ? null : () {
+              //获取键盘焦点
+              FocusScope.of(context).requestFocus(searchFocus);
+              controller.clear();
+              onClear();
+            })
       ],
     );
   }
