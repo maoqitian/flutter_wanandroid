@@ -360,7 +360,8 @@ class _RefreshPageState extends State<RefreshPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 SpinKitCubeGrid(
-                    size: 55.0, color: ToolUtils.getPrimaryColor(context)),
+                    size: 55.0, color: ToolUtils.getPrimaryColor(context),
+                  duration: Duration(milliseconds: 800)),
               ],
              ),
              Padding(

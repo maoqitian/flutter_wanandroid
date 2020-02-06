@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/model/article/article_data.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/web_page/controller/navigation_control.dart';
@@ -38,6 +38,9 @@ class _WebViewPageState extends State<WebViewPage> {
 
   RoutePageData routePageData;
 
+  //webview 是否正在加载
+  bool isLoading = true;
+
   @override
   void initState() {
     // widget 初始化
@@ -60,18 +63,22 @@ class _WebViewPageState extends State<WebViewPage> {
            WebPageMenu(_controller.future)
         ],
       ),
-      body: Builder(builder: (BuildContext context) {
-        return WebView(
+      body: Stack(children: <Widget>[
+        WebView(
           initialUrl: routePageData.url,
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
           },
-
           javascriptChannels: <JavascriptChannel>[
             _toasterJavascriptChannel(context),
           ].toSet(),
           navigationDelegate: (NavigationRequest request) {
+            if(this.mounted){
+              setState(() {
+                isLoading = true;
+              });
+            }
             if (request.url.startsWith('https://www.baidu.com/')) {
               print('blocking navigation to $request}');
               return NavigationDecision.prevent;
@@ -84,10 +91,21 @@ class _WebViewPageState extends State<WebViewPage> {
           },
           onPageFinished: (String url) {
             print('Page finished loading: $url');
+            if(this.mounted){
+              setState(() {
+                isLoading = false;
+              });
+            }
           },
           gestureNavigationEnabled: true,
-        );
-      }),
+        ),
+        isLoading ? Container(
+          child: Center(
+            child: SpinKitWanderingCubes(color: ToolUtils.getPrimaryColor(context),shape: BoxShape.circle,
+            duration: Duration(milliseconds: 1200),),
+          ),
+        ) : Container(),
+      ],)
     );
   }
 
