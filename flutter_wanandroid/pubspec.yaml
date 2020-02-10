@@ -34,8 +34,6 @@ dependencies:
   dio_cookie_manager: 1.0.0
   # json 序列化
   json_annotation: ^3.0.0
-  # WebView
-  flutter_webview_plugin: ^0.3.10+1
   # flutter_WebView
   webview_flutter: ^0.3.19+3
   # Toast

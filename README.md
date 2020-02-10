@@ -40,6 +40,10 @@
 - 编辑收藏网站
 - 删除收藏网站
 
+### 搜索
+- 首页文章搜索
+- 在某个公众号中搜索历史文章
+
 ### 积分
 - 积分排行榜
 - 获取个人积分
@@ -56,7 +60,7 @@
 - 切换App 主题
 
 ### 个人中心
-点击头像进入个人中心，仿B站个人中心效果（未完成）
+点击头像进入个人中心，仿B站个人中心效果
 
 ## 使用的第三方库
 
@@ -66,7 +70,7 @@
 [shared_preferences](https://github.com/flutter/plugins) | 本地存储
 [dio](https://github.com/flutterchina/dio) | 网络
 [json_annotation](https://github.com/dart-lang/json_serializable) | json 序列化
-[flutter_webview_plugin](https://github.com/fluttercommunity/flutter_webview_plugin) | webview
+[flutter_webview](https://github.com/flutter/plugins) | webview
 [fluttertoast](https://github.com/PonnamKarthik/FlutterToast) | Toast
 [provider](https://github.com/rrousselGit/provider) | 跨组件数据共享
 [event_bus](https://github.com/marcojakob/dart-event-bus) | 事件总线
