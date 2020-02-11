@@ -419,6 +419,19 @@ class DataUtils{
     return response.data["data"];
   }
 
+  /// 问答
+  // 问答列表数据
+  //请求:GET
+  //参数：
+  //pageId,拼接在链接上，1 开始
+  Future<ArticleListData> getQuestionListData(int pageNum) async{
+    String path = 'wenda/list/$pageNum/json';
+    Response response = await httpUtils.get(path);
+    ArticleBaseData articleBaseData = ArticleBaseData.fromJson(response.data);
+    return articleBaseData.data;
+  }
+
+
   /// SharedPreferences 存储 用户名 是否登录等状态
   void setUserName(String username){
      Application.sp.putString(SharedPreferencesKeys.USER_NAME_KEY,username);
@@ -454,6 +467,7 @@ class DataUtils{
 
   //获取搜索历史数据
   Iterable<SearchHistory> getSearchHistoryListData(){
+    //数据倒序输出
     var reversed2 = searchHistoryList.getList().reversed;
     return reversed2;
   }
