@@ -9,6 +9,7 @@ import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
@@ -35,7 +36,7 @@ class _ListViewItemState extends State<ListViewItem> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-      color: Colors.white,
+      color: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
       elevation: 4.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
       child: ListTile(

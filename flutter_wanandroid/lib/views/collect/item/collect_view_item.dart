@@ -12,6 +12,7 @@ import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/collect/collect_data.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -31,7 +32,7 @@ class _CollectViewItemState extends State<CollectViewItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
       elevation: 4.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
       child: ListTile(

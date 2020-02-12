@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
           hintStyle: themeModel.isDarkMode ? TextStyles.textHint14 : TextStyles.textDarkGray14,
         ),
         appBarTheme: AppBarTheme(
-          elevation: 0.0,
+          elevation: 2.0,
           color: themeModel.isDarkMode ? Colours.dark_bg_color : Colors.white,
           brightness: themeModel.isDarkMode ? Brightness.dark : Brightness.light,
         ),

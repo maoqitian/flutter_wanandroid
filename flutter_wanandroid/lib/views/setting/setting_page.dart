@@ -9,6 +9,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/login_out_event.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/setting/item/setting_item.dart';
 
@@ -37,7 +38,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEEEEEE),
+      backgroundColor: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Color(0xFFEEEEEE),
       appBar: AppBar(
         leading: new IconButton(
             icon: new Icon(
@@ -73,7 +74,7 @@ class _SettingPageState extends State<SettingPage> {
 
   buildLoginOut() {
     return isLogin? Container(
-        color: Colors.white,
+       color: dataUtils.getIsDarkMode() ? Colours.dark_unselected_item_color : Colors.white,
         child: ListTile(
           title: Center(
               child: Text(

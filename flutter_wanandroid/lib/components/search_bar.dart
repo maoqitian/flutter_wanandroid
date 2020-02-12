@@ -5,6 +5,8 @@
 /// des:  搜索 app bar
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:meta/meta.dart';
 
 typedef Widget AppBarCallback(BuildContext context);
@@ -152,7 +154,7 @@ class SearchBar {
     ThemeData theme = Theme.of(context);
 
     //Color barColor = inBar ? _defaultAppBar.backgroundColor : theme.canvasColor;
-    Color barColor =  theme.primaryColor;
+    Color barColor =  dataUtils.getIsDarkMode() ? Colours.dark_material_bg : theme.primaryColor;
 
     // Don't provide a color (make it white) if it's in the bar, otherwise color it or set it to grey.
     Color buttonColor = inBar ? null : (colorBackButton ? _defaultAppBar.backgroundColor ?? theme.primaryColor ?? Colors.grey.shade400 : Colors.grey.shade400);

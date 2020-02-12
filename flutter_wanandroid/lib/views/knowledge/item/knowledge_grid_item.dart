@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/tag_item_view.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -29,7 +31,7 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> with AutomaticKee
   Widget build(BuildContext context) {
     super.build(context);
     return Card(
-        color: Colors.white,
+        color: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
         elevation: 4.0,
         margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
         child: ListTile(

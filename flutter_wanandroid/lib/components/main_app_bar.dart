@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 
 const double _kLeadingWidth =
     kToolbarHeight; // So the leading button is square.
@@ -394,7 +396,7 @@ class _MyAppBarState extends State<MyAppBar> {
       );
     }
     final Brightness brightness =
-        widget.brightness ?? themeData.primaryColorBrightness;
+        widget.brightness ?? dataUtils.getIsDarkMode() ? Brightness.dark : Brightness.light;
     final SystemUiOverlayStyle overlayStyle = brightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
@@ -405,7 +407,7 @@ class _MyAppBarState extends State<MyAppBar> {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: Material(
-          color: widget.backgroundColor ?? themeData.primaryColor,
+          color: widget.backgroundColor ?? dataUtils.getIsDarkMode() ? Colours.dark_bg_color: themeData.primaryColor,
           elevation: widget.elevation,
           child: appBar,
         ),

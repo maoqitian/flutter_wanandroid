@@ -42,7 +42,7 @@ class _FirstPageState extends State<FirstPage> with AutomaticKeepAliveClientMixi
                 //轮播图 page
                 new BannerPage(),
               ],),
-            SizedBox(height: 1, child:Container(color: Theme.of(context).primaryColor)),
+            //SizedBox(height: 1, child:Container(color: Theme.of(context).primaryColor)),
             SizedBox(height: 10),
           ],
         );
