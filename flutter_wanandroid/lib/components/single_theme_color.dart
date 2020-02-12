@@ -8,6 +8,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/provider/profile_change_notifier.dart';
 import 'package:flutter_wanandroid/common/shared_preferences.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -25,8 +26,8 @@ class SingleThemeColor extends StatelessWidget {
     return InkWell(
       onTap: ()async{
          ToolUtils.showToast(msg: "改变主题颜色为"+colorName);
-         Provider.of<ThemeModel>(context,listen: false).changeTheme(this.themeColor);
-         Application.sp.putInt(SharedPreferencesKeys.THEME_COLOR_KEY, this.themeColor);
+         Provider.of<ThemeModel>(context,listen: false).changeTheme(this.themeColor,false);
+         dataUtils.setPrimaryColor(themeColor);
          Navigator.pop(context);
       },
       child: new Column( // 竖直布局

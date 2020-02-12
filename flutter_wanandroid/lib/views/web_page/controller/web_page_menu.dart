@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2020/1/10 0010
@@ -78,7 +79,10 @@ class WebPageMenu extends StatelessWidget {
           itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
              PopupMenuItem<MenuOptions>(
               value: MenuOptions.reloadPage,
-              child: Row(children: <Widget>[
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                 Icon(Icons.replay,color: Colors.grey,),
                 Text('刷新页面')
               ],),

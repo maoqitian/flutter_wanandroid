@@ -6,15 +6,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
+import 'package:flutter_wanandroid/common/provider/profile_change_notifier.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 
 
 class SettingItem extends StatefulWidget {
 
   final String settingText;
-  bool isBlackMode =false;
+
   SettingItem(this.settingText);
 
   @override
@@ -23,7 +26,15 @@ class SettingItem extends StatefulWidget {
 
 class _SettingItemState extends State<SettingItem> {
 
+  bool isBlackMode =false;
 
+  @override
+  void initState() {
+    super.initState();
+    if("夜间模式" == widget.settingText){
+      isBlackMode = dataUtils.getIsDarkMode();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +50,10 @@ class _SettingItemState extends State<SettingItem> {
             case "夜间模式":
               if(this.mounted){
                 setState(() {
-                  widget.isBlackMode = !widget.isBlackMode;
+                  isBlackMode = !isBlackMode;
                 });
+                Provider.of<ThemeModel>(context,listen: false).changeTheme(dataUtils.getPrimaryColor(),isBlackMode);
+                dataUtils.setIsDarkMode(isBlackMode);
               }
               break;
             case "清除缓存":
@@ -60,11 +73,15 @@ class _SettingItemState extends State<SettingItem> {
         },
         trailing: (widget.settingText == "夜间模式") ? Switch(
           activeColor: Theme.of(context).primaryColor,
-          value: widget.isBlackMode,
+          value: isBlackMode,
           onChanged: (bool val){
-            setState(() {
-              widget.isBlackMode = !widget.isBlackMode;
-            });
+            if(this.mounted){
+              setState(() {
+                isBlackMode = !isBlackMode;
+              });
+              Provider.of<ThemeModel>(context,listen: false).changeTheme(dataUtils.getPrimaryColor(),isBlackMode);
+              dataUtils.setIsDarkMode(isBlackMode);
+            }
           },
         ): Icon(Icons.arrow_forward_ios,size: 15),
       ),

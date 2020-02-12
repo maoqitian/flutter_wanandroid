@@ -89,9 +89,9 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: searchBar.buildSearchBar(context),
-      body: Container(
+      body:  SingleChildScrollView(child:Container(
           child: isResult ? buildSearchResult() : buildHistoryAndHotKey()),
-    );
+    ));
   }
 
   //构建搜索框 appbar

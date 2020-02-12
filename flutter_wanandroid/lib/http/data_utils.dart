@@ -463,6 +463,25 @@ class DataUtils{
     return getLoginState();
   }
 
+  //是否为夜间模式
+  bool getIsDarkMode(){
+    return Application.sp.getBool(SharedPreferencesKeys.THEME_DARK_MODE_KEY);
+  }
+
+  void setIsDarkMode(bool isDark){
+     Application.sp.putBool(SharedPreferencesKeys.THEME_DARK_MODE_KEY,isDark);
+  }
+
+
+  //是否为夜间模式
+  int getPrimaryColor(){
+    return Application.sp.getInt(SharedPreferencesKeys.THEME_COLOR_KEY);
+  }
+  //存储主题颜色
+  void setPrimaryColor(int color){
+    Application.sp.putInt(SharedPreferencesKeys.THEME_COLOR_KEY,color);
+  }
+
   /// 搜索历史 增加 删除 获取
 
   //获取搜索历史数据
