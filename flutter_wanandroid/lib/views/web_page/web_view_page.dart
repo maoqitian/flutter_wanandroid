@@ -130,8 +130,10 @@ class _WebViewPageState extends State<WebViewPage> {
             return IconButton(
               icon: const Icon(Icons.arrow_back_ios,color: Colors.white),
               onPressed: !webViewReady
-                  ? null
-                  : () async {
+                  ? (){
+                  Navigator.of(context).pop(this);
+                  return;
+                  }: () async {
                 if (await controller.canGoBack()) {
                   await controller.goBack();
                 } else {

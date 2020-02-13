@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 /// email: maoqitian068@163.com
 /// des:  
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 const String kNavigationExamplePage = '''
@@ -32,7 +33,6 @@ enum MenuOptions {
   addToCache,
   listCache,
   clearCache,
-  navigationDelegate,
 }
 
 class WebPageMenu extends StatelessWidget {
@@ -71,19 +71,18 @@ class WebPageMenu extends StatelessWidget {
               case MenuOptions.clearCache:
                 _onClearCache(controller.data, context);
                 break;
-              case MenuOptions.navigationDelegate:
-                _onNavigationDelegateExample(controller.data, context);
-                break;
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
              PopupMenuItem<MenuOptions>(
-              value: MenuOptions.reloadPage,
-              child: Row(
+               value: MenuOptions.reloadPage,
+               enabled: controller.hasData,
+               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                Icon(Icons.replay,color: Colors.grey,),
+                Icon(Icons.replay,color: Colors.grey,size: 25,),
+                SizedBox(width: 10.0),
                 Text('刷新页面')
               ],),
             ),
@@ -111,10 +110,6 @@ class WebPageMenu extends StatelessWidget {
             const PopupMenuItem<MenuOptions>(
               value: MenuOptions.clearCache,
               child: Text('Clear cache'),
-            ),
-            const PopupMenuItem<MenuOptions>(
-              value: MenuOptions.navigationDelegate,
-              child: Text('Navigation Delegate example'),
             ),
           ],
         );
