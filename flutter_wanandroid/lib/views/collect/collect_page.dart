@@ -97,7 +97,7 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
       labelColor: Colors.white,
       //设置tab未选中得颜色
       unselectedLabelColor: Colors.white54,
-      indicatorColor: Theme.of(context).primaryColor,
+      indicatorColor: Colors.white,
       controller: _tabController,
       //构造Tab集合
     );

@@ -8,6 +8,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/login_event.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -64,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  color: Theme.of(context).primaryColor,
+                  color: dataUtils.getIsDarkMode() ? Colours.dark_unselected_item_color : Theme.of(context).primaryColor,
                   child: Center(
                     child: Container(
                       width: MediaQuery.of(context).size.width*0.85,

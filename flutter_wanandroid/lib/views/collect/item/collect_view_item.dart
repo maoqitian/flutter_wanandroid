@@ -109,7 +109,7 @@ class _CollectViewItemState extends State<CollectViewItem> {
         child: Icon(Icons.more_vert,size: 18.0),
         onTap: (){
           showModalBottomSheet( //使用showModalBottomSheet 模仿 底部弹出 dialog
-              backgroundColor: Colors.white,
+              backgroundColor: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
               context: context,
               builder: (BuildContext context){
                 return new Column(

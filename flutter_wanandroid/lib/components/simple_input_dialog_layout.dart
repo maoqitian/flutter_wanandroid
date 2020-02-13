@@ -5,6 +5,8 @@
 /// des:  简单dialog 布局 用于 添加收藏 dialog
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 
@@ -104,7 +106,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
                           width: MediaQuery.of(context).size.width*0.85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            color: Colors.white,
+                            color: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
                           ),
                           child: buildContent()
                       )

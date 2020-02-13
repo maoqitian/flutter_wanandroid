@@ -5,6 +5,8 @@
 /// des:  loading 效果使用 flutter_spinkit 库
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 
 
 class LoadingWidget extends StatefulWidget {
@@ -54,7 +56,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
                height: 120.0,
                child: new Container(
                  decoration: ShapeDecoration(
-                 color:Colors.white ,
+                 color: dataUtils.getIsDarkMode() ? Colours.dark_unselected_item_color : Colors.white ,
                  shape: RoundedRectangleBorder(
                    borderRadius: BorderRadius.all(
                    Radius.circular(8.0),

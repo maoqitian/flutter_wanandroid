@@ -12,6 +12,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/widget/stroke_widget.dart';
@@ -108,15 +109,10 @@ class _DrawerPageState extends State<DrawerPage> {
                    Application.router.navigateTo(context,'${Routes.userCenterPage}?type=${Uri.encodeComponent(Constants.USER_CENTER_PAGE_TYPE)}');
                  }
               },
-             )
-           /*decoration: BoxDecoration(
-             image: new DecorationImage(
-               fit: BoxFit.cover,
-               image: new NetworkImage(
-                   //hasLogin ? widget.userInfo.avatarPic :
-                   'https://hbimg.huabanimg.com/9bfa0fad3b1284d652d370fa0a8155e1222c62c0bf9d-YjG0Vt_fw658'),
              ),
-           ),*/
+           decoration: BoxDecoration(
+             color: dataUtils.getIsDarkMode() ? Colours.dark_unselected_item_color : ToolUtils.getPrimaryColor(context),
+           ),
         ),
         ListTile(
           leading: Icon(
@@ -280,7 +276,6 @@ class _DrawerPageState extends State<DrawerPage> {
                //symmetric({ vertical, horizontal })：用于设置对称方向的填
                padding: const EdgeInsets.symmetric(vertical: 10.0),
                height: 300,
-               color: Colors.white,
                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[

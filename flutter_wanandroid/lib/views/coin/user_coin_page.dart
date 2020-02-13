@@ -9,6 +9,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/coin_sign_in_list_data.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/coin/item/user_coin_record_item.dart';
 
@@ -54,6 +55,7 @@ class _UserCoinPageState extends State<UserCoinPage> {
         ),
         slivers: <Widget>[
           SliverAppBar(
+            backgroundColor: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : null,
             iconTheme: IconThemeData(color: Colors.white), //设置 icon 颜色
             expandedHeight: 180.0,
             pinned: true,
