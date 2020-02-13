@@ -11,6 +11,7 @@ import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/navigation/navigation_data.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
@@ -119,12 +120,12 @@ class _NavigationPageState extends State<NavigationPage> with AutomaticKeepAlive
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         decoration: BoxDecoration(
-          color: index == i ? Colors.white70 : Colors.white,
+          color: index == i ? Colors.white70 : dataUtils.getIsDarkMode() ? Colours.dark_bg_gray:Colors.white,
           border: Border(
             left: BorderSide(
                 width: 5,
                 color:
-                index == i ? Theme.of(context).primaryColor : Colors.white),
+                index == i ? Theme.of(context).primaryColor : dataUtils.getIsDarkMode() ? Colours.dark_bg_gray:Colors.white),
           ),
         ),
         child: Text(
