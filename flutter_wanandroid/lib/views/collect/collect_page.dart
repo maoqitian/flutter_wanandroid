@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/common/event/cancel_event.dart';
+import 'package:flutter_wanandroid/common/event/collect_event.dart';
 import 'package:flutter_wanandroid/components/simple_input_dialog_layout.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';

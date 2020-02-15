@@ -180,6 +180,22 @@ class _DrawerPageState extends State<DrawerPage> {
             }
           },
         ),
+        ListTile(
+          leading: Icon(
+            Icons.question_answer,
+            size: 27.0,
+          ),
+          title: Text(
+            '问答',
+            style: textStyle,
+          ),
+          onTap: () {
+            //pushPage(context, SearchPage(), pageName: "SearchPage");
+              ///关闭侧边栏
+              Navigator.pop(context);
+              ToolUtils.showToast(msg: "暂未实现");
+          },
+        ),
         new Divider(),
         ListTile(
           leading: Icon(

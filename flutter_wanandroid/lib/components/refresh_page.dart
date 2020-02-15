@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/common/event/cancel_event.dart';
+import 'package:flutter_wanandroid/common/event/collect_event.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
