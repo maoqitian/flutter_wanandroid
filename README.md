@@ -1,13 +1,67 @@
-# flutter_wanandroid
+# Flutter-WanAndroid
+[![Flutter][1]][2]  [![Dart][3]][4] [![Release][5]][6]  [![GitHub license][7]][8]
 
-> wanandroid 客户端 Flutter 版本 持续开发中
+[1]:https://img.shields.io/badge/Flutter-1.12.13-5bc7f8.svg
+[2]:https://flutter.dev
+
+[3]:https://img.shields.io/badge/Dart-2.7.0%2B-00B4AB.svg
+[4]:https://dart.dev
+
+[5]:https://img.shields.io/github/release/maoqitian/flutter_wanandroid.svg
+[6]:https://github.com/maoqitian/flutter_wanandroid/releases/latest
+
+[7]:https://img.shields.io/badge/license-Apache%202-blue.svg
+[8]:https://github.com/maoqitian/flutter_wanandroid/blob/master/LICENSE
 
 
-## 项目功能 (目前完成)
+## 项目简介
+- 首先感谢[**鸿洋**](https://github.com/hongyangAndroid)大佬提供的[玩Android开放API](https://www.wanandroid.com/blog/show/2)，这是一款有较好用户体验的开源Flutter版本玩Android客户端。提供丰富完整的功能，更好的体验，旨在更好的浏览[https://www.wanandroid.com/](https://www.wanandroid.com/)网站内容，更好的在手机上进行学习。整个应用涉及到了Flutter界面搭建，页面跳转，网络请求，Json解析转换，数据持久化，组件间消息通信等Flutter学习尝试，可以说是一个比较好的Flutter学习项目，也希望能对看到此项目的您有或多或少的帮助。项目如果对您有帮助，不妨点个**Star**，您的支持是我前进的动力。
+
+## 编译运行环境
+```
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, v1.12.13+hotfix.8, on Mac OS X 10.15.2 19C57, locale en-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 29.0.2)
+[✓] Xcode - develop for iOS and macOS (Xcode 11.1)
+[✓] Android Studio (version 3.5)
+
+Dart 2.7.0
+```
+## 项目结构图
+![image](https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/flutter-wanandroid%E7%BB%93%E6%9E%84%E5%9B%BE.jpg)
+## 项目截图展示
+
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/home.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-knowledge.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-nav.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-project.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-search.png"  height="300" width="170">
+
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-user-center.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-theme-change.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-wechat.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-login1.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-coin-rank.png" height="300" width="170">
+
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-article-list.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-common-web.png" height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-home.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-knowledge.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-nav.png"  height="300" width="170">
+
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-project.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-wechat.png" height="300" width="170">
+
+
+## API
+[**玩Android开放API**](https://www.wanandroid.com/blog/show/2)
+
+## 项目功能
 ### 首页
 - 首页文章列表
 - 首页banner
 - 常用网站
+- 搜索热词（包含在搜索界面）
 - 置顶文章
 - 最新项目tab (首页的第二个tab)
 
@@ -56,14 +110,25 @@
 - 删除自己分享的文章（个人中心）
 - 分享文章
 
+### 设置
+- 夜间模式
+- 清除缓存
+- 版本信息
+- 退出登录
+
 ### 主题切换
 - 切换App 主题
 
 ### 个人中心
 点击头像进入个人中心，仿B站个人中心效果
 
-## 使用的第三方库
 
+## Thanks
+- 感谢所有开源库的作者
+### 参考项目
+- [flutter-go](https://github.com/alibaba/flutter-go)
+
+### 使用的第三方库
 第三方库 | 功能
 ---|---
 [fluro](https://github.com/theyakka/fluro) | 页面跳转路由框架
@@ -75,12 +140,32 @@
 [provider](https://github.com/rrousselGit/provider) | 跨组件数据共享
 [event_bus](https://github.com/marcojakob/dart-event-bus) | 事件总线
 [flutter_spinkit](https://github.com/marcojakob/dart-event-bus) | 加载中指示器动画
+[extended_nested_scroll_view](https://github.com/fluttercandies/extended_nested_scroll_view) | NestedScrollView 扩展
+[flutter_easyrefresh](https://github.com/xuelongqy/flutter_easyrefresh) | 配合NestedScrollView扩展下拉刷新以及上拉加载
+[flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view) | 瀑布流
+[package_info](https://github.com/flutter/plugins) | 方便获取应用信息
+[flutter_html](https://github.com/Sub6Resources/flutter_html) | 加载html 字符串
 
+## 版本下载体验
 
+- [**历史版本下载地址**](https://github.com/maoqitian/flutter_wanandroid/releases)
 
-# License
+### **最新版本下载二维码**
+- 可以手机浏览器输入以下地址下载 [https://fir.im/b8ja](https://fir.im/b8ja)
 
-Copyright 2019 maoqitian
+![下载二维码地址](https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.0/flutter-wanandroid-download-v1.0.0.png)
+
+## 版本更新日志
+
+### v1.0.0 (2020/02/15)
+- Flutter 项目第一个版本， 完成WanAndroid基本功能
+
+## Statement
+项目中的 API 均来自于 [wanandroid.com](https://www.wanandroid.com/) 网站，纯属学习交流使用，不得用于商业用途。
+
+## License
+
+Copyright 2020 maoqitian
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
