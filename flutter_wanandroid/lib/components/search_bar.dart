@@ -157,7 +157,7 @@ class SearchBar {
     Color barColor =  dataUtils.getIsDarkMode() ? Colours.dark_material_bg : theme.primaryColor;
 
     // Don't provide a color (make it white) if it's in the bar, otherwise color it or set it to grey.
-    Color buttonColor = inBar ? null : (colorBackButton ? _defaultAppBar.backgroundColor ?? theme.primaryColor ?? Colors.grey.shade400 : Colors.grey.shade400);
+    Color buttonColor = inBar ? !dataUtils.getIsDarkMode() ? Colors.white : null : (colorBackButton ? _defaultAppBar.backgroundColor ?? theme.primaryColor ?? Colors.grey.shade400 : Colors.grey.shade400);
     Color buttonDisabledColor = inBar ? new Color.fromRGBO(255, 255, 255, 0.25) : Colors.grey.shade300;
 
     Color textColor = inBar ? Colors.white70 : Colors.black54;

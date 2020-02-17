@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/web_page/controller/navigation_control.dart';
@@ -53,6 +54,10 @@ class _WebViewPageState extends State<WebViewPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        //icon 颜色
+        iconTheme: !dataUtils.getIsDarkMode() ? IconThemeData(
+          color: Colors.white,
+        ) : null,
         leading: webArrowBack(),
         title: Text(
           routePageData.title,
