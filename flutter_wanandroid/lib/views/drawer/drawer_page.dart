@@ -193,7 +193,7 @@ class _DrawerPageState extends State<DrawerPage> {
             //pushPage(context, SearchPage(), pageName: "SearchPage");
               ///关闭侧边栏
               Navigator.pop(context);
-              ToolUtils.showToast(msg: "暂未实现");
+              Application.router.navigateTo(context,Routes.questionAnswerPage);
           },
         ),
         new Divider(),

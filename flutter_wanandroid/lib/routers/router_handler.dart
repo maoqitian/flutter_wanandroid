@@ -8,6 +8,7 @@ import 'package:flutter_wanandroid/views/home/common/common_web_page.dart';
 import 'package:flutter_wanandroid/views/knowledge/knowledge_detail_page.dart';
 import 'package:flutter_wanandroid/views/login/login_page.dart';
 import 'package:flutter_wanandroid/views/login/register_page.dart';
+import 'package:flutter_wanandroid/views/questionanswer/question_answer_page.dart';
 import 'package:flutter_wanandroid/views/search/search_page.dart';
 import 'package:flutter_wanandroid/views/setting/about_page.dart';
 import 'package:flutter_wanandroid/views/setting/setting_page.dart';
@@ -118,5 +119,12 @@ var searchPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     String routePageJson = params['routePageJson']?.first;
     return new SearchPage(routePageData: routePageJson);
+  },
+);
+
+//问答
+var questionAnswerPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new QuestionAnswerPage();
   },
 );

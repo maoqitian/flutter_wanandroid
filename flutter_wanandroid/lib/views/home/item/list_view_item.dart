@@ -86,7 +86,7 @@ class _ListViewItemState extends State<ListViewItem> {
             style: TextStyle(color: this.widget.isClickUser? Colors.blue:Colors.black54, fontSize: 10.0)),
         onTap: (){
           if(this.widget.isClickUser){
-            if(!(articleData.author == "")){ //如果作者不为空，说明可以更加作者昵称查看文章 否则查看 分享人 个人信息主页
+            if(!(articleData.author == "")){ //如果作者不为空，说明可以根据作者昵称查看文章 否则查看 分享人 个人信息主页
               Application.router.navigateTo(context, '${Routes.knowledgedetail}?type=${Uri.encodeComponent(Constants.RESULT_CODE_AUTHOR_ARTICLE_PAGE)}&author=${Uri.encodeComponent(articleData.author)}');
             }else{
               print("跳转分享人个人中心");
