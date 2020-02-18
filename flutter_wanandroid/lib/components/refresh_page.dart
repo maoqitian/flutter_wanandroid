@@ -94,7 +94,7 @@ class _RefreshPageState extends State<RefreshPage> {
       //if(_hasMore){ // 还有数据可以拉新
       List newEntries = await makeHttpRequest(false);
       //if (newEntries.isEmpty) {
-      _hasMore = (_pageIndex <= _pageTotal);
+
       if (this.mounted) {
         setState(() {
           items.addAll(newEntries);
@@ -119,6 +119,8 @@ class _RefreshPageState extends State<RefreshPage> {
       }
       _pageIndex = listObj['pageIndex'];
       _pageTotal = listObj['total'];
+      //判断是否还能加载更多 并且 判断pageNum是否为 1
+      _hasMore = ((widget.startIndex == 1) ? _pageIndex <= _pageTotal:_pageIndex <_pageTotal);
       return listObj['list'];
     } else {
       return Future.delayed(Duration(seconds: 2), () {

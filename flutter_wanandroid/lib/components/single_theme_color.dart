@@ -28,6 +28,7 @@ class SingleThemeColor extends StatelessWidget {
          ToolUtils.showToast(msg: "改变主题颜色为"+colorName);
          Provider.of<ThemeModel>(context,listen: false).changeTheme(this.themeColor,false);
          dataUtils.setPrimaryColor(themeColor);
+         dataUtils.setIsDarkMode(false);
          Navigator.pop(context);
       },
       child: new Column( // 竖直布局
