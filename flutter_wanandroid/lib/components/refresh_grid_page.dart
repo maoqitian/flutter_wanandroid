@@ -87,7 +87,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
       }
 
       List newEntries = await makeHttpRequest(false);
-      _hasMore = (_pageIndex < _pageTotal);
+
       if (this.mounted) {
         setState(() {
           items.addAll(newEntries);
@@ -118,6 +118,7 @@ class _RefreshGridPageState extends State<RefreshGridPage> {
       }
       _pageIndex = listObj['pageIndex'];
       _pageTotal = listObj['total'];
+      _hasMore = (_pageIndex < _pageTotal);
       return listObj['list'];
     } else {
       return Future.delayed(Duration(seconds: 2), () {
