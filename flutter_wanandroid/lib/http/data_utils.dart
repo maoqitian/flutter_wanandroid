@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
@@ -33,6 +35,10 @@ import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/model/navigation/base_navigation_data.dart';
 import 'package:flutter_wanandroid/model/navigation/navigation_data.dart';
 import 'package:flutter_wanandroid/model/search/search_history.dart';
+import 'package:flutter_wanandroid/model/todo/base_todo_data.dart';
+import 'package:flutter_wanandroid/model/todo/base_todo_list_data.dart';
+import 'package:flutter_wanandroid/model/todo/todo_data.dart';
+import 'package:flutter_wanandroid/model/todo/todo_list_data.dart';
 import 'package:flutter_wanandroid/model/usershare/base_user_share_data.dart';
 import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
 import 'api/Api.dart';
@@ -332,8 +338,84 @@ class DataUtils{
     return articleBaseData.data;
   }
 
-  ///TODO 工具
+  ///TODO工具
 
+  //  获取todo列表
+  //  页码从1开始，拼接在url 上
+  //	status 状态， 1-完成；0未完成; 默认全部展示；
+  //	type 创建时传入的类型, 默认全部展示
+  //	priority 创建时传入的优先级；默认全部展示 priority 主要用于定义优先级，在app 中预定义几个优先级：
+      //重要（1）
+      //一般（2）等
+  //	orderby 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
+
+  Future<TodoListData> getTodoListData(int pageNum,{ Map<String, dynamic> params }) async{
+    String path = 'lg/todo/v2/list/$pageNum/json';
+    Response response ;
+    if((params!=null)){
+      FormData formData = FormData.fromMap(params);
+      response = await httpUtils.post(path,formData: formData);
+    }else{
+      response = await httpUtils.post(path);
+    }
+    BaseTodoListData baseTodoListData = BaseTodoListData.fromJson(response.data);
+    return baseTodoListData.data;
+  }
+
+  // 新增一个TODO
+  //方法：POST
+  //参数：
+  //	title: 新增标题（必须）
+  //	content: 新增详情（必须）
+  //	date: 2018-08-01 预定完成时间（不传默认当天，建议传）
+  //	type: 大于0的整数（可选）；
+  //	priority 大于0的整数（可选）；
+  Future<TodoData> getAddTodoData(Map<String, dynamic> params) async{
+    String path = 'lg/todo/add/json';
+    Response response = await httpUtils.post(path,queryParameters: params);
+    BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
+    return baseTodoData.data;
+  }
+
+  //更新一个TODO
+  //方法：POST
+  //参数：
+  //	id: 拼接在链接上，为唯一标识，列表数据返回时，每个todo 都会有个id标识 （必须）
+  //	title: 更新标题 （必须）
+  //	content: 新增详情（必须）
+  //	date: 2018-08-01（必须）
+  //	status: 0 // 0为未完成，1为完成
+  //	type: ；
+  //	priority:
+
+  Future<TodoData> getUpdateTodoData(int id,Map<String, dynamic> params) async{
+    String path = 'lg/todo/update/$id/json';
+    Response response = await httpUtils.post(path,queryParameters: params);
+    BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
+    return baseTodoData.data;
+  }
+
+  //删除一个TODO
+  //方法：POST
+  //参数：
+  //id: 拼接在链接上，为唯一标识
+  Future<String> getDeleteTodoData(int id) async{
+    String path = 'lg/todo/delete/$id/json';
+    Response response = await httpUtils.post(path);
+    return response.data["data"];
+  }
+
+  // 仅更新完成状态TODO
+  //方法：POST
+  //参数：
+  //	id: 拼接在链接上，为唯一标识
+  //	status: 0或1，传1代表未完成到已完成，反之则反之。
+  Future<TodoData> getUpdateDoneTodo(int id,Map<String, dynamic> params) async{
+    String path = 'lg/todo/done/$id/json';
+    Response response = await httpUtils.post(path,queryParameters: params);
+    BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
+    return baseTodoData.data;
+  }
 
   /// 积分
   //积分排行榜

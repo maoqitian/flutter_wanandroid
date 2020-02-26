@@ -99,7 +99,7 @@ class HttpUtils {
   // url ：网络请求地址
   // formData : 请求参数
   // post 请求
-   Future post(String url, {FormData formData,bool isAddLoading = false ,BuildContext context,String loadingText}) async {
+   Future post(String url, {FormData formData,Map<String, dynamic> queryParameters, bool isAddLoading = false ,BuildContext context,String loadingText}) async {
     Response response ;
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
@@ -117,6 +117,8 @@ class HttpUtils {
     try {
       if(formData!=null){
         response = await _dio.post(url, data: formData);
+      }else if(queryParameters != null){
+        response = await _dio.post(url, queryParameters: queryParameters);
       }else{
         response = await _dio.post(url);
       }

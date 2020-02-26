@@ -33,7 +33,7 @@ dependencies:
   cookie_jar: ^1.0.0
   dio_cookie_manager: 1.0.0
   # json 序列化
-  json_annotation: ^3.0.0
+  json_annotation: ^3.0.1
   # flutter_WebView
   webview_flutter: ^0.3.19+3
   # Toast
