@@ -13,6 +13,7 @@ import 'package:flutter_wanandroid/views/search/search_page.dart';
 import 'package:flutter_wanandroid/views/setting/about_page.dart';
 import 'package:flutter_wanandroid/views/setting/setting_page.dart';
 import 'package:flutter_wanandroid/views/share/share_article_page.dart';
+import 'package:flutter_wanandroid/views/todo/todo_page.dart';
 import 'package:flutter_wanandroid/views/user/user_center_page.dart';
 import 'package:flutter_wanandroid/views/web_page/web_view_page.dart';
 
@@ -126,5 +127,12 @@ var searchPageHandler = new Handler(
 var questionAnswerPageHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return new QuestionAnswerPage();
+  },
+);
+
+//TODO页面
+var todoPageHandler = new Handler(
+  handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return new TodoPage();
   },
 );

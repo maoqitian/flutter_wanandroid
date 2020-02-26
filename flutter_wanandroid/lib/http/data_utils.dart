@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';

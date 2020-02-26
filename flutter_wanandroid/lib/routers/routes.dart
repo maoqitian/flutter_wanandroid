@@ -22,6 +22,7 @@ class Routes {
   static String aboutPage = '/about_page';
   static String searchPage = '/search_page';
   static String questionAnswerPage = '/question_answer_page';
+  static String todoPage = '/todo_page';
 
   static void configureRoutes(Router router){
 
@@ -45,6 +46,7 @@ class Routes {
     router.define(aboutPage, handler: aboutPageHandler);
     router.define(searchPage, handler: searchPageHandler);
     router.define(questionAnswerPage, handler: questionAnswerPageHandler);
+    router.define(todoPage, handler: todoPageHandler);
   }
 
 

@@ -138,9 +138,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            ///关闭侧边栏
-            Navigator.pop(context);
-            Application.router.navigateTo(context,Routes.shareArticlePage);
+            checkLoginGoPage(false,Routes.shareArticlePage);
           },
         ),
         ListTile(
@@ -153,9 +151,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            ///关闭侧边栏
-            Navigator.pop(context);
-            Application.router.navigateTo(context,Routes.commonWebPage);
+            checkLoginGoPage(false,Routes.commonWebPage);
           },
         ),
         ListTile(
@@ -168,16 +164,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            if(!isLogin){
-              // 没有登录 跳转登录页面
-              Application.router.navigateTo(context,Routes.login);
-            }else{
-              ///关闭侧边栏
-              Navigator.pop(context);
-              //登录则跳转用户中心
-              Application.router.navigateTo(context,Routes.collectItemPage);
-            }
+            checkLoginGoPage(true,Routes.collectItemPage);
           },
         ),
         ListTile(
@@ -190,10 +177,20 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-              ///关闭侧边栏
-              Navigator.pop(context);
-              Application.router.navigateTo(context,Routes.questionAnswerPage);
+            checkLoginGoPage(false,Routes.questionAnswerPage);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            MyIcons.todo,
+            size: 27.0,
+          ),
+          title: Text(
+            'TODO',
+            style: textStyle,
+          ),
+          onTap: () {
+            checkLoginGoPage(true,Routes.todoPage);
           },
         ),
         new Divider(),
@@ -207,9 +204,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            ///关闭侧边栏
-            Navigator.pop(context);
-            Application.router.navigateTo(context,Routes.coinRankPage);
+            checkLoginGoPage(false,Routes.coinRankPage);
           },
         ),
         ListTile(
@@ -222,14 +217,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            if(!isLogin){
-              // 没有登录 跳转登录页面
-              Application.router.navigateTo(context,Routes.login);
-            }else {
-              ///关闭侧边栏
-              Navigator.pop(context);
-              Application.router.navigateTo(context, Routes.userCoinPage);
-            }
+            checkLoginGoPage(true,Routes.userCoinPage);
           },
         ),
         ListTile(
@@ -257,25 +245,7 @@ class _DrawerPageState extends State<DrawerPage> {
             style: textStyle,
           ),
           onTap: () {
-            //pushPage(context, SearchPage(), pageName: "SearchPage");
-            ///关闭侧边栏
-            Navigator.pop(context);
-            Application.router.navigateTo(context, Routes.settingPage);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            MyIcons.todo,
-            size: 27.0,
-          ),
-          title: Text(
-            'TODO',
-            style: textStyle,
-          ),
-          onTap: () {
-            ///关闭侧边栏
-            Navigator.pop(context);
-            ToolUtils.showToast(msg: "暂未实现");
+            checkLoginGoPage(false,Routes.settingPage);
           },
         ),
       ],
@@ -388,5 +358,25 @@ class _DrawerPageState extends State<DrawerPage> {
     dataUtils.setUserName("");
     dataUtils.setLoginState(false);
     ToolUtils.showToast(msg: "退出登录成功");
+  }
+
+  //判断页面跳转是否需要检查登录
+  void checkLoginGoPage(bool isNeedCheck,String pageType) {
+    if(isNeedCheck){
+      //是否需要检查登录
+      if(!isLogin){
+        // 没有登录 跳转登录页面
+        Application.router.navigateTo(context,Routes.login);
+      }else{
+        ///关闭侧边栏
+        Navigator.pop(context);
+        //登录则跳转用户中心
+        Application.router.navigateTo(context,pageType);
+      }
+    }else{
+      ///关闭侧边栏
+      Navigator.pop(context);
+      Application.router.navigateTo(context, pageType);
+    }
   }
 }
