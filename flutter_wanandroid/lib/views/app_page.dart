@@ -159,9 +159,6 @@ class _AppPageState extends State<AppPage> {
     }
   }
 
-  buildSearchInput(BuildContext context) {
-      return new SearchInput((value) {}, (value) {}, () {});
-  }
   // BottomNavigationBar 点击执行方法
   void _itemTapped(int index) {
      if(this.mounted){
