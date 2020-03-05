@@ -90,6 +90,21 @@ class Constants{
   ];
 
 
+  static final List<Page> todoTypes = [
+    Page('只用这一个', 0),
+    Page('工作', 1),
+    Page('学习', 2),
+    Page('生活', 3)
+  ];
+
+
+  //页面标题和id对象 集合 用户中心
+  static final List<Page> todoPages = <Page>[
+    Page('待办', 0),
+    Page('完成', 1),
+  ];
+
+
   //页面标题和id对象 集合 用户中心
   static final List<Page> userSharePages = <Page>[
     Page('分享文章', 0),

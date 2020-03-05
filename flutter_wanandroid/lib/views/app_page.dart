@@ -7,7 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/components/search_input.dart';
+import 'package:flutter_wanandroid/components/search/search_input.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/views/wechat/wechat_chapters_page.dart';

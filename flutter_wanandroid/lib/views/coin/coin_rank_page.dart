@@ -5,7 +5,7 @@
 /// des:  积分排行榜 page
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/rank_list_data.dart';
 import 'package:flutter_wanandroid/views/coin/item/coin_rank_item.dart';

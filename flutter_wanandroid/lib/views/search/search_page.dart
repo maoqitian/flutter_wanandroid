@@ -7,9 +7,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
-import 'package:flutter_wanandroid/components/search_bar.dart';
-import 'package:flutter_wanandroid/components/tag_item_view.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
+import 'package:flutter_wanandroid/components/search/search_bar.dart';
+import 'package:flutter_wanandroid/components/tag/tag_item_view.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/hot_key_data.dart';
@@ -254,7 +254,7 @@ class _SearchPageState extends State<SearchPage> {
       textTitle: text,
       textColor: Colors.white,
       backgroundColor: ToolUtils.getRandomColor(),
-      isChip: true,
+      isShape: true,
       pressCallback: () {
         //print("pressCallback"+text);
         key = text;

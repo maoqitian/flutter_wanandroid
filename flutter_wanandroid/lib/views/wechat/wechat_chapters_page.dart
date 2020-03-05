@@ -4,7 +4,7 @@
 /// email: maoqitian068@163.com
 /// des:  公众号 widget
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/views/wechat/item/wechat_list_item.dart';

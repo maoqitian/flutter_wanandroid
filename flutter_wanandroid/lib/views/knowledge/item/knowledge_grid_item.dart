@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/components/tag_item_view.dart';
+import 'package:flutter_wanandroid/components/tag/tag_item_view.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/res/colours.dart';
@@ -68,7 +68,7 @@ class _KnowledgeGridItemState extends State<KnowledgeGridItem> with AutomaticKee
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       //mainAxisSize: MainAxisSize.max,//表示尽可能多的占用水平方向的空间，此时无论子widgets实际占用多少水平空间，Row的宽度始终等于水平方向的最大宽度
       children: list.map((KnowledgeHierarchyData knowledgeHierarchyData){
-        return TagItemView(textTitle: knowledgeHierarchyData.name,textColor: ToolUtils.getRandomColor());
+        return TagItemView(textTitle: knowledgeHierarchyData.name,textColor: ToolUtils.getRandomColor(),isCanClick: false,);
       }).toList(),
     );
   }

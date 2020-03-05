@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_grid_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_grid_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
 import 'package:flutter_wanandroid/views/knowledge/item/knowledge_grid_item.dart';

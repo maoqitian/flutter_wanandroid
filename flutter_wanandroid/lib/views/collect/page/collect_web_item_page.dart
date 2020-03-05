@@ -4,7 +4,7 @@
 /// email: maoqitian068@163.com
 /// des: 收藏 模块对应 page  收藏文章
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/collect/collect_web_data.dart';
 import 'package:flutter_wanandroid/views/collect/item/collect_web_view_item.dart';

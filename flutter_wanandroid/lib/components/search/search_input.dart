@@ -10,7 +10,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter_wanandroid/common/widget_name_to_icon.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:meta/meta.dart';
-import '../model/search/search_history.dart';
+import '../../model/search/search_history.dart';
 
 typedef String FormFieldFormatter<T>(T v);
 typedef bool MaterialSearchFilter<T>(T v, String c);

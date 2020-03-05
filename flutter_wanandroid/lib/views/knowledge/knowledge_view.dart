@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 /// des:  每个知识体系 内容对应的页面
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/views/home/item/list_view_item.dart';

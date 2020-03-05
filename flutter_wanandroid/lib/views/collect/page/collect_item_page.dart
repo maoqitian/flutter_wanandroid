@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/collect_event.dart';
-import 'package:flutter_wanandroid/components/refresh_page.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/collect/collect_list_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
