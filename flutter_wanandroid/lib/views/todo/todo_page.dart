@@ -51,6 +51,11 @@ class _TodoPageState extends State<TodoPage> {
               return TodoContentPage(state: page.labelIndex);
             }).toList(),
           ),
+          floatingActionButton: FloatingActionButton(
+              onPressed: _inAddTodo,
+              tooltip: 'Increment',
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Icon(Icons.add)),
         ));
   }
 
@@ -78,5 +83,9 @@ class _TodoPageState extends State<TodoPage> {
       unselectedLabelColor: Colors.white54,
       indicatorColor: Colors.white,
     );
+  }
+
+  void _inAddTodo() {
+    print("点击添加按钮");
   }
 }
