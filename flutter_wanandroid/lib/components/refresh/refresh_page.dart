@@ -7,12 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_wanandroid/common/application.dart';
-import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/collect_event.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class RefreshPage extends StatefulWidget {
+
+  // 页面列表展示类型
+  //普通 listview 类型
+  static const String LIST_PAGE_TYPE = 'list_page_type';
+  // 瀑布流 类型
+  static const String STAGGERED_GRID_PAGE_TYPE = 'staggered_grid_page_type';
+  // ExpansionPanelList
+  static const String EXPANSION_PANEL_LIST_PAGE_TYPE = 'expansion_panel_list_page_type';
+
+
   // 模块item
   final renderItem;
   //数据获取方法
@@ -40,7 +49,7 @@ class RefreshPage extends StatefulWidget {
       this.isCanRefresh = true,
       this.isCanLoadMore = true,
       this.isNeedController = true,
-      this.pageType = Constants.LIST_PAGE_TYPE, this.startIndex = 0})
+      this.pageType = LIST_PAGE_TYPE, this.startIndex = 0})
       : assert(requestApi is Function),
         assert(renderItem is Function),
         super();
@@ -203,7 +212,7 @@ class _RefreshPageState extends State<RefreshPage> {
   @override
   Widget build(BuildContext context) {
     switch (widget.pageType) {
-      case Constants.LIST_PAGE_TYPE:
+      case RefreshPage.LIST_PAGE_TYPE:
         if (widget.isNeedController) {
           return widget.isCanRefresh
               ? RefreshIndicator(
@@ -248,7 +257,7 @@ class _RefreshPageState extends State<RefreshPage> {
           );
         }
         break;
-      case Constants.STAGGERED_GRID_PAGE_TYPE:
+      case RefreshPage.STAGGERED_GRID_PAGE_TYPE:
         //瀑布流 加载有问题 废弃 ！！！！
         return RefreshIndicator(
             onRefresh: _handleRefresh,
@@ -343,8 +352,9 @@ class _RefreshPageState extends State<RefreshPage> {
           ))
         : Container(
             child: new Center(
-             child: new Text("哥，这回真没了！！",
-                style: TextStyle(color: Colors.black54, fontSize: 15.0)),
+              // 加入列表数据判断处理，大于才显示没有加载更多
+             child: (items.length) > 8 ? new Text("哥，这回真没了！！",
+                style: TextStyle(color: Colors.black54, fontSize: 15.0)): Text(""),
           ));
   }
 

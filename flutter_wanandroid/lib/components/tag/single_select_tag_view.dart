@@ -24,7 +24,7 @@ class SingleSelectTagView extends StatelessWidget {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: ChoiceChip(
-          label: Text(choiceText),
+          label: Text(choiceText,style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
           //选定的时候背景
           selectedColor: ToolUtils.getPrimaryColor(context),
           //未选用得时候背景

@@ -6,7 +6,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/components/tag/single_select_tag_view.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/todo/todo_list_data.dart';
+import 'package:flutter_wanandroid/views/todo/item/todo_item_view.dart';
 
 
 class TodoContentPage extends StatefulWidget {
@@ -18,7 +22,10 @@ class TodoContentPage extends StatefulWidget {
   _TodoContentPageState createState() => _TodoContentPageState();
 }
 
-class _TodoContentPageState extends State<TodoContentPage> {
+class _TodoContentPageState extends State<TodoContentPage> with AutomaticKeepAliveClientMixin{
+
+  @override
+  bool get wantKeepAlive => true;
 
   //初始选择
   int selected = 0;
@@ -32,15 +39,47 @@ class _TodoContentPageState extends State<TodoContentPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Wrap(
+          // 对齐方式
+          alignment: WrapAlignment.start,
+          // run的对齐方式 开始位置
+          runAlignment: WrapAlignment.start,
           // 使用迭代器的方法生成list
           children: Constants.todoTypes.map((Page page){
             return SingleSelectTagView(index: page.labelIndex,choiceText: page.labelId,parent: this);
           }).toList(),
         ),
+        Expanded(
+            child: RefreshPage(requestApi: getTodoListData,
+                renderItem: makeTodoItem,startIndex: 1,)
+        )
       ],
     );
+  }
+
+
+  Future<Map> getTodoListData([Map<String, dynamic> params]) async {
+    var pageIndex = (params is Map) ? params['pageIndex'] : 1;
+    //收藏文章
+    Map<String, dynamic> result;
+    await dataUtils.getTodoListData(pageIndex).then((TodoListData todoListData){
+      pageIndex = todoListData.curPage+1;
+      result = {"list":todoListData.datas, 'total':todoListData.pageCount, 'pageIndex':pageIndex};
+    },onError: (e){
+      print("onError 发生错误");
+      result = {"list":[], 'total':0, 'pageIndex':0};
+    });
+    return result;
+  }
+
+
+  //  GridViewItem
+  Widget makeTodoItem(index,item){
+    return TodoItemView(item) ;
   }
 }
