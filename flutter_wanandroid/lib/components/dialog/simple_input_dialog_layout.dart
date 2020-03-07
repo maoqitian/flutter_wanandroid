@@ -75,14 +75,16 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
   FocusScopeNode _focusScopeNode = new FocusScopeNode();
 
   //获取用户输入的 Controller
+  TextEditingController _textTitleController = new TextEditingController();
   TextEditingController _collectAuthorController = new TextEditingController();
+  TextEditingController _textUrlController = new TextEditingController();
 
   //输入的收藏标题 作者 链接
   String collectTitle = '';
   String collectAuthor = '';
   String collectUrl = '';
 
-  int priorityValue = 1; // 优先级  1:一般  2:重要
+  int priorityValue = 0; // 优先级  0:一般  1:重要
   String selectedDate = ''; // 选择日期
   //初始选择 类型 工作 学习 生活 0 1 2 3
   int selectedType = 0;
@@ -100,6 +102,10 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
       collectTitle = widget.collectTitle;
       collectUrl = widget.collectUrl;
       selectedDate = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
+    }
+    if(collectUrl!=null && collectTitle!=null){
+      _textTitleController.text = collectTitle;
+      _textUrlController.text = collectUrl;
     }
   }
 
@@ -221,15 +227,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
         padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
         child: TextFormField(
           //设置默认值 和光标位置  编辑
-          controller: TextEditingController.fromValue(TextEditingValue(
-              text: ToolUtils.isNullOrEmpty(collectTitle)
-                  ? ""
-                  : collectTitle,
-              selection: TextSelection.fromPosition(TextPosition(
-                  affinity: TextAffinity.downstream,
-                  offset: ToolUtils.isNullOrEmpty(collectTitle)
-                      ? 0
-                      : collectTitle.length)))),
+          controller: _textTitleController,
           focusNode: _collectTitleFocusNode,
           autofocus: true, //自动获取焦点 打开键盘
           onEditingComplete: () {
@@ -298,25 +296,17 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
           padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
           child: TextFormField(
             maxLines: 4,
-            controller: TextEditingController.fromValue(TextEditingValue(
-                text: ToolUtils.isNullOrEmpty(collectUrl)
-                    ? ""
-                    : collectUrl,
-                selection: TextSelection.fromPosition(TextPosition(
-                    affinity: TextAffinity.downstream,
-                    offset: ToolUtils.isNullOrEmpty(collectUrl)
-                        ? 0
-                        : collectUrl.length)))),
+            controller: _textUrlController,
             focusNode: _collectUrlFocusNode,
             decoration: InputDecoration(
-              hintText: "链接地址",
+              hintText: widget.isTodoDialog? "清单内容":"链接地址",
               border: InputBorder.none,
             ),
             style: TextStyle(fontSize: 16, color: Colors.black),
             //输入验证
             validator: (collecturl) {
               if (collecturl == null || collecturl.isEmpty) {
-                return "链接地址不能为空!";
+                return widget.isTodoDialog?  "清单内容不能为空!":"链接地址不能为空!";
               }
               return null;
             },
@@ -417,7 +407,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
               Row(
                 children: <Widget>[
                   Radio(
-                    value: 1,
+                    value: 0,
                     groupValue: this.priorityValue,
                     activeColor: Theme.of(context).primaryColor,
                     onChanged: (value) {
@@ -432,7 +422,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
               Row(
                 children: <Widget>[
                   Radio(
-                    value: 2,
+                    value: 1,
                     groupValue: this.priorityValue,
                     activeColor: Theme.of(context).primaryColor,
                     onChanged: (value) {
@@ -469,7 +459,20 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
                 IconButton(
                   icon: Icon(Icons.date_range),
                   onPressed: () {
-                    print("点击了日历");
+                    showDatePicker(
+                      context: context,
+                      initialDate: new DateTime.now(),
+                      firstDate: new DateTime.now().subtract(new Duration(days: 30)), // 减 30 天
+                      lastDate: DateTime(2030), //最长设置到2030年
+                    ).then((DateTime val) {
+                      if (val != null&& this.mounted) {
+                        setState(() {
+                          selectedDate = formatDate(val, [yyyy, '-', mm, '-', dd]);
+                        });
+                      }// 2018-07-12 00:00:00.000
+                    }).catchError((err) {
+                      print(err);
+                    });
                   },
                 )
               ],
