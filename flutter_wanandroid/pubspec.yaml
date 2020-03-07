@@ -56,6 +56,8 @@ dependencies:
   flutter_html: ^0.11.1
   # expansion
   expandable: ^4.1.2
+  # data format
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

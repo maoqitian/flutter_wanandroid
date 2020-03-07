@@ -5,7 +5,13 @@
 /// des:  todo页面
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/event/todo_change_event.dart';
+import 'package:flutter_wanandroid/components/dialog/simple_input_dialog_layout.dart';
+import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/todo/todo_data.dart';
+import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/todo/todo_content_page.dart';
 
 class TodoPage extends StatefulWidget {
@@ -14,10 +20,6 @@ class TodoPage extends StatefulWidget {
 }
 
 class _TodoPageState extends State<TodoPage> {
-  List tabData = [
-    {'text': '待办', 'icon': Icon(Icons.calendar_today)},
-    {'text': '完成', 'icon': Icon(Icons.done_all)},
-  ];
 
   @override
   void initState() {
@@ -48,7 +50,7 @@ class _TodoPageState extends State<TodoPage> {
           ),
           body: TabBarView(
             children: Constants.todoPages.map((Page page) {
-              return TodoContentPage(state: page.labelIndex);
+              return TodoContentPage(status: page.labelIndex);
             }).toList(),
           ),
           floatingActionButton: FloatingActionButton(
@@ -86,6 +88,26 @@ class _TodoPageState extends State<TodoPage> {
   }
 
   void _inAddTodo() {
-    print("点击添加按钮");
+    //新增todo
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return SimpleInputDialogLayout(
+            isTodoDialog: true,
+            isCollectArticle: false,
+            dialogTitleText: "添加TODO",
+            themeText: "清单",
+            isDIYText: true,
+            confirmCallback3: (params)async{
+              //编辑收藏网站
+              await dataUtils.getAddTodoData(params).then((TodoData todoData){
+                ToolUtils.showToast(msg: "添加成功");
+                Application.eventBus.fire(new TodoChangeEvent());
+              });
+            },
+          );
+        }
+    );
   }
 }

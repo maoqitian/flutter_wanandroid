@@ -69,15 +69,15 @@ class _ListViewItemState extends State<ListViewItem> {
     List <Widget> widget = [];
     if(1 == articleData.type){
       // 加入 置顶标签
-      widget.add(_buildStrokeWidget('置顶',Colors.redAccent));
+      widget.add( ToolUtils.buildStrokeWidget('置顶',Colors.redAccent));
     }
     if(articleData.fresh){
       //加入 新 标签
-      widget.add( _buildStrokeWidget('新',Colors.redAccent));
+      widget.add( ToolUtils.buildStrokeWidget('新',Colors.redAccent));
     }
     if(articleData.tags.length > 0){
       //加入 tag 标签
-      widget.add( _buildStrokeWidget(articleData.tags[0].name,Colors.green));
+      widget.add( ToolUtils.buildStrokeWidget(articleData.tags[0].name,Colors.green));
     }
     widget.add(new Icon(articleData.author == ""?Icons.folder_shared:Icons.person,size: 20.0));
     widget.add( Padding(
@@ -123,25 +123,6 @@ class _ListViewItemState extends State<ListViewItem> {
           )
         )));
     return widget;
-  }
-
-  // 创建 tag widget 方法
-  Widget _buildStrokeWidget(String text , Color color) {
-    return Padding(
-      child: StrokeWidget(
-          strokeWidth: 0.5,
-          edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
-          color: color,
-          childWidget: Text(
-            text,
-            style: TextStyle(
-                fontSize: 11.0,
-                color: color,
-                fontWeight: FontWeight.w100),
-          )
-      ),
-      padding: EdgeInsets.only(right: 5.0),
-    );
   }
 
   void _clickCollection() async {

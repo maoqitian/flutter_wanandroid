@@ -35,7 +35,7 @@ class SingleSelectTagView extends StatelessWidget {
           onSelected: (bool value) {
             parent.onSelectedChanged(index);
           },
-          selected: parent.selected == index),
+          selected: parent.selectedType == index),
     );
   }
 }

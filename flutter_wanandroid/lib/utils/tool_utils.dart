@@ -8,6 +8,7 @@ import 'package:cookie_jar/cookie_jar.dart';
 /// email: maoqitian068@163.com
 /// des:  工具类
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/widget/stroke_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -216,4 +217,23 @@ class ToolUtils{
     await file.delete();
   }
 
+
+  // 创建 tag widget 方法
+  static Widget buildStrokeWidget(String text , Color color) {
+    return Padding(
+      child: StrokeWidget(
+          strokeWidth: 0.5,
+          edgeInsets: EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
+          color: color,
+          childWidget: Text(
+            text,
+            style: TextStyle(
+                fontSize: 11.0,
+                color: color,
+                fontWeight: FontWeight.w100),
+          )
+      ),
+      padding: EdgeInsets.only(right: 5.0),
+    );
+  }
 }

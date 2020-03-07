@@ -1,3 +1,5 @@
+import 'package:date_format/date_format.dart';
+
 /// Created with Android Studio.
 /// User: maoqitian
 /// Date: 2019-12-31
@@ -5,13 +7,15 @@
 /// des:  简单dialog 布局 用于 添加收藏 dialog
 
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/components/tag/single_select_tag_view.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/model/todo/todo_data.dart';
 import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
-
 class SimpleInputDialogLayout extends StatefulWidget {
-
   //收藏标题
   final String collectTitle;
   //收藏作者
@@ -28,32 +32,40 @@ class SimpleInputDialogLayout extends StatefulWidget {
   //收藏模块配置
   final bool isCollectArticle; //dialog 默认为展示 收藏文章
 
-  final Function(String collectTitle,String collectAuthor,String collectUrl) confirmCallback1; //点击确定按钮回调 收藏文章
-  final Function(String collectTitle,String collectUrl) confirmCallback2; //点击确定按钮回调 收藏网站
-  final Function dismissCallback ; //弹窗关闭回调
+  final bool isTodoDialog; //是否为 tododialog 默认为fals
+
+  final Function(String collectTitle, String collectAuthor, String collectUrl)
+      confirmCallback1; //点击确定按钮回调 收藏文章
+  final Function(String collectTitle, String collectUrl)
+      confirmCallback2; //点击确定按钮回调 收藏网站
+  final Function(Map<String, dynamic> requestParams)
+      confirmCallback3; //点击确定按钮回调 清单文件完成
+  final Function dismissCallback; //弹窗关闭回调
   final bool outsideDismiss; //点击弹窗外部，关闭弹窗，默认为true true：可以关闭 false：不可以关闭
 
+  final TodoData todoData;
 
   SimpleInputDialogLayout(
       {this.isCollectArticle = true,
-        this.collectTitle,
-        this.collectAuthor,
-        this.collectUrl,
-        this.confirmCallback1,
-        this.confirmCallback2,
-        this.dismissCallback,
-        this.outsideDismiss = true,
-        this.isDIYText = false,
-        this.dialogTitleText, this.themeText}):
-        super();
+      this.collectTitle,
+      this.collectAuthor,
+      this.collectUrl,
+      this.confirmCallback1,
+      this.confirmCallback2,
+      this.dismissCallback,
+      this.outsideDismiss = true,
+      this.isDIYText = false,
+      this.dialogTitleText,
+      this.themeText,
+      this.isTodoDialog = false, this.todoData, this.confirmCallback3})
+      : super();
 
   @override
-  _SimpleInputDialogLayoutState createState() => _SimpleInputDialogLayoutState();
+  _SimpleInputDialogLayoutState createState() =>
+      _SimpleInputDialogLayoutState();
 }
 
 class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
-
-
   GlobalKey<FormState> _dialogFormKey = new GlobalKey();
 
   // 利用FocusNode和_focusScopeNode来控制焦点 可以通过FocusNode.of(context)来获取widget树中默认的_focusScopeNode
@@ -63,14 +75,40 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
   FocusScopeNode _focusScopeNode = new FocusScopeNode();
 
   //获取用户输入的 Controller
-  TextEditingController _collectAuthorController =
-  new TextEditingController();
+  TextEditingController _collectAuthorController = new TextEditingController();
 
   //输入的收藏标题 作者 链接
   String collectTitle = '';
   String collectAuthor = '';
   String collectUrl = '';
 
+  int priorityValue = 1; // 优先级  1:一般  2:重要
+  String selectedDate = ''; // 选择日期
+  //初始选择 类型 工作 学习 生活 0 1 2 3
+  int selectedType = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.isTodoDialog && widget.todoData!=null){
+      collectTitle = widget.todoData.title;
+      collectUrl = widget.todoData.content;
+      selectedDate = widget.todoData.dateStr;
+      selectedType = widget.todoData.type;
+      priorityValue = widget.todoData.priority;
+    }else{
+      collectTitle = widget.collectTitle;
+      collectUrl = widget.collectUrl;
+      selectedDate = formatDate(DateTime.now(), [yyyy, '-', mm, '-', dd]);
+    }
+  }
+
+  ValueChanged<int> onSelectedChanged(int _index) {
+    print("当前选择的tag位置" + _index.toString());
+    setState(() {
+      selectedType = _index;
+    });
+  }
 
   _dismissDialog() {
     if (widget.dismissCallback != null) {
@@ -79,13 +117,17 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
     Navigator.of(context).pop();
   }
 
-  _confirmDialog() async{
+  _confirmDialog() async {
     if (widget.confirmCallback1 != null && widget.isCollectArticle) {
-        await widget.confirmCallback1(collectTitle,collectAuthor,collectUrl);
-      }
-    if(widget.confirmCallback2 != null && !widget.isCollectArticle) {
-       await widget.confirmCallback2(collectTitle,collectUrl);
-      }
+      await widget.confirmCallback1(collectTitle, collectAuthor, collectUrl);
+    }
+    if (widget.confirmCallback2 != null && !widget.isCollectArticle) {
+      await widget.confirmCallback2(collectTitle, collectUrl);
+    }
+    if(widget.confirmCallback3 != null && widget.isTodoDialog){
+      await widget.confirmCallback3({"title":collectTitle ,"content":collectUrl,"date":selectedDate,
+        "type":selectedType,"priority":priorityValue});
+    }
     _dismissDialog();
   }
 
@@ -93,60 +135,78 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
   Widget build(BuildContext context) {
     return WillPopScope(
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           widget.outsideDismiss ? _dismissDialog() : null;
         },
         child: Material(
-            type: MaterialType.transparency,
-            child: Scaffold(
+          type: MaterialType.transparency,
+          child: Scaffold(
               backgroundColor: Colors.transparent,
-              body: SingleChildScrollView( //让包裹的 widget 可以滑动 防止布局溢出
-                child: Center(
-                      child:Container(
-                          width: MediaQuery.of(context).size.width*0.85,
+              body: SingleChildScrollView(
+                  //让包裹的 widget 可以滑动 防止布局溢出
+                  child: Center(
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                            color: dataUtils.getIsDarkMode() ? Colours.dark_material_bg : Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
+                            color: dataUtils.getIsDarkMode()
+                                ? Colours.dark_material_bg
+                                : Colors.white,
                           ),
-                          child: buildContent()
-                      )
-                )
-              )
-            ),
+                          child: buildContent())))),
         ),
       ),
-      onWillPop: () async{
+      onWillPop: () async {
         return widget.outsideDismiss;
       },
     );
-
-
   }
 
-  buildContent(){
+  buildContent() {
     return Stack(
       children: <Widget>[
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(height: 20.0),//能强制子控件具有特定宽高
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(widget.isDIYText ? widget.dialogTitleText :(widget.isCollectArticle ? "收藏站外文章" :"收藏网站"))
-              ],
-            ),
-            buildTextForm(),
-            SizedBox(height: 15.0),
-            buildButton(),
-            SizedBox(height: 15.0),
-          ],
+          children: buildContentPageWidgetList(),
         ),
       ],
     );
   }
 
-  normalItemLine(){
+  List<Widget> buildContentPageWidgetList() {
+    List<Widget> widgetList = List();
+    widgetList.add(SizedBox(height: 20.0));
+    widgetList.add(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(widget.isDIYText
+              ? widget.dialogTitleText
+              : (widget.isCollectArticle ? "收藏站外文章" : "收藏网站"))
+        ],
+      ),
+    );
+    widgetList.add(
+      buildTextForm(),
+    );
+    widgetList.add(
+      SizedBox(height: 15.0),
+    );
+    if (widget.isTodoDialog) {
+      widgetList.add(
+        buildTodoOtherContent(),
+      );
+      widgetList.add(SizedBox(height: 15.0));
+    }
+    widgetList.add(
+      buildButton(),
+    );
+    widgetList.add(SizedBox(height: 15.0));
+    return widgetList;
+  }
+
+  normalItemLine() {
     return Container(
       height: 1,
       width: MediaQuery.of(context).size.width * 0.75,
@@ -154,7 +214,7 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
     );
   }
 
-  List<Widget> buildTextFormList(){
+  List<Widget> buildTextFormList() {
     List<Widget> list = [];
     list.add(Flexible(
       child: Padding(
@@ -162,33 +222,38 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
         child: TextFormField(
           //设置默认值 和光标位置  编辑
           controller: TextEditingController.fromValue(TextEditingValue(
-            text: ToolUtils.isNullOrEmpty(widget.collectTitle) ? "" : widget.collectTitle,
-            selection: TextSelection.fromPosition(TextPosition(
-                affinity: TextAffinity.downstream,
-                offset:ToolUtils.isNullOrEmpty(widget.collectTitle) ? 0 : widget.collectTitle.length
-            ))
-          )),
+              text: ToolUtils.isNullOrEmpty(collectTitle)
+                  ? ""
+                  : collectTitle,
+              selection: TextSelection.fromPosition(TextPosition(
+                  affinity: TextAffinity.downstream,
+                  offset: ToolUtils.isNullOrEmpty(collectTitle)
+                      ? 0
+                      : collectTitle.length)))),
           focusNode: _collectTitleFocusNode,
           autofocus: true, //自动获取焦点 打开键盘
-          onEditingComplete: (){
-            if(_focusScopeNode == null){
+          onEditingComplete: () {
+            if (_focusScopeNode == null) {
               _focusScopeNode = FocusScope.of(context);
             }
             _focusScopeNode.requestFocus(_collectAuthorNode);
           },
           decoration: InputDecoration(
-              hintText: widget.isDIYText? widget.themeText+"标题":(widget.isCollectArticle? "收藏文章标题":"收藏网站名称"),
-              border: InputBorder.none
-          ),
-          style: TextStyle(fontSize: 16,color: Colors.black),
+              hintText: widget.isDIYText
+                  ? widget.themeText + "标题"
+                  : (widget.isCollectArticle ? "收藏文章标题" : "收藏网站名称"),
+              border: InputBorder.none),
+          style: TextStyle(fontSize: 16, color: Colors.black),
           //输入验证
-          validator: (collecttitle){
-            if(collecttitle ==null ||collecttitle.isEmpty){
-              return widget.isDIYText? widget.themeText+"标题不能为空!":"收藏标题不能为空!";
+          validator: (collecttitle) {
+            if (collecttitle == null || collecttitle.isEmpty) {
+              return widget.isDIYText
+                  ? widget.themeText + "标题不能为空!"
+                  : "收藏标题不能为空!";
             }
             return null;
           },
-          onSaved: (collecttitle){
+          onSaved: (collecttitle) {
             setState(() {
               collectTitle = collecttitle;
             });
@@ -197,7 +262,8 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
       ),
     ));
     list.add(normalItemLine());
-    if(widget.isCollectArticle){ //收藏站外文章
+    if (widget.isCollectArticle) {
+      //收藏站外文章
       list.add(Flexible(
         child: Padding(
           padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
@@ -207,17 +273,16 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
             decoration: InputDecoration(
               hintText: "作者名称",
               border: InputBorder.none,
-
             ),
-            style: TextStyle(fontSize: 16,color: Colors.black),
+            style: TextStyle(fontSize: 16, color: Colors.black),
             //输入验证
-            validator: (collectauthor){
-              if(collectauthor ==null || collectauthor.isEmpty){
+            validator: (collectauthor) {
+              if (collectauthor == null || collectauthor.isEmpty) {
                 return "作者名称不能为空!";
               }
               return null;
             },
-            onSaved: (collectauthor){
+            onSaved: (collectauthor) {
               setState(() {
                 collectAuthor = collectauthor;
               });
@@ -227,91 +292,190 @@ class _SimpleInputDialogLayoutState extends State<SimpleInputDialogLayout> {
       ));
       list.add(normalItemLine());
     }
-    list.add(Flexible(
-      child: Padding(
-        padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
-        child: TextFormField(
-          controller: TextEditingController.fromValue(TextEditingValue(
-              text: ToolUtils.isNullOrEmpty(widget.collectUrl) ? "" : widget.collectUrl,
-              selection: TextSelection.fromPosition(TextPosition(
-                  affinity: TextAffinity.downstream,
-                  offset:ToolUtils.isNullOrEmpty(widget.collectUrl) ? 0 : widget.collectUrl.length
-              ))
-          )),
-          focusNode: _collectUrlFocusNode,
-          decoration: InputDecoration(
-            hintText: "链接地址",
-            border: InputBorder.none,
+    list.add(
+      Flexible(
+        child: Padding(
+          padding: EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 20),
+          child: TextFormField(
+            maxLines: 4,
+            controller: TextEditingController.fromValue(TextEditingValue(
+                text: ToolUtils.isNullOrEmpty(collectUrl)
+                    ? ""
+                    : collectUrl,
+                selection: TextSelection.fromPosition(TextPosition(
+                    affinity: TextAffinity.downstream,
+                    offset: ToolUtils.isNullOrEmpty(collectUrl)
+                        ? 0
+                        : collectUrl.length)))),
+            focusNode: _collectUrlFocusNode,
+            decoration: InputDecoration(
+              hintText: "链接地址",
+              border: InputBorder.none,
+            ),
+            style: TextStyle(fontSize: 16, color: Colors.black),
+            //输入验证
+            validator: (collecturl) {
+              if (collecturl == null || collecturl.isEmpty) {
+                return "链接地址不能为空!";
+              }
+              return null;
+            },
+            onSaved: (collecturl) {
+              setState(() {
+                collectUrl = collecturl;
+              });
+            },
           ),
-          style: TextStyle(fontSize: 16,color: Colors.black),
-          //输入验证
-          validator: (collecturl){
-            if(collecturl ==null || collecturl.isEmpty){
-              return "链接地址不能为空!";
-            }
-            return null;
-          },
-          onSaved: (collecturl){
-            setState(() {
-              collectUrl = collecturl;
-            });
-          },
         ),
       ),
-    ),);
+    );
     list.add(normalItemLine());
     return list;
   }
 
   buildTextForm() {
-      return Form(
-        key: _dialogFormKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: buildTextFormList(),
-        ),
-      );
+    return Form(
+      key: _dialogFormKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: buildTextFormList(),
+      ),
+    );
+  }
+
+  Widget buildDivider() {
+    return Padding(
+        padding: EdgeInsets.only(left: 20.0, right: 20.0),
+        child:Divider(height: 1));
   }
 
   buildButton() {
     return Container(
-      child: Padding(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child:
-             RaisedButton(
-               color: Theme.of(context).primaryColor,
-               child: Text(
-                "取消",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-              onPressed: (){
-                _dismissDialog();
-              },
-            )),
-            SizedBox(width: 15.0),
-            Expanded(
-                child:
-                 RaisedButton(
-                   color: Theme.of(context).primaryColor,
-                   child: Text(
-                    widget.isDIYText ? widget.themeText : "收藏",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                  onPressed: (){
-                     if(_dialogFormKey.currentState.validate()){
-                       _dialogFormKey.currentState.save();
-                       //验证通过
-                       _confirmDialog();
-                     }
-                  },
-                ))
-          ],
-        ),
-        padding: EdgeInsets.only(left: 20.0,right: 20.0),
-      )
-    );
+        child: Padding(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+              child: RaisedButton(
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              "取消",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            onPressed: () {
+              _dismissDialog();
+            },
+          )),
+          SizedBox(width: 15.0),
+          Expanded(
+              child: RaisedButton(
+            color: Theme.of(context).primaryColor,
+            child: Text(
+              widget.isDIYText ? widget.themeText : "收藏",
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            onPressed: () {
+              if (_dialogFormKey.currentState.validate()) {
+                _dialogFormKey.currentState.save();
+                //验证通过
+                _confirmDialog();
+              }
+            },
+          ))
+        ],
+      ),
+      padding: EdgeInsets.only(left: 20.0, right: 20.0),
+    ));
   }
 
+  Widget buildTodoOtherContent() {
+    return Column(
+      children: <Widget>[
+        //todo类型 学习 工作 生活
+        Wrap(
+          // 对齐方式
+          alignment: WrapAlignment.start,
+          // run的对齐方式 开始位置
+          runAlignment: WrapAlignment.start,
+          // 使用迭代器的方法生成list
+          children: Constants.todoTypes.map((Page page) {
+            return SingleSelectTagView(
+                index: page.labelIndex, choiceText: page.labelId, parent: this);
+          }).toList(),
+        ),
+        buildDivider(),
+        //优先级
+        Padding(
+          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "优先级：",
+                style: TextStyle(fontSize: 16),
+              ),
+              Row(
+                children: <Widget>[
+                  Radio(
+                    value: 1,
+                    groupValue: this.priorityValue,
+                    activeColor: Theme.of(context).primaryColor,
+                    onChanged: (value) {
+                      setState(() {
+                        this.priorityValue = value;
+                      });
+                    },
+                  ),
+                  Text('一般'),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Radio(
+                    value: 2,
+                    groupValue: this.priorityValue,
+                    activeColor: Theme.of(context).primaryColor,
+                    onChanged: (value) {
+                      setState(() {
+                        this.priorityValue = value;
+                      });
+                    },
+                  ),
+                  Text('重要'),
+                ],
+              ),
+            ],
+          ),
+        ),
+        buildDivider(),
+        Padding(
+            padding: EdgeInsets.only(left: 20.0, right: 20.0),
+            child:
+                //时间
+                Row(
+              children: <Widget>[
+                Text(
+                  "日期：",
+                  style: TextStyle(fontSize: 16),
+                ),
+                Expanded(
+                  child: Text(
+                    selectedDate,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.date_range),
+                  onPressed: () {
+                    print("点击了日历");
+                  },
+                )
+              ],
+            )),
+        buildDivider(),
+      ],
+    );
+  }
 }

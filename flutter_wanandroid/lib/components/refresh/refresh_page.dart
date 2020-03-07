@@ -9,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/collect_event.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
+import 'package:flutter_wanandroid/common/event/todo_change_event.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 
 class RefreshPage extends StatefulWidget {
@@ -88,6 +89,9 @@ class _RefreshPageState extends State<RefreshPage> {
       _handleRefresh();
     });
     Application.eventBus.on<ShareArticleEvent>().listen((event){
+      _handleRefresh();
+    });
+    Application.eventBus.on<TodoChangeEvent>().listen((event){
       _handleRefresh();
     });
   }

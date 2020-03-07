@@ -5,7 +5,9 @@
 /// des:  todo内容page
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/Page.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/event/todo_change_event.dart';
 import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/components/tag/single_select_tag_view.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
@@ -15,8 +17,8 @@ import 'package:flutter_wanandroid/views/todo/item/todo_item_view.dart';
 
 class TodoContentPage extends StatefulWidget {
   //页面显示 状态 0 待办 1 完成
-  final int state;
-  const TodoContentPage({Key key, this.state = 0}) : super(key: key);
+  final int status;
+  const TodoContentPage({Key key, this.status = 0}) : super(key: key);
 
   @override
   _TodoContentPageState createState() => _TodoContentPageState();
@@ -28,12 +30,14 @@ class _TodoContentPageState extends State<TodoContentPage> with AutomaticKeepAli
   bool get wantKeepAlive => true;
 
   //初始选择
-  int selected = 0;
+  int selectedType = 0;
 
   ValueChanged<int> onSelectedChanged(int _index) {
     print("当前选择的tag位置"+_index.toString());
     setState(() {
-      selected = _index;
+      selectedType = _index;
+      //刷新类别数据
+      Application.eventBus.fire(new TodoChangeEvent());
     });
   }
 
@@ -65,9 +69,10 @@ class _TodoContentPageState extends State<TodoContentPage> with AutomaticKeepAli
 
   Future<Map> getTodoListData([Map<String, dynamic> params]) async {
     var pageIndex = (params is Map) ? params['pageIndex'] : 1;
-    //收藏文章
+    //获取todo list
+    Map<String, dynamic> requestParams={"status":widget.status,"type":selectedType};
     Map<String, dynamic> result;
-    await dataUtils.getTodoListData(pageIndex).then((TodoListData todoListData){
+    await dataUtils.getTodoListData(pageIndex,params: requestParams).then((TodoListData todoListData){
       pageIndex = todoListData.curPage+1;
       result = {"list":todoListData.datas, 'total':todoListData.pageCount, 'pageIndex':pageIndex};
     },onError: (e){
