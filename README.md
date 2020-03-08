@@ -41,12 +41,12 @@ Dart 2.7.0
 - [**历史版本下载地址**](https://github.com/maoqitian/flutter_wanandroid/releases)
 
 ### **最新版本下载**
-- 可以手机浏览器输入以下地址下载 [https://fir.im/b8ja](https://fir.im/b8ja)
+- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/b8ja](http://d.alphaqr.com/b8ja)
 
 
 类型 | 二维码
 ---|---
-Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.1/flutter-wanandroid-two-dimensional-code-v1.0.1.png"  height="200" width="200">
+Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.2/flutter-wanandroid-two-dimensional-code-v1.0.2.png"  height="200" width="200">
 ios 下载| 暂无下载，可以自行clone项目编译体验
 
 
@@ -64,9 +64,9 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 
 <img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-user-center.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-theme-change.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-wechat.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-login1.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-coin-rank.png" height="300" width="170">
 
-<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-article-list.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-common-web.png" height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-home.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-knowledge.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-nav.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-article-list.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-common-web.png" height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-todo.png" height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-add-todo.png" height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-todo-empty.png" height="300" width="170">
 
-<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-project.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-wechat.png" height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-home.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-knowledge.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-nav.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-project.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-dark-wechat.png" height="300" width="170">
 
 
 ## API
@@ -114,6 +114,13 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 - 首页文章搜索
 - 在某个公众号中搜索历史文章
 
+### TODO工具
+- TODO 列表
+- 新增一个 TODO
+- 更新一个 TODO
+- 删除一个 Todo
+- 仅更新完成状态TODO
+
 ### 积分
 - 积分排行榜
 - 获取个人积分
@@ -142,7 +149,6 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 ### 个人中心
 点击头像进入个人中心，仿B站个人中心效果
 
-
 ## Thanks
 - 感谢所有开源库的作者
 ### 参考项目
@@ -167,6 +173,16 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 [flutter_html](https://github.com/Sub6Resources/flutter_html) | 加载html 字符串
 
 ## 版本更新日志
+
+### v1.0.2 (2020/03/08)
+
+#### 添加TODO模块
+- TODO 列表
+- 新增一个 TODO
+- 更新一个 TODO
+- 删除一个 Todo
+- 仅更新完成状态TODO
+- 修复上个版本存在的bug
 
 ### v1.0.1 (2020/02/18)
 
