@@ -16,7 +16,7 @@
 ### **同款Andrioid Java 版本**（[https://github.com/maoqitian/MaoWanAndoidClient](https://github.com/maoqitian/MaoWanAndoidClient)）
 
 ## 项目简介
-- 这是一款跨平台的开源Flutter版本玩Android App。首先感谢[**鸿洋**](https://github.com/hongyangAndroid)大佬提供的[玩Android开放API](https://www.wanandroid.com/blog/show/2)；其次，本应用提供丰富完整的功能，更好的体验，旨在更好的浏览[https://www.wanandroid.com/](https://www.wanandroid.com/)网站内容，更好的在手机上进行学习。整个应用涉及到了Flutter界面搭建，页面跳转，网络请求，Json解析转换，数据持久化，组件间消息通信等Flutter学习尝试，可以说是一个比较好的Flutter学习项目，也希望能对看到此项目的您有或多或少的帮助。项目如果对您有帮助，不妨点个**Star**，您的支持是我前进的动力。
+- 这是一款跨平台的开源Flutter版本玩Android App。首先感谢[**鸿洋**](https://github.com/hongyangAndroid)大佬提供的[玩Android开放API](https://www.wanandroid.com/blog/show/2)；其次，本应用提供丰富完整的功能，更好的体验，旨在更好的浏览[https://www.wanandroid.com/](https://www.wanandroid.com/)网站内容，更好的在手机上进行学习。整个应用涉及到了大部分常用的Flutter组件，Flutter界面搭建，页面跳转，网络请求，Json解析转换，数据持久化，组件间消息通信等Flutter学习尝试，可以说是一个比较好的Flutter学习项目，也希望能对看到此项目的您有或多或少的帮助。项目如果对您有帮助，不妨点个**Star**，您的支持是我前进的动力。
 
 ## 相关文章
 
