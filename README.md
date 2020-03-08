@@ -41,12 +41,12 @@ Dart 2.7.0
 - [**历史版本下载地址**](https://github.com/maoqitian/flutter_wanandroid/releases)
 
 ### **最新版本下载**
-- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/b8ja](http://d.alphaqr.com/b8ja)
+- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/9n12](http://d.alphaqr.com/9n12)
 
 
 类型 | 二维码
 ---|---
-Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.2/flutter-wanandroid-two-dimensional-code-v1.0.2.png"  height="200" width="200">
+Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.2/flutter-wanandroid-v1.0.2.png"  height="200" width="200">
 ios 下载| 暂无下载，可以自行clone项目编译体验
 
 

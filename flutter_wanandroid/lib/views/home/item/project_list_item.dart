@@ -41,7 +41,7 @@ class _ProjectListItemState extends State<ProjectListItem> {
                 Constants.COLLECT_PAGE_TYPE,
                 widget.articleData.collect);
             Application.router.navigateTo(context,
-                '${Routes.webViewPage}??routePageJson=${ToolUtils.object2string(routePageData)}');
+                '${Routes.webViewPage}?routePageJson=${ToolUtils.object2string(routePageData)}');
           },
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
