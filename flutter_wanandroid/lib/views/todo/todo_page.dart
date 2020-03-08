@@ -19,18 +19,42 @@ class TodoPage extends StatefulWidget {
   _TodoPageState createState() => _TodoPageState();
 }
 
-class _TodoPageState extends State<TodoPage> {
+class _TodoPageState extends State<TodoPage> with SingleTickerProviderStateMixin{
+
+  TabController _tabController;
+  //是否为待办页面，只要待办页面才展示添加 按钮
+  bool isFinishType = true;
 
   @override
   void initState() {
     super.initState();
+    _tabController = new TabController(length: Constants.todoPages.length,vsync: this);
+    _tabController.addListener((){
+      //监听当前tabController 索引
+      var index =  _tabController.index;
+      print("当前索引"+index.toString());
+      switch(index){
+        case 0:
+          if(this.mounted){
+            setState(() {
+              isFinishType = true;
+            });
+          }
+          break;
+        case 1:
+          if(this.mounted){
+            setState(() {
+              isFinishType = false;
+            });
+          }
+          break;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: Constants.todoPages.length,
-        child: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             leading: new IconButton(
                 icon: new Icon(
@@ -49,16 +73,17 @@ class _TodoPageState extends State<TodoPage> {
             bottom: buildTabBar(),
           ),
           body: TabBarView(
+            controller: _tabController,
             children: Constants.todoPages.map((Page page) {
               return TodoContentPage(status: page.labelIndex);
             }).toList(),
           ),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: isFinishType ? FloatingActionButton(
               onPressed: _inAddTodo,
               tooltip: 'Increment',
               backgroundColor: Theme.of(context).primaryColor,
-              child: Icon(Icons.add)),
-        ));
+              child: Icon(Icons.add)) : null,
+        );
   }
 
   buildTabBar() {
@@ -84,6 +109,7 @@ class _TodoPageState extends State<TodoPage> {
       //设置tab未选中得颜色
       unselectedLabelColor: Colors.white54,
       indicatorColor: Colors.white,
+      controller: _tabController,
     );
   }
 

@@ -24,7 +24,7 @@ const List<Map<String, dynamic>> defalutThemeColor = [
   {'cnName': '姨妈红', 'value': 0xFFC91B3A},
   {'cnName': '橘子橙', 'value': 0xFFF7852A},
   {'cnName': '骚烈黄', 'value': 0xFFFFC800},
-  {'cnName': '早苗绿', 'value': 0xFFC0FF3E},
+  {'cnName': '早苗绿', 'value': 0xFF00C853},
   {'cnName': '基佬紫', 'value': 0xFFBF3EFF},
   {'cnName': '少女粉', 'value': 0xFFFF6EB4},
   {'cnName': '淡雅灰', 'value': 0xFF949494}

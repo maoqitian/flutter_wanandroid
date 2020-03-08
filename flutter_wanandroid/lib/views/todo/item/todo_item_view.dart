@@ -78,16 +78,18 @@ class _TodoItemViewState extends State<TodoItemView> {
 
 
   Widget buildExpanded(TodoData tododata) {
-    return CheckboxListTile(
-      activeColor: ToolUtils.getPrimaryColor(context),
-      value: isDone,
-      onChanged:(isCheck) async {
-        await dataUtils.getUpdateDoneTodo(tododata.id,{"status":isCheck ? 1 : 0}).then((TodoData todoData){
-          setState(() {
+    return ListTile(
+      trailing: Checkbox(
+        activeColor: ToolUtils.getPrimaryColor(context),
+        value: isDone,
+        onChanged:(isCheck) async {
+          await dataUtils.getUpdateDoneTodo(tododata.id,{"status":isCheck ? 1 : 0}).then((TodoData todoData){
+            setState(() {
+            });
+            Application.eventBus.fire(new TodoChangeEvent());
           });
-          Application.eventBus.fire(new TodoChangeEvent());
-        });
-      },
+        },
+      ),
       title: Padding( //文章标题
           padding: EdgeInsets.only(top: 10.0,bottom: 20.0),
           child: Text(
@@ -153,6 +155,11 @@ class _TodoItemViewState extends State<TodoItemView> {
   //副标题
   Widget buildCollapsed(TodoData todoData) {
     List<Widget> list = List();
+    if(todoData.priority == 1){
+      list.add(ToolUtils.buildStrokeWidget("重要", Colors.red));
+    }else{
+      list.add(ToolUtils.buildStrokeWidget("一般", Colors.greenAccent));
+    }
     switch(todoData.type){
       case 1:
         list.add(ToolUtils.buildStrokeWidget("工作", Colors.deepOrange));
