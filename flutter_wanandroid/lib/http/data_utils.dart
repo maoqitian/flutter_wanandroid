@@ -368,9 +368,9 @@ class DataUtils{
   //	date: 2018-08-01 预定完成时间（不传默认当天，建议传）
   //	type: 大于0的整数（可选）；
   //	priority 大于0的整数（可选）；
-  Future<TodoData> getAddTodoData(Map<String, dynamic> params) async{
+  Future<TodoData> getAddTodoData(Map<String, dynamic> params,BuildContext context) async{
     String path = 'lg/todo/add/json';
-    Response response = await httpUtils.post(path,queryParameters: params);
+    Response response = await httpUtils.post(path,queryParameters: params,isAddLoading: true,loadingText: "正在新增清单",context: context);
     BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
     return baseTodoData.data;
   }
@@ -386,9 +386,9 @@ class DataUtils{
   //	type: ；
   //	priority:
 
-  Future<TodoData> getUpdateTodoData(int id,Map<String, dynamic> params) async{
+  Future<TodoData> getUpdateTodoData(int id,Map<String, dynamic> params,BuildContext context) async{
     String path = 'lg/todo/update/$id/json';
-    Response response = await httpUtils.post(path,queryParameters: params);
+    Response response = await httpUtils.post(path,queryParameters: params,isAddLoading: true,loadingText: "正在更新",context: context);
     BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
     return baseTodoData.data;
   }
@@ -397,9 +397,9 @@ class DataUtils{
   //方法：POST
   //参数：
   //id: 拼接在链接上，为唯一标识
-  Future<String> getDeleteTodoData(int id) async{
+  Future<String> getDeleteTodoData(int id,BuildContext context) async{
     String path = 'lg/todo/delete/$id/json';
-    Response response = await httpUtils.post(path);
+    Response response = await httpUtils.post(path,isAddLoading: true,loadingText: "正在删除",context: context);
     return response.data["data"];
   }
 
@@ -408,9 +408,9 @@ class DataUtils{
   //参数：
   //	id: 拼接在链接上，为唯一标识
   //	status: 0或1，传1代表未完成到已完成，反之则反之。
-  Future<TodoData> getUpdateDoneTodo(int id,Map<String, dynamic> params) async{
+  Future<TodoData> getUpdateDoneTodo(int id,Map<String, dynamic> params,BuildContext context) async{
     String path = 'lg/todo/done/$id/json';
-    Response response = await httpUtils.post(path,queryParameters: params);
+    Response response = await httpUtils.post(path,queryParameters: params,isAddLoading: true,loadingText: "正在处理",context: context);
     BaseTodoData baseTodoData = BaseTodoData.fromJson(response.data);
     return baseTodoData.data;
   }

@@ -83,7 +83,7 @@ class _TodoItemViewState extends State<TodoItemView> {
         activeColor: ToolUtils.getPrimaryColor(context),
         value: isDone,
         onChanged:(isCheck) async {
-          await dataUtils.getUpdateDoneTodo(tododata.id,{"status":isCheck ? 1 : 0}).then((TodoData todoData){
+          await dataUtils.getUpdateDoneTodo(tododata.id,{"status":isCheck ? 1 : 0},context).then((TodoData todoData){
             setState(() {
             });
             Application.eventBus.fire(new TodoChangeEvent());
@@ -119,7 +119,7 @@ class _TodoItemViewState extends State<TodoItemView> {
                       todoData: tododata,
                       confirmCallback3: (params)async{
                         //编辑收藏网站
-                        await dataUtils.getUpdateTodoData(tododata.id,params).then((TodoData todoData){
+                        await dataUtils.getUpdateTodoData(tododata.id,params,context).then((TodoData todoData){
                           ToolUtils.showToast(msg: "修改成功");
                           Application.eventBus.fire(new TodoChangeEvent());
                         });
@@ -139,7 +139,7 @@ class _TodoItemViewState extends State<TodoItemView> {
               ToolUtils.showAlertDialog(context, "确定删除清单"+widget.todoData.title+"?",
                   confirmCallback: ()async{
                     // 删除收藏网站
-                    await dataUtils.getDeleteTodoData(widget.todoData.id).then((String s){
+                    await dataUtils.getDeleteTodoData(widget.todoData.id,context).then((String s){
                       Application.eventBus.fire(new TodoChangeEvent());
                       ToolUtils.showToast(msg: "删除成功");
                     });

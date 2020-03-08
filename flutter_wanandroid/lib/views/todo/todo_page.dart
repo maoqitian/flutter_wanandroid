@@ -127,7 +127,7 @@ class _TodoPageState extends State<TodoPage> with SingleTickerProviderStateMixin
             isDIYText: true,
             confirmCallback3: (params)async{
               //编辑收藏网站
-              await dataUtils.getAddTodoData(params).then((TodoData todoData){
+              await dataUtils.getAddTodoData(params,context).then((TodoData todoData){
                 ToolUtils.showToast(msg: "添加成功");
                 Application.eventBus.fire(new TodoChangeEvent());
               });
