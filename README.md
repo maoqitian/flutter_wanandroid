@@ -54,7 +54,7 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 ![image](https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/flutter-wanandroid%E7%BB%93%E6%9E%84%E5%9B%BE.jpg)
 ## 项目截图展示
 
-### gif
+### gif （debug 模式略显卡顿，可下载release版本体验丝滑顺畅）
 
 <img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/showapp1.gif"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/showapp2.gif"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/showapp3.gif"  height="300" width="170">
 
@@ -171,7 +171,9 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 [flutter_staggered_grid_view](https://github.com/letsar/flutter_staggered_grid_view) | 瀑布流
 [package_info](https://github.com/flutter/plugins) | 方便获取应用信息
 [flutter_html](https://github.com/Sub6Resources/flutter_html) | 加载html 字符串
-
+[expandable](https://github.com/aryzhov/flutter-expandable) | 扩展显示隐藏
+[date_format](https://github.com/tejainece/date_format) | 日期转换
+[share](https://github.com/flutter/plugins/tree/master/packages/share) | 分享
 ## 版本更新日志
 
 ### v1.0.2 (2020/03/08)

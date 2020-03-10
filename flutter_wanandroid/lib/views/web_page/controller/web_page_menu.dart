@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 /// User: maoqitian
 /// Date: 2020/1/10 0010
 /// email: maoqitian068@163.com
-/// des:  
+/// des:  WebPageMenu
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/utils/tool_utils.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:share/share.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 const String kNavigationExamplePage = '''
@@ -27,16 +28,18 @@ The navigation delegate is set to block navigation to the youtube website.
 
 enum MenuOptions {
   reloadPage,
-  showUserAgent,
+  share,
+  /*showUserAgent,
   listCookies,
   clearCookies,
   addToCache,
   listCache,
-  clearCache,
+  clearCache,*/
 }
 
 class WebPageMenu extends StatelessWidget {
-  WebPageMenu(this.controller);
+  final RoutePageData routePageData;
+  WebPageMenu(this.controller,this.routePageData);
 
   final Future<WebViewController> controller;
   final CookieManager cookieManager = CookieManager();
@@ -50,10 +53,15 @@ class WebPageMenu extends StatelessWidget {
         return PopupMenuButton<MenuOptions>(
           onSelected: (MenuOptions value) {
             switch (value) {
+              //webview 刷新
               case MenuOptions.reloadPage:
                 _onReloadPage(controller.data, context);
                 break;
-              case MenuOptions.showUserAgent:
+              // share 分享
+              case MenuOptions.share:
+                _onSharePage(controller.data, context);
+                break;
+              /*case MenuOptions.showUserAgent:
                 _onShowUserAgent(controller.data, context);
                 break;
               case MenuOptions.listCookies:
@@ -70,23 +78,21 @@ class WebPageMenu extends StatelessWidget {
                 break;
               case MenuOptions.clearCache:
                 _onClearCache(controller.data, context);
-                break;
+                break;*/
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
              PopupMenuItem<MenuOptions>(
                value: MenuOptions.reloadPage,
                enabled: controller.hasData,
-               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                Icon(Icons.replay,color: Colors.grey,size: 25,),
-                SizedBox(width: 10.0),
-                Text('刷新页面')
-              ],),
+               child: buildMenuItem("刷新页面",Icons.replay),
             ),
             PopupMenuItem<MenuOptions>(
+              value: MenuOptions.share,
+              enabled: controller.hasData,
+              child: buildMenuItem("分享文章",Icons.share),
+            ),
+            /*PopupMenuItem<MenuOptions>(
               value: MenuOptions.showUserAgent,
               child: const Text('Show user agent'),
               enabled: controller.hasData,
@@ -110,7 +116,7 @@ class WebPageMenu extends StatelessWidget {
             const PopupMenuItem<MenuOptions>(
               value: MenuOptions.clearCache,
               child: Text('Clear cache'),
-            ),
+            ),*/
           ],
         );
       },
@@ -196,5 +202,21 @@ class WebPageMenu extends StatelessWidget {
   //页面刷新
   void _onReloadPage(WebViewController controller, BuildContext context) async{
      controller.reload();
+  }
+
+  //页面刷新
+  void _onSharePage(WebViewController controller, BuildContext context) async{
+    Share.share(routePageData.url);
+  }
+
+  Widget buildMenuItem(String menuName,IconData iconData) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(iconData,color: Colors.grey,size: 25,),
+        SizedBox(width: 10.0),
+        Text(menuName)
+      ],);
   }
 }

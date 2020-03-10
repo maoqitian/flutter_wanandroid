@@ -14,6 +14,7 @@ import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:package_info/package_info.dart';
+import 'package:share/share.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -44,6 +45,11 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
         backgroundColor: dataUtils.getIsDarkMode() ? Colours.dark_unselected_item_color : Color(0xFFEEEEEE),
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.share,color: Colors.white,),onPressed: (){
+              Share.share("https://github.com/maoqitian/flutter_wanandroid");
+            },),
+          ],
           leading: new IconButton(
               icon: new Icon(
                 Icons.arrow_back,

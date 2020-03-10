@@ -65,7 +65,7 @@ class _WebViewPageState extends State<WebViewPage> {
         ),
         actions: <Widget>[
            NavigationControls(_controller.future,routePageData),
-           WebPageMenu(_controller.future)
+           WebPageMenu(_controller.future,routePageData)
         ],
       ),
       body: Stack(children: <Widget>[
