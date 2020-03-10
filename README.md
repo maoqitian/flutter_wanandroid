@@ -46,7 +46,7 @@ Dart 2.7.0
 
 类型 | 二维码
 ---|---
-Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.2/flutter-wanandroid-v1.0.2.png"  height="200" width="200">
+Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.3/flutter-wanandroid-two-dimensional-code-v1.0.3.png"  height="200" width="200">
 ios 下载| 暂无下载，可以自行clone项目编译体验
 
 
@@ -175,6 +175,22 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 [date_format](https://github.com/tejainece/date_format) | 日期转换
 [share](https://github.com/flutter/plugins/tree/master/packages/share) | 分享
 ## 版本更新日志
+
+### v1.0.3 (2020/03/10)
+
+#### 完善功能
+
+- 添加文章分享功能
+- 优化主题切换功能
+- 修复上个版本存在的bug
+
+#### 添加TODO模块
+- TODO 列表
+- 新增一个 TODO
+- 更新一个 TODO
+- 删除一个 Todo
+- 仅更新完成状态TODO
+- 修复上个版本存在的bug
 
 ### v1.0.2 (2020/03/08)
 
