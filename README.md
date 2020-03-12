@@ -41,12 +41,12 @@ Dart 2.7.0
 - [**历史版本下载地址**](https://github.com/maoqitian/flutter_wanandroid/releases)
 
 ### **最新版本下载**
-- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/9n12](http://d.alphaqr.com/9n12)
+- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/9n12](http://d.alphaqr.com/9n12?release_id=5e690cbe23389f64b7101c6c)
 
 
 类型 | 二维码
 ---|---
-Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.3/flutter-wanandroid-two-dimensional-code-v1.0.3.png"  height="200" width="200">
+Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.4/flutter-wanandroid-dimensional-v1.0.4.png"  height="200" width="200">
 ios 下载| 暂无下载，可以自行clone项目编译体验
 
 
@@ -175,6 +175,14 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 [date_format](https://github.com/tejainece/date_format) | 日期转换
 [share](https://github.com/flutter/plugins/tree/master/packages/share) | 分享
 ## 版本更新日志
+
+### v1.0.4 (2020/03/12)
+
+#### 完善功能
+
+- 添加侧边栏个人中心入口
+- 完善文章tag显示
+- 修复上个版本存在的bug
 
 ### v1.0.3 (2020/03/10)
 

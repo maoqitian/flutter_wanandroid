@@ -128,6 +128,23 @@ class _DrawerPageState extends State<DrawerPage> {
             Navigator.pop(context);
           },
         ),
+        Offstage(
+          offstage: !isLogin, //true 不显示  false 显示
+          child: ListTile(
+            leading: Icon(
+              Icons.person,
+              size: 27.0,
+            ),
+            title: Text(
+              '个人中心',
+              style: textStyle,
+            ),
+            onTap: () {
+              ///跳转个人中心
+              Application.router.navigateTo(context,'${Routes.userCenterPage}?type=${Uri.encodeComponent(Constants.USER_CENTER_PAGE_TYPE)}');
+            },
+          ),
+        ),
         ListTile(
           leading: Icon(
             Icons.surround_sound,

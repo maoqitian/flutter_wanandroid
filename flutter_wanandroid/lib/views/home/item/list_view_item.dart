@@ -77,7 +77,9 @@ class _ListViewItemState extends State<ListViewItem> {
     }
     if(articleData.tags.length > 0){
       //加入 tag 标签
-      widget.add( ToolUtils.buildStrokeWidget(articleData.tags[0].name,Colors.green));
+      articleData.tags.forEach((tag){
+        widget.add( ToolUtils.buildStrokeWidget(tag.name,Colors.green));
+      });
     }
     widget.add(new Icon(articleData.author == ""?Icons.folder_shared:Icons.person,size: 20.0));
     widget.add( Padding(
