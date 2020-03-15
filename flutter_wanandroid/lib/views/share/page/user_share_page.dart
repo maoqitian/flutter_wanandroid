@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
+import 'package:flutter_wanandroid/common/event/coin_user_Info_event.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
 import 'package:flutter_wanandroid/http/data_utils.dart';
 import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
@@ -30,6 +31,8 @@ class _UserSharePageState extends State<UserSharePage> with AutomaticKeepAliveCl
 
   List list = [];
   var pageIndex =  1;
+
+  bool isFirstLoad = false;
 
   @override
   bool get wantKeepAlive => true;
@@ -106,6 +109,10 @@ class _UserSharePageState extends State<UserSharePage> with AutomaticKeepAliveCl
       if(userShareData.shareArticles.datas.length!=0){
         list.addAll(userShareData.shareArticles.datas);
         pageIndex= userShareData.shareArticles.curPage+1;
+        if(!isFirstLoad){
+          Application.eventBus.fire(new CoinUserInfoEvent(userShareData.coinInfo));
+          isFirstLoad = true;
+        }
         _controller.finishLoad(success: true);
       }else{
         ToolUtils.showToast(msg: "哥，这回真没了！！");
