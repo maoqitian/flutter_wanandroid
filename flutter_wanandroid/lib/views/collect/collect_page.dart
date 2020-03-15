@@ -9,7 +9,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/collect_event.dart';
 import 'package:flutter_wanandroid/components/dialog/simple_input_dialog_layout.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_item_page.dart';
 import 'package:flutter_wanandroid/views/collect/page/collect_web_item_page.dart';

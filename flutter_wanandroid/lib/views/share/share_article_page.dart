@@ -9,7 +9,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
 import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/components/dialog/simple_input_dialog_layout.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
-import 'package:flutter_wanandroid/http/http_utils.dart';
+import 'package:flutter_wanandroid/data/http_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_base_data.dart';
 import 'package:flutter_wanandroid/model/article/article_top_base_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_base_data.dart';
@@ -39,7 +39,7 @@ import 'package:flutter_wanandroid/model/todo/todo_data.dart';
 import 'package:flutter_wanandroid/model/todo/todo_list_data.dart';
 import 'package:flutter_wanandroid/model/usershare/base_user_share_data.dart';
 import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
-import 'api/Api.dart';
+import 'package:flutter_wanandroid/data/api/Api.dart';
 
 
 /// Created with Android Studio.

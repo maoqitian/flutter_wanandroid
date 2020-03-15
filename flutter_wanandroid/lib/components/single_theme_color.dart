@@ -8,7 +8,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/provider/profile_change_notifier.dart';
 import 'package:flutter_wanandroid/common/shared_preferences.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:provider/provider.dart';
 

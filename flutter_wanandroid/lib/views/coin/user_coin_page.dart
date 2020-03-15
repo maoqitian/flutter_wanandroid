@@ -6,7 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/coin_sign_in_list_data.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
 import 'package:flutter_wanandroid/res/colours.dart';

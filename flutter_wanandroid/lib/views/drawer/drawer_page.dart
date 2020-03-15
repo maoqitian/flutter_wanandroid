@@ -9,7 +9,7 @@ import 'package:flutter_wanandroid/common/event/login_event.dart';
 import 'package:flutter_wanandroid/common/event/login_out_event.dart';
 import 'package:flutter_wanandroid/components/single_theme_color.dart';
 import 'package:flutter_wanandroid/common/application.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/coin/coin_user_info.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/res/colours.dart';

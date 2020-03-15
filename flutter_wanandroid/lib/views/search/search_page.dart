@@ -10,7 +10,7 @@ import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/refresh/refresh_page.dart';
 import 'package:flutter_wanandroid/components/search/search_bar.dart';
 import 'package:flutter_wanandroid/components/tag/tag_item_view.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_list_data.dart';
 import 'package:flutter_wanandroid/model/hotkey/hot_key_data.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';

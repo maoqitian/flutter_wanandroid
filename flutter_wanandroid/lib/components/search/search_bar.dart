@@ -5,7 +5,7 @@
 /// des:  搜索 app bar
 
 import 'package:flutter/material.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:meta/meta.dart';
 

@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/event/login_event.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/login/login_data.dart';
 import 'package:flutter_wanandroid/res/colours.dart';
 import 'package:flutter_wanandroid/routers/routes.dart';

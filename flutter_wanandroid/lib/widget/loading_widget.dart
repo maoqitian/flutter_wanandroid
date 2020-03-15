@@ -5,7 +5,7 @@
 /// des:  loading 效果使用 flutter_spinkit 库
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/res/colours.dart';
 
 

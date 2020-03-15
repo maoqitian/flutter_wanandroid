@@ -9,7 +9,7 @@ import 'package:flutter_wanandroid/common/MyIcons.dart';
 import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/route_page_data.dart';
 import 'package:flutter_wanandroid/res/colours.dart';

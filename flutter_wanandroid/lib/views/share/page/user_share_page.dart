@@ -10,7 +10,7 @@ import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/common/event/coin_user_Info_event.dart';
 import 'package:flutter_wanandroid/common/event/share_article_event.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/usershare/user_share_data.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/share/item/user_share_article_item.dart';

@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/banner/home_banner.dart';
-import 'package:flutter_wanandroid/http/data_utils.dart';
+import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/article/article_data.dart';
 import 'package:flutter_wanandroid/model/banner/banner_data.dart';
 import 'package:flutter_wanandroid/common/application.dart';
