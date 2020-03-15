@@ -41,12 +41,12 @@ Dart 2.7.0
 - [**历史版本下载地址**](https://github.com/maoqitian/flutter_wanandroid/releases)
 
 ### **最新版本下载**
-- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/9n12](http://d.alphaqr.com/9n12?release_id=5e690cbe23389f64b7101c6c)
+- 可以手机浏览器输入以下地址下载 [http://d.alphaqr.com/9n12](http://d.alphaqr.com/9n12)
 
 
 类型 | 二维码
 ---|---
-Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.4/flutter-wanandroid-dimensional-v1.0.4.png"  height="200" width="200">
+Apk 下载二维码 |<img src="https://github.com/maoqitian/MaoMdPhoto/raw/master/flutter/flutter_wanandroid/version/v1.0.5/flutter-wanandroid-dimensional-v1.0.5.png"  height="200" width="200">
 ios 下载| 暂无下载，可以自行clone项目编译体验
 
 
@@ -60,7 +60,7 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 
 ### ios 截图
 
-<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/home.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-knowledge.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-nav.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-project.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-search.png"  height="300" width="170">
+<img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-home-page.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-knowledge.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-nav.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-project.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-search.png"  height="300" width="170">
 
 <img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-user-center.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-theme-change.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-wechat.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-login1.png"  height="300" width="170"><img src="https://github.com/maoqitian/flutter_wanandroid/raw/master/preview/flutter-coin-rank.png" height="300" width="170">
 
@@ -175,6 +175,13 @@ ios 下载| 暂无下载，可以自行clone项目编译体验
 [date_format](https://github.com/tejainece/date_format) | 日期转换
 [share](https://github.com/flutter/plugins/tree/master/packages/share) | 分享
 ## 版本更新日志
+
+### v1.0.5 (2020/03/15)
+
+#### 完善功能
+
+- 个人中心添加积分显示
+- 修复文章item显示越界问题
 
 ### v1.0.4 (2020/03/12)
 
