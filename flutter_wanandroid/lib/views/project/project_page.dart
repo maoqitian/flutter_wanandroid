@@ -4,10 +4,13 @@
 /// email: maoqitian068@163.com
 /// des:  项目 widget
 import 'package:flutter/material.dart';
+import 'package:flutter_wanandroid/common/application.dart';
 import 'package:flutter_wanandroid/common/constants.dart';
 import 'package:flutter_wanandroid/components/main_app_bar.dart';
 import 'package:flutter_wanandroid/data/data_utils.dart';
 import 'package:flutter_wanandroid/model/knowledge/knowledge_hierarchy_data.dart';
+import 'package:flutter_wanandroid/model/route_page_data.dart';
+import 'package:flutter_wanandroid/routers/routes.dart';
 import 'package:flutter_wanandroid/utils/tool_utils.dart';
 import 'package:flutter_wanandroid/views/drawer/drawer_page.dart';
 import 'package:flutter_wanandroid/views/home/page/latest_project_page.dart';
@@ -71,7 +74,8 @@ class _ProjectPageState extends State<ProjectPage> with SingleTickerProviderStat
             icon:  Icon(Icons.search),
             color: Colors.white,
             onPressed: () {
-              ToolUtils.showToast(msg: '点击了搜索');
+              RoutePageData routePageData = new RoutePageData(0, "","",Constants.NORMAL_SEARCH_PAGE_TYPE , false);
+              Application.router.navigateTo(context, '${Routes.searchPage}?routePageJson=${ToolUtils.object2string(routePageData)}');
             })
       ],
       title: buildTabBar(),
