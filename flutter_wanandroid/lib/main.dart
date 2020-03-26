@@ -106,29 +106,23 @@ class _MyAppState extends State<MyApp> {
 
 
   ThemeData getThemeData(ThemeModel themeModel){
-    return !themeModel.isDarkMode ?  ThemeData(
-      primaryColor: Color(themeModel.settingThemeColor),
-      backgroundColor: Color(0xFFEFEFEF),
-      accentColor: Color(0xFF888888),
-      textTheme: TextTheme(
-        //设置Material的默认字体样式
-        body1: TextStyle(color: Color(0xFF888888), fontSize: 16.0),
-      ),
-      iconTheme: IconThemeData(
-        color: Color(themeModel.settingThemeColor),
-        size: 35.0,
-      ),
-    ):ThemeData(
+    return ThemeData(
+        iconTheme: themeModel.isDarkMode ? null: IconThemeData(
+          color: Color(themeModel.settingThemeColor),
+          size: 35.0,
+        ),
+        platform: TargetPlatform.iOS,
+        backgroundColor: themeModel.isDarkMode ? null: Colours.bg_color,
         errorColor: themeModel.isDarkMode ? Colours.dark_red : Colours.red,
         brightness: themeModel.isDarkMode ? Brightness.dark : Brightness.light,
-        primaryColor: themeModel.isDarkMode ? Colours.dark_app_main : Colours.app_main,
-        accentColor: themeModel.isDarkMode ? Colours.dark_app_main : Colours.app_main,
+        primaryColor: themeModel.isDarkMode ? Colours.dark_app_main : Color(themeModel.settingThemeColor),
+        accentColor: themeModel.isDarkMode ? Colours.dark_app_main : Colours.accentColor_color,
         // Tab指示器颜色
         indicatorColor: themeModel.isDarkMode ? Colours.dark_app_main : Colours.app_main,
         // 页面背景色
         scaffoldBackgroundColor: themeModel.isDarkMode ? Colours.dark_bg_color : Colors.white,
         // 主要用于Material背景色
-        canvasColor: themeModel.isDarkMode ? Colours.dark_material_bg : Colors.white,
+        canvasColor: themeModel.isDarkMode ? Colours.dark_material_bg : null,
         // 文字选择色（输入框复制粘贴菜单）
         textSelectionColor: Colours.app_main.withAlpha(70),
         textSelectionHandleColor: Colours.app_main,
@@ -145,7 +139,7 @@ class _MyAppState extends State<MyApp> {
         ),
         appBarTheme: AppBarTheme(
           elevation: 2.0,
-          color: themeModel.isDarkMode ? Colours.dark_bg_color : Colors.white,
+          color: themeModel.isDarkMode ? Colours.dark_bg_color : Color(themeModel.settingThemeColor),
           brightness: themeModel.isDarkMode ? Brightness.dark : Brightness.light,
         ),
         dividerTheme: DividerThemeData(
