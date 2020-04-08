@@ -34,6 +34,11 @@ void main() async{
     SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
+
+ /* runApp(ColorFiltered(
+    colorFilter: ColorFilter.mode(Colors.white, BlendMode.color),
+    child: MyApp(),
+  ));*/
   runApp(MyApp());
 }
 
