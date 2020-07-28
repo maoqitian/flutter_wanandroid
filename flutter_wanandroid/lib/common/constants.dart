@@ -58,23 +58,23 @@ class Constants{
   static const String WECHAT_SEARCH_PAGE_TYPE = 'wechat_search_page_type';
 
   //页面标题和id对象 集合 首页
-  static final List<Page> allPages = <Page>[
-    Page('最新博文', 1),
-    Page('最新项目', 2),
+  static final List<PageData> allPages = <PageData>[
+    PageData('最新博文', 1),
+    PageData('最新项目', 2),
   ];
 
 
   //页面标题和id对象 集合 用户中心
-  static final List<Page> collectPages = <Page>[
-    Page('收藏文章', 1),
-    Page('收藏网站', 2),
+  static final List<PageData> collectPages = <PageData>[
+    PageData('收藏文章', 1),
+    PageData('收藏网站', 2),
   ];
 
   //页面标题和id对象 集合 用户中心
-  static final List<Page> userPages = <Page>[
-    Page('分享文章', 0),
-    Page('收藏文章', 1),
-    Page('收藏网站', 2),
+  static final List<PageData> userPages = <PageData>[
+    PageData('分享文章', 0),
+    PageData('收藏文章', 1),
+    PageData('收藏网站', 2),
   ];
 
   static final List<String> settingItems = [
@@ -84,24 +84,24 @@ class Constants{
   ];
 
 
-  static final List<Page> todoTypes = [
-    Page('只用这一个', 0),
-    Page('工作', 1),
-    Page('学习', 2),
-    Page('生活', 3)
+  static final List<PageData> todoTypes = [
+    PageData('只用这一个', 0),
+    PageData('工作', 1),
+    PageData('学习', 2),
+    PageData('生活', 3)
   ];
 
 
   //页面标题和id对象 集合 用户中心
-  static final List<Page> todoPages = <Page>[
-    Page('待办', 0),
-    Page('完成', 1),
+  static final List<PageData> todoPages = <PageData>[
+    PageData('待办', 0),
+    PageData('完成', 1),
   ];
 
 
   //页面标题和id对象 集合 用户中心
-  static final List<Page> userSharePages = <Page>[
-    Page('分享文章', 0),
+  static final List<PageData> userSharePages = <PageData>[
+    PageData('分享文章', 0),
   ];
 
   static const String LOAD = 'load';

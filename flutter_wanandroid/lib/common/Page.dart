@@ -5,9 +5,9 @@
 /// des:  
 
 //页面标题和id对象
-class Page {
+class PageData {
   final String labelId;
   final int labelIndex;
 
-  Page(this.labelId,this.labelIndex);
+  PageData(this.labelId,this.labelIndex);
 }

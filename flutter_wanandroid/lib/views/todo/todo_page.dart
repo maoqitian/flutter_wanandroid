@@ -74,7 +74,7 @@ class _TodoPageState extends State<TodoPage> with SingleTickerProviderStateMixin
           ),
           body: TabBarView(
             controller: _tabController,
-            children: Constants.todoPages.map((Page page) {
+            children: Constants.todoPages.map((PageData page) {
               return TodoContentPage(status: page.labelIndex);
             }).toList(),
           ),
@@ -89,7 +89,7 @@ class _TodoPageState extends State<TodoPage> with SingleTickerProviderStateMixin
   buildTabBar() {
     return new TabBar(
       //构造Tab集合
-      tabs: Constants.todoPages.map((Page page) {
+      tabs: Constants.todoPages.map((PageData page) {
         return Tab(
           text: page.labelId,
         );

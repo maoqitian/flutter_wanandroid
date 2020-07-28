@@ -1,7 +1,7 @@
 # Flutter-WanAndroid
 [![Flutter][1]][2]  [![Dart][3]][4] [![Release][5]][6]  [![GitHub license][7]][8]
 
-[1]:https://img.shields.io/badge/Flutter-1.12.13-5bc7f8.svg
+[1]:https://img.shields.io/badge/Flutter-1.17.5-5bc7f8.svg
 [2]:https://flutter.dev
 
 [3]:https://img.shields.io/badge/Dart-2.7.0%2B-00B4AB.svg
@@ -28,10 +28,10 @@
 ## 编译运行环境
 ```
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, v1.12.13+hotfix.8, on Mac OS X 10.15.2 19C57, locale en-CN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 29.0.2)
-[✓] Xcode - develop for iOS and macOS (Xcode 11.1)
-[✓] Android Studio (version 3.5)
+[✓] Flutter (Channel stable, v1.17.5, on Mac OS X 10.15.5 19F101, locale en-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 11.5)
+[✓] Android Studio (version 4.0)
 
 Dart 2.7.0
 ```

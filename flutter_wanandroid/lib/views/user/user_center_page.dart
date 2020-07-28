@@ -179,10 +179,10 @@ class _UserCenterPageState extends State<UserCenterPage>
         body: TabBarView(
           controller: _tabController,
           children: Constants.USER_CENTER_PAGE_TYPE == widget.type
-              ? Constants.userPages.map((Page page) {
+              ? Constants.userPages.map((PageData page) {
                   return buildTabView(context, page);
                 }).toList()
-              : Constants.userSharePages.map((Page page) {
+              : Constants.userSharePages.map((PageData page) {
                   return buildTabView(context, page);
                 }).toList(),
         ),
@@ -190,7 +190,7 @@ class _UserCenterPageState extends State<UserCenterPage>
     );
   }
 
-  Widget buildTabView(BuildContext context, Page page) {
+  Widget buildTabView(BuildContext context, PageData page) {
     int labelIndex = page.labelIndex;
     switch (labelIndex) {
       case 1:
@@ -275,12 +275,12 @@ class _UserCenterPageState extends State<UserCenterPage>
     return new TabBar(
       //构造Tab集合
       tabs: Constants.USER_CENTER_PAGE_TYPE == widget.type
-          ? Constants.userPages.map((Page page) {
+          ? Constants.userPages.map((PageData page) {
               return Tab(
                 text: page.labelId,
               );
             }).toList()
-          : Constants.userSharePages.map((Page page) {
+          : Constants.userSharePages.map((PageData page) {
               return Tab(
                 text: page.labelId,
               );

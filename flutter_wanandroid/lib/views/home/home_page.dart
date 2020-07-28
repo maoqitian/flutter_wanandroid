@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   buildTabBar() {
     return new TabBar(
       //构造Tab集合
-      tabs: Constants.allPages.map((Page page){
+      tabs: Constants.allPages.map((PageData page){
         return Tab(
           text: page.labelId,
         );
@@ -132,13 +132,13 @@ class HomePageTabBarViewLayout extends StatelessWidget {
     print("TabBarViewLayout build.......");
     return TabBarView(
         controller: _tabController,
-        children: Constants.allPages.map((Page page){
+        children: Constants.allPages.map((PageData page){
           return buildTabView(context, page);
         }).toList(),
     );
   }
 
-  Widget buildTabView(BuildContext context, Page page) {
+  Widget buildTabView(BuildContext context, PageData page) {
     int labelIndex = page.labelIndex;
     switch(labelIndex){
       case 1:

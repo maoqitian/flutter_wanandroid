@@ -56,7 +56,7 @@ class ToolUtils{
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
+        //timeInSecForIos: 1,
         backgroundColor: Colors.grey,
         textColor: Colors.white,
         fontSize: 16.0

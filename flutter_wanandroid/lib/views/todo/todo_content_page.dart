@@ -54,7 +54,7 @@ class _TodoContentPageState extends State<TodoContentPage> with AutomaticKeepAli
           // run的对齐方式 开始位置
           runAlignment: WrapAlignment.start,
           // 使用迭代器的方法生成list
-          children: Constants.todoTypes.map((Page page){
+          children: Constants.todoTypes.map((PageData page){
             return SingleSelectTagView(index: page.labelIndex,choiceText: page.labelId,parent: this);
           }).toList(),
         ),

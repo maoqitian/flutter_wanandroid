@@ -67,7 +67,7 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
       ),
       body: TabBarView(
         controller: _tabController,
-        children: Constants.collectPages.map((Page page){
+        children: Constants.collectPages.map((PageData page){
           return buildTabView(context, page);
         }).toList(),
       ),
@@ -82,7 +82,7 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
   buildTabBar(BuildContext context) {
     return new TabBar(
       //构造Tab集合
-      tabs: Constants.collectPages.map((Page page ){
+      tabs: Constants.collectPages.map((PageData page ){
         return Tab(
           text: page.labelId,
         );
@@ -107,7 +107,7 @@ class _CollectPageState extends State<CollectPage> with SingleTickerProviderStat
     Navigator.of(context).pop(this);
   }
 
-  Widget buildTabView(BuildContext context, Page page) {
+  Widget buildTabView(BuildContext context, PageData page) {
        int labelIndex = page.labelIndex;
        switch(labelIndex){
          case 1:

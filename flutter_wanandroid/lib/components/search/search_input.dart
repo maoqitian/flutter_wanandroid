@@ -302,7 +302,7 @@ class _MaterialSearchInputState<T> extends State<MaterialSearchInput<T>> {
     return new _MaterialSearchPageRoute<T>(
         settings: new RouteSettings(
           name: 'material_search',
-          isInitialRoute: false,
+          //isInitialRoute: false,
         ),
         builder: (BuildContext context) {
           return new Material(
