@@ -4,7 +4,7 @@
 [1]:https://img.shields.io/badge/Flutter-1.17.5-5bc7f8.svg
 [2]:https://flutter.dev
 
-[3]:https://img.shields.io/badge/Dart-2.7.0%2B-00B4AB.svg
+[3]:https://img.shields.io/badge/Dart-2.8.0%2B-00B4AB.svg
 [4]:https://dart.dev
 
 [5]:https://img.shields.io/github/release/maoqitian/flutter_wanandroid.svg
@@ -33,7 +33,6 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] Xcode - develop for iOS and macOS (Xcode 11.5)
 [✓] Android Studio (version 4.0)
 
-Dart 2.7.0
 ```
 
 ## 下载
